@@ -13,6 +13,7 @@
 		B199D5021C86D4F300369782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B199D5001C86D4F300369782 /* Main.storyboard */; };
 		B199D5041C86D4F300369782 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B199D5031C86D4F300369782 /* Assets.xcassets */; };
 		B199D5071C86D4F300369782 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B199D5051C86D4F300369782 /* LaunchScreen.storyboard */; };
+		B199D5111C86D58C00369782 /* AZTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = B199D5101C86D58C00369782 /* AZTableView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,8 @@
 		B199D5031C86D4F300369782 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B199D5061C86D4F300369782 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B199D5081C86D4F300369782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B199D50F1C86D58C00369782 /* AZTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZTableView.h; sourceTree = "<group>"; };
+		B199D5101C86D58C00369782 /* AZTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZTableView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -42,6 +45,7 @@
 		B199D4EB1C86D4F200369782 = {
 			isa = PBXGroup;
 			children = (
+				B199D50E1C86D57200369782 /* AZTableView */,
 				B199D4F61C86D4F200369782 /* AZTableViewExample */,
 				B199D4F51C86D4F200369782 /* Products */,
 			);
@@ -77,6 +81,15 @@
 				B199D4F81C86D4F200369782 /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		B199D50E1C86D57200369782 /* AZTableView */ = {
+			isa = PBXGroup;
+			children = (
+				B199D50F1C86D58C00369782 /* AZTableView.h */,
+				B199D5101C86D58C00369782 /* AZTableView.m */,
+			);
+			path = AZTableView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -151,6 +164,7 @@
 			files = (
 				B199D4FF1C86D4F300369782 /* ViewController.m in Sources */,
 				B199D4FC1C86D4F300369782 /* AppDelegate.m in Sources */,
+				B199D5111C86D58C00369782 /* AZTableView.m in Sources */,
 				B199D4F91C86D4F200369782 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -213,7 +227,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -251,7 +265,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -263,7 +277,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = AZTableViewExample/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.zhixingapp.AZTableViewExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -274,7 +293,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = AZTableViewExample/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.zhixingapp.AZTableViewExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
