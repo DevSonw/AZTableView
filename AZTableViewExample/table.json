@@ -1,0 +1,6 @@
+{
+    "grouped": true,
+    "bindData": {"s": [{"h": "Header", "r": [ {"t": "Title1"}, {"t": "Title2"} ] }] },
+    "bind": { "sections": "s"},
+    "sectionTemplate": { "bind": { "header": "h", "rows": "r" }, "rowTemplate": { "bind": {"text": "t"} } }
+}

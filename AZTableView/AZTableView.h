@@ -7,7 +7,35 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AZRoot.h"
+#import "AZSection.h"
+#import "AZRow.h"
 
-@interface AZTableView : UITableView
+@interface AZTableView : UITableView{
+@private
+id <UITableViewDataSource> bbDataSource;
+id <UITableViewDelegate> bbDelegate;
+}
+
+//editing, separatorColor, backgroundColor, rowHeight
+
+@property (nonatomic, retain) AZRoot *root;
+@property (strong, nonatomic) NSString *refreshAction;
+
+-(id)initWithRoot:(AZRoot *)root;
+
+-(void)deselect;
+
+-(void)action:(id)action data:(id)data extra:(id)extra;
+
+-(BOOL)deleteRowAtIndexPath:(NSIndexPath *)indexPath;
+
+- (void)stopRefresh;
+- (void)refresh;
+
+- (void)focusRow:(AZRow *)row;
+- (void)focusRowAtIndexPath:(NSIndexPath *)indexPath;
+- (BOOL)updateRow:(id)setting indexPath:(NSIndexPath *)indexPath;
+
 
 @end

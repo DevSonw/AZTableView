@@ -7,28 +7,68 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B15D76A71C87D8EA0037E02E /* tableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B15D76A61C87D8EA0037E02E /* tableViewController.m */; };
+		B15D76AE1C87EFCB0037E02E /* NSObject+YYModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B15D76AA1C87EFCB0037E02E /* NSObject+YYModel.m */; };
+		B15D76AF1C87EFCB0037E02E /* YYClassInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = B15D76AC1C87EFCB0037E02E /* YYClassInfo.m */; };
+		B15D76B31C8806A20037E02E /* AZButtonRow.m in Sources */ = {isa = PBXBuildFile; fileRef = B15D76B21C8806A20037E02E /* AZButtonRow.m */; };
+		B15D76B61C8806C90037E02E /* AZButtonTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B15D76B51C8806C90037E02E /* AZButtonTableViewCell.m */; };
+		B15D76B81C8847BA0037E02E /* table.json in Resources */ = {isa = PBXBuildFile; fileRef = B15D76B71C8847BA0037E02E /* table.json */; };
 		B199D4F91C86D4F200369782 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B199D4F81C86D4F200369782 /* main.m */; };
 		B199D4FC1C86D4F300369782 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B199D4FB1C86D4F300369782 /* AppDelegate.m */; };
 		B199D4FF1C86D4F300369782 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B199D4FE1C86D4F300369782 /* ViewController.m */; };
-		B199D5021C86D4F300369782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B199D5001C86D4F300369782 /* Main.storyboard */; };
 		B199D5041C86D4F300369782 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B199D5031C86D4F300369782 /* Assets.xcassets */; };
 		B199D5071C86D4F300369782 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B199D5051C86D4F300369782 /* LaunchScreen.storyboard */; };
 		B199D5111C86D58C00369782 /* AZTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = B199D5101C86D58C00369782 /* AZTableView.m */; };
+		B199D5161C86E11E00369782 /* AZRoot.m in Sources */ = {isa = PBXBuildFile; fileRef = B199D5151C86E11E00369782 /* AZRoot.m */; };
+		B199D5191C86E1BB00369782 /* AZSection.m in Sources */ = {isa = PBXBuildFile; fileRef = B199D5181C86E1BB00369782 /* AZSection.m */; };
+		B199D51C1C86E1CE00369782 /* AZRow.m in Sources */ = {isa = PBXBuildFile; fileRef = B199D51B1C86E1CE00369782 /* AZRow.m */; };
+		B199D51F1C86E1E400369782 /* AZItem.m in Sources */ = {isa = PBXBuildFile; fileRef = B199D51E1C86E1E400369782 /* AZItem.m */; };
+		B199D5221C86E51C00369782 /* AZTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B199D5211C86E51C00369782 /* AZTableViewCell.m */; };
+		B199D5251C86F10E00369782 /* AZTableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = B199D5241C86F10E00369782 /* AZTableViewDataSource.m */; };
+		B199D5281C86F75100369782 /* AZTableViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B199D5271C86F75100369782 /* AZTableViewDelegate.m */; };
+		B199D52B1C86F7C300369782 /* AZTableViewDelegateWithRowHeight.m in Sources */ = {isa = PBXBuildFile; fileRef = B199D52A1C86F7C300369782 /* AZTableViewDelegateWithRowHeight.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B15D76A51C87D8EA0037E02E /* tableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tableViewController.h; sourceTree = "<group>"; };
+		B15D76A61C87D8EA0037E02E /* tableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = tableViewController.m; sourceTree = "<group>"; };
+		B15D76A91C87EFCB0037E02E /* NSObject+YYModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+YYModel.h"; sourceTree = "<group>"; };
+		B15D76AA1C87EFCB0037E02E /* NSObject+YYModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+YYModel.m"; sourceTree = "<group>"; };
+		B15D76AB1C87EFCB0037E02E /* YYClassInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYClassInfo.h; sourceTree = "<group>"; };
+		B15D76AC1C87EFCB0037E02E /* YYClassInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYClassInfo.m; sourceTree = "<group>"; };
+		B15D76AD1C87EFCB0037E02E /* YYModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYModel.h; sourceTree = "<group>"; };
+		B15D76B11C8806A20037E02E /* AZButtonRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZButtonRow.h; sourceTree = "<group>"; };
+		B15D76B21C8806A20037E02E /* AZButtonRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZButtonRow.m; sourceTree = "<group>"; };
+		B15D76B41C8806C90037E02E /* AZButtonTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZButtonTableViewCell.h; sourceTree = "<group>"; };
+		B15D76B51C8806C90037E02E /* AZButtonTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZButtonTableViewCell.m; sourceTree = "<group>"; };
+		B15D76B71C8847BA0037E02E /* table.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = table.json; sourceTree = "<group>"; };
 		B199D4F41C86D4F200369782 /* AZTableViewExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AZTableViewExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B199D4F81C86D4F200369782 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		B199D4FA1C86D4F200369782 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		B199D4FB1C86D4F300369782 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		B199D4FD1C86D4F300369782 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		B199D4FE1C86D4F300369782 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		B199D5011C86D4F300369782 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B199D5031C86D4F300369782 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B199D5061C86D4F300369782 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B199D5081C86D4F300369782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B199D50F1C86D58C00369782 /* AZTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZTableView.h; sourceTree = "<group>"; };
 		B199D5101C86D58C00369782 /* AZTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZTableView.m; sourceTree = "<group>"; };
+		B199D5141C86E11E00369782 /* AZRoot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZRoot.h; sourceTree = "<group>"; };
+		B199D5151C86E11E00369782 /* AZRoot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZRoot.m; sourceTree = "<group>"; };
+		B199D5171C86E1BB00369782 /* AZSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZSection.h; sourceTree = "<group>"; };
+		B199D5181C86E1BB00369782 /* AZSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZSection.m; sourceTree = "<group>"; };
+		B199D51A1C86E1CE00369782 /* AZRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZRow.h; sourceTree = "<group>"; };
+		B199D51B1C86E1CE00369782 /* AZRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZRow.m; sourceTree = "<group>"; };
+		B199D51D1C86E1E400369782 /* AZItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZItem.h; sourceTree = "<group>"; };
+		B199D51E1C86E1E400369782 /* AZItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZItem.m; sourceTree = "<group>"; };
+		B199D5201C86E51C00369782 /* AZTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZTableViewCell.h; sourceTree = "<group>"; };
+		B199D5211C86E51C00369782 /* AZTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZTableViewCell.m; sourceTree = "<group>"; };
+		B199D5231C86F10E00369782 /* AZTableViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZTableViewDataSource.h; sourceTree = "<group>"; };
+		B199D5241C86F10E00369782 /* AZTableViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZTableViewDataSource.m; sourceTree = "<group>"; };
+		B199D5261C86F75100369782 /* AZTableViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZTableViewDelegate.h; sourceTree = "<group>"; };
+		B199D5271C86F75100369782 /* AZTableViewDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZTableViewDelegate.m; sourceTree = "<group>"; };
+		B199D5291C86F7C300369782 /* AZTableViewDelegateWithRowHeight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZTableViewDelegateWithRowHeight.h; sourceTree = "<group>"; };
+		B199D52A1C86F7C300369782 /* AZTableViewDelegateWithRowHeight.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZTableViewDelegateWithRowHeight.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -42,9 +82,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B15D76A81C87EFCB0037E02E /* YYModel */ = {
+			isa = PBXGroup;
+			children = (
+				B15D76A91C87EFCB0037E02E /* NSObject+YYModel.h */,
+				B15D76AA1C87EFCB0037E02E /* NSObject+YYModel.m */,
+				B15D76AB1C87EFCB0037E02E /* YYClassInfo.h */,
+				B15D76AC1C87EFCB0037E02E /* YYClassInfo.m */,
+				B15D76AD1C87EFCB0037E02E /* YYModel.h */,
+			);
+			path = YYModel;
+			sourceTree = "<group>";
+		};
+		B15D76B01C8805D50037E02E /* Display rows */ = {
+			isa = PBXGroup;
+			children = (
+				B15D76B11C8806A20037E02E /* AZButtonRow.h */,
+				B15D76B21C8806A20037E02E /* AZButtonRow.m */,
+				B15D76B41C8806C90037E02E /* AZButtonTableViewCell.h */,
+				B15D76B51C8806C90037E02E /* AZButtonTableViewCell.m */,
+			);
+			name = "Display rows";
+			sourceTree = "<group>";
+		};
 		B199D4EB1C86D4F200369782 = {
 			isa = PBXGroup;
 			children = (
+				B15D76A81C87EFCB0037E02E /* YYModel */,
 				B199D50E1C86D57200369782 /* AZTableView */,
 				B199D4F61C86D4F200369782 /* AZTableViewExample */,
 				B199D4F51C86D4F200369782 /* Products */,
@@ -66,11 +130,13 @@
 				B199D4FB1C86D4F300369782 /* AppDelegate.m */,
 				B199D4FD1C86D4F300369782 /* ViewController.h */,
 				B199D4FE1C86D4F300369782 /* ViewController.m */,
-				B199D5001C86D4F300369782 /* Main.storyboard */,
+				B15D76A51C87D8EA0037E02E /* tableViewController.h */,
+				B15D76A61C87D8EA0037E02E /* tableViewController.m */,
 				B199D5031C86D4F300369782 /* Assets.xcassets */,
 				B199D5051C86D4F300369782 /* LaunchScreen.storyboard */,
 				B199D5081C86D4F300369782 /* Info.plist */,
 				B199D4F71C86D4F200369782 /* Supporting Files */,
+				B15D76B71C8847BA0037E02E /* table.json */,
 			);
 			path = AZTableViewExample;
 			sourceTree = "<group>";
@@ -88,6 +154,23 @@
 			children = (
 				B199D50F1C86D58C00369782 /* AZTableView.h */,
 				B199D5101C86D58C00369782 /* AZTableView.m */,
+				B199D5201C86E51C00369782 /* AZTableViewCell.h */,
+				B199D5211C86E51C00369782 /* AZTableViewCell.m */,
+				B199D5141C86E11E00369782 /* AZRoot.h */,
+				B199D5151C86E11E00369782 /* AZRoot.m */,
+				B199D5171C86E1BB00369782 /* AZSection.h */,
+				B199D5181C86E1BB00369782 /* AZSection.m */,
+				B199D51A1C86E1CE00369782 /* AZRow.h */,
+				B199D51B1C86E1CE00369782 /* AZRow.m */,
+				B199D51D1C86E1E400369782 /* AZItem.h */,
+				B199D51E1C86E1E400369782 /* AZItem.m */,
+				B199D5231C86F10E00369782 /* AZTableViewDataSource.h */,
+				B199D5241C86F10E00369782 /* AZTableViewDataSource.m */,
+				B199D5261C86F75100369782 /* AZTableViewDelegate.h */,
+				B199D5271C86F75100369782 /* AZTableViewDelegate.m */,
+				B199D5291C86F7C300369782 /* AZTableViewDelegateWithRowHeight.h */,
+				B199D52A1C86F7C300369782 /* AZTableViewDelegateWithRowHeight.m */,
+				B15D76B01C8805D50037E02E /* Display rows */,
 			);
 			path = AZTableView;
 			sourceTree = "<group>";
@@ -150,8 +233,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				B199D5071C86D4F300369782 /* LaunchScreen.storyboard in Resources */,
+				B15D76B81C8847BA0037E02E /* table.json in Resources */,
 				B199D5041C86D4F300369782 /* Assets.xcassets in Resources */,
-				B199D5021C86D4F300369782 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -162,24 +245,29 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B15D76A71C87D8EA0037E02E /* tableViewController.m in Sources */,
+				B199D5221C86E51C00369782 /* AZTableViewCell.m in Sources */,
+				B199D5161C86E11E00369782 /* AZRoot.m in Sources */,
+				B199D5281C86F75100369782 /* AZTableViewDelegate.m in Sources */,
 				B199D4FF1C86D4F300369782 /* ViewController.m in Sources */,
+				B199D5191C86E1BB00369782 /* AZSection.m in Sources */,
 				B199D4FC1C86D4F300369782 /* AppDelegate.m in Sources */,
+				B15D76B31C8806A20037E02E /* AZButtonRow.m in Sources */,
+				B199D51C1C86E1CE00369782 /* AZRow.m in Sources */,
+				B199D52B1C86F7C300369782 /* AZTableViewDelegateWithRowHeight.m in Sources */,
+				B15D76AE1C87EFCB0037E02E /* NSObject+YYModel.m in Sources */,
+				B199D51F1C86E1E400369782 /* AZItem.m in Sources */,
 				B199D5111C86D58C00369782 /* AZTableView.m in Sources */,
 				B199D4F91C86D4F200369782 /* main.m in Sources */,
+				B15D76B61C8806C90037E02E /* AZButtonTableViewCell.m in Sources */,
+				B15D76AF1C87EFCB0037E02E /* YYClassInfo.m in Sources */,
+				B199D5251C86F10E00369782 /* AZTableViewDataSource.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		B199D5001C86D4F300369782 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				B199D5011C86D4F300369782 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		B199D5051C86D4F300369782 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -324,6 +412,7 @@
 				B199D50D1C86D4F300369782 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
