@@ -16,7 +16,7 @@
 #endif
 
 @class AZRow;
-typedef void (^AZRowEvent)(AZRow *row, UIView *from, id value);
+typedef void (^AZRowEvent)(AZRow *row, UIView *fromView);
 
 
 @class AZTableView;

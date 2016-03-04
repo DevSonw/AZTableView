@@ -45,9 +45,9 @@
                 case YYEncodingTypeBlock:{
                     //Transform event block from string
                     if ([value isKindOfClass:[NSString class]]) {
-                        [model setValue:^(AZRow *row, UIView *from, id val){
+                        [model setValue:^(AZRow *row, UIView *fromView){
                             if (_root.onEvent) {
-                                _root.onEvent(value, row, from, val);
+                                _root.onEvent(value, row, fromView);
                             }
                         } forKey:key];
                     }

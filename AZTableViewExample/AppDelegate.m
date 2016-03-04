@@ -19,7 +19,7 @@
 - (AZRow *)createRow:(UIViewController *)cont rootViewController:(UIViewController *)root{
     AZRow *row = [AZRow new];
     row.text = cont.title;
-    row.onSelect = ^(AZRow *row, UIView *from, id value){
+    row.onSelect = ^(AZRow *row, UIView *fromView){
         [root.navigationController pushViewController:cont animated:YES];
     };
     return row;
@@ -57,7 +57,7 @@
 -(UIViewController *)baseCont{
     AZRow *row1 = [AZRow new];
     row1.text = @"Title";
-    row1.onSelect = ^(AZRow *row, UIView *from, id value){
+    row1.onSelect = ^(AZRow *row, UIView *fromView){
         NSLog(@"onSelect");
     };
     
@@ -83,7 +83,7 @@
 
 -(UIViewController *)dictionaryCont{
     
-    AZRowEvent event = ^(AZRow *row, UIView *from, id value){
+    AZRowEvent event = ^(AZRow *row, UIView *from){
         NSLog(@"onSelect from json");
     };
     
@@ -110,7 +110,7 @@
                            };
     
     AZRoot *root = [AZRoot new];
-    root.onEvent = ^(NSString *eventName, AZRow *row, UIView *from, id value){
+    root.onEvent = ^(NSString *eventName, AZRow *row, UIView *from){
         NSLog(@"on %@", eventName);
     };
     [root yy_modelSetWithJSON:dict];

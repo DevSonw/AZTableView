@@ -10,7 +10,7 @@
 #import "AZSection.h"
 #import "AZRow.h"
 
-typedef void (^AZRootEvent)(NSString *eventName, AZRow *row, UIView *from, id value);
+typedef void (^AZRootEvent)(NSString *eventName, AZRow *row, UIView *fromView);
 
 /**
  The root config for the tableView
@@ -47,8 +47,6 @@ typedef void (^AZRootEvent)(NSString *eventName, AZRow *row, UIView *from, id va
 - (AZRow *)nextSiblingFocusableRow:(AZRow *)row;
 - (AZRow *)prevSiblingFocusableRow:(AZRow *)row;
 - (AZRow *)focusedRow;
-
-- (NSDictionary *)values;
 
 
 /**

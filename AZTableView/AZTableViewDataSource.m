@@ -66,7 +66,7 @@
         AZRow *row = [tableView.root visibleRowAtIndexPath:indexPath];
 //        tableView.action.delegate.clickOrigin = nil;
         if (row.onDelete) {
-            row.onDelete(row, nil, nil);
+            row.onDelete(row, nil);
         } else{
             [tableView deleteRowAtIndexPath:indexPath];
         }
@@ -80,7 +80,7 @@
     AZRow *row = [section visibleRowAtIndex:fromIndexPath.row];
 //    tableView.action.delegate.clickOrigin = nil;
     if (row.onValueChanged) {
-        row.onValueChanged(row, nil, nil);
+        row.onValueChanged(row, nil);
     }
     [section moveVisibleRowFromIndex:fromIndexPath.row toIndex:toIndexPath.row];
 }

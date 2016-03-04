@@ -261,7 +261,7 @@
 
 - (void)selectedAccessory:(AZTableView *)tableView indexPath:(NSIndexPath *)indexPath{
     if (self.onAccessory && self.enabled) {
-        self.onAccessory(self, [tableView cellForRowAtIndexPath:indexPath], self.value);
+        self.onAccessory(self, [tableView cellForRowAtIndexPath:indexPath]);
     }
 }
 
@@ -281,12 +281,12 @@
         self.selected = !self.selected;
         [self selected:self.selected forCell:cell];
         if (self.onValueChanged) {
-            self.onValueChanged(self, nil, self.value);
+            self.onValueChanged(self, nil);
         }
         [tableView deselect];
     }
     if (self.onSelect && self.enabled) {
-        self.onSelect(self, [tableView cellForRowAtIndexPath:indexPath], self.data);
+        self.onSelect(self, [tableView cellForRowAtIndexPath:indexPath]);
     }
 }
 
