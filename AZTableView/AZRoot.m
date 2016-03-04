@@ -7,6 +7,7 @@
 //
 
 #import "AZRoot.h"
+#import "AZConvert.h"
 
 @implementation AZRoot
 
@@ -49,22 +50,21 @@
     return @[@"sections"];
 }
 
-- (BOOL)modelCustomTransformFromDictionary:(NSDictionary *)dic {
-    
-    if (dic[@"bind"]) {
-        NSMutableDictionary *data = [NSMutableDictionary dictionaryWithDictionary:dic];
-        [data addEntriesFromDictionary:[AZRoot dataFromBind:dic[@"bind"] source:self.bindData]];
-        [data removeObjectForKey:@"bind"];
-        return [self yy_modelSetWithDictionary:data];
-    }
-
+- (NSDictionary *)modelCustomPreTransformFromDictionary:(NSDictionary *)dic {
     NSMutableDictionary *data = [NSMutableDictionary dictionaryWithDictionary:dic];
+    if (dic[@"bind"]) {
+        [data addEntriesFromDictionary:[AZRoot dataFromBind:dic[@"bind"] source:dic[@"bindData"]]];
+    }
     [AZRoot transformTemplate:@"section" data:data];
+    return data;
+}
 
-    if (data[@"sections"]) {
+- (BOOL)modelCustomTransformFromDictionary:(NSDictionary *)dic {
+    [AZConvert convertForModel:self data:dic root:self];
+    if (dic[@"sections"]) {
         self.sections = nil;
-        if ([data[@"sections"] isKindOfClass:[NSArray class]]) {
-            for (id obj in data[@"sections"]) {
+        if ([dic[@"sections"] isKindOfClass:[NSArray class]]) {
+            for (id obj in dic[@"sections"]) {
                 if ([obj isKindOfClass:[NSDictionary class]]) {
                     AZSection *section = [AZSection sectionWithType:obj[@"type"]];
                     section.root = self;

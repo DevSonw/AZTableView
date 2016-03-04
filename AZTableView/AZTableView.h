@@ -11,6 +11,7 @@
 #import "AZSection.h"
 #import "AZRow.h"
 
+
 @interface AZTableView : UITableView{
 @private
 id <UITableViewDataSource> bbDataSource;
@@ -19,7 +20,7 @@ id <UITableViewDelegate> bbDelegate;
 
 //editing, separatorColor, backgroundColor, rowHeight
 
-@property (nonatomic, retain) AZRoot *root;
+@property (nonatomic, retain) AZRoot *root; ///< The root setting
 @property (strong, nonatomic) NSString *refreshAction;
 
 -(id)initWithRoot:(AZRoot *)root;

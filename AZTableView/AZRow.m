@@ -8,6 +8,7 @@
 
 #import "AZRow.h"
 #import "AZTableView.h"
+#import "AZConvert.h"
 
 @interface AZRow()
 
@@ -48,14 +49,17 @@
     return [self new];
 }
 
-- (BOOL)modelCustomTransformFromDictionary:(NSDictionary *)dic {
-    
+- (NSDictionary *)modelCustomPreTransformFromDictionary:(NSDictionary *)dic {
     if (dic[@"bind"]) {
         NSMutableDictionary *data = [NSMutableDictionary dictionaryWithDictionary:dic];
-        [data addEntriesFromDictionary:[AZRoot dataFromBind:dic[@"bind"] source:self.bindData ? self.bindData : (self.section.bindData ? self.section.bindData : self.section.root.bindData)]];
-        [data removeObjectForKey:@"bind"];
-        return [self yy_modelSetWithDictionary:data];
+        [data addEntriesFromDictionary:[AZRoot dataFromBind:dic[@"bind"] source:dic[@"bindData"] ? dic[@"bindData"] : (self.section.bindData ? self.section.bindData : self.section.root.bindData)]];
+        return data;
     }
+    return dic;
+}
+
+- (BOOL)modelCustomTransformFromDictionary:(NSDictionary *)dic {
+    [AZConvert convertForModel:self data:dic root:self.section.root];
     return YES;
 }
 

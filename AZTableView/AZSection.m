@@ -9,6 +9,7 @@
 #import "AZSection.h"
 #import "AZItem.h"
 #import "AZRoot.h"
+#import "AZConvert.h"
 
 @implementation AZSection
 
@@ -18,20 +19,19 @@
     return @[@"rows"];
 }
 
-- (BOOL)modelCustomTransformFromDictionary:(NSDictionary *)dic {
-    
-    if (dic[@"bind"]) {
-        NSMutableDictionary *data = [NSMutableDictionary dictionaryWithDictionary:dic];
-        [data addEntriesFromDictionary:[AZRoot dataFromBind:dic[@"bind"] source:self.bindData ? self.bindData : self.root.bindData]];
-        [data removeObjectForKey:@"bind"];
-        return [self yy_modelSetWithDictionary:data];
-    }
-    
+- (NSDictionary *)modelCustomPreTransformFromDictionary:(NSDictionary *)dic {
     NSMutableDictionary *data = [NSMutableDictionary dictionaryWithDictionary:dic];
+    if (dic[@"bind"]) {
+        [data addEntriesFromDictionary:[AZRoot dataFromBind:dic[@"bind"] source:dic[@"bindData"] ? dic[@"bindData"] : self.root.bindData]];
+    }
     [AZRoot transformTemplate:@"row" data:data];
-    
-    if ([data[@"rows"] isKindOfClass:[NSArray class]]) {
-        for (id obj in data[@"rows"]) {
+    return data;
+}
+
+- (BOOL)modelCustomTransformFromDictionary:(NSDictionary *)dic {
+    [AZConvert convertForModel:self data:dic root:self.root];
+    if ([dic[@"rows"] isKindOfClass:[NSArray class]]) {
+        for (id obj in dic[@"rows"]) {
             if ([obj isKindOfClass:[NSDictionary class]]) {
                 AZRow *row = [AZRow rowWithType:obj[@"type"]];
                 row.section = self;

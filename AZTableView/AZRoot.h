@@ -10,23 +10,31 @@
 #import "AZSection.h"
 #import "AZRow.h"
 
+typedef void (^AZRootEvent)(NSString *eventName, AZRow *row, UIView *from, id value);
+
+/**
+ The root config for the tableView
+ */
+
 @class AZTableView;
 @class AZCollectionView;
 
+
 @interface AZRoot : NSObject
 
-
-@property(nonatomic, weak) AZTableView *tableView;
+@property(nonatomic, weak) AZTableView *tableView; ///< Week reference the tableView
 @property(nonatomic, weak) AZCollectionView *collectionView;
 
 @property (assign) BOOL grouped;
 @property (assign, nonatomic) BOOL highPerformance;
 @property (assign) BOOL editing;
 @property (assign) BOOL showIndexTitle;
+@property (retain, nonatomic) NSMutableArray<AZSection *> *sections;
+
 
 @property (retain, nonatomic) NSDictionary *bindData;
+@property (copy, nonatomic) AZRootEvent onEvent;
 
-@property (retain, nonatomic) NSMutableArray<AZSection *> *sections;
 
 - (void)addSection:(AZSection *)section;
 - (AZSection *)sectionAtIndex:(NSInteger)index;
