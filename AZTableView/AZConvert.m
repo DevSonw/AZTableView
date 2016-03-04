@@ -151,4 +151,73 @@ AZ_ENUM_CONVERTER(style, (@{
                            @"value2":        @(UITableViewCellStyleValue2),
                            }))
 
+AZ_ENUM_CONVERTER(accessoryType, (@{
+                                    @"none":                    @(UITableViewCellAccessoryNone),
+                                    @"checkmark":               @(UITableViewCellAccessoryCheckmark),
+                                    @"detail-disclosure-button":  @(UITableViewCellAccessoryDetailDisclosureButton),
+                                    @"disclosure-indicator":     @(UITableViewCellAccessoryDisclosureIndicator),
+                                    @"detail-button":            @(UITableViewCellAccessoryDetailButton),
+                                    }))
+
+AZ_ENUM_CONVERTER(dateMode, (@{
+                               @"time":            @(UIDatePickerModeTime),
+                               @"date":            @(UIDatePickerModeDate),
+                               @"date-and-time":     @(UIDatePickerModeDateAndTime),
+                               @"count-down-timer":  @(UIDatePickerModeCountDownTimer),
+                               }))
+
+AZ_ENUM_CONVERTER(autocapitalizationType, (@{
+                                             @"none":                    @(UITextAutocapitalizationTypeNone),
+                                             @"words":                   @(UITextAutocapitalizationTypeWords),
+                                             @"sentences":               @(UITextAutocapitalizationTypeSentences),
+                                             @"all-characters":           @(UITextAutocapitalizationTypeAllCharacters),
+                                             }))
+
+
+
+AZ_ENUM_CONVERTER(autocorrectionType, (@{
+                                         @"default":        @(UITextAutocorrectionTypeDefault),
+                                         @"no":             @(UITextAutocorrectionTypeNo),
+                                         @"yes":            @(UITextAutocorrectionTypeYes),
+                                         }))
+
+
+AZ_ENUM_CONVERTER(keyboardType, (@{
+                                   @"default":                  @(UIKeyboardTypeDefault),
+                                   @"ascii-capable":             @(UIKeyboardTypeASCIICapable),
+                                   @"numbers-and-punctuation":    @(UIKeyboardTypeNumbersAndPunctuation),
+                                   @"url":                      @(UIKeyboardTypeURL),
+                                   @"number-pad":                @(UIKeyboardTypeNumberPad),
+                                   @"phone-pad":                 @(UIKeyboardTypePhonePad),
+                                   @"name-phone-pad":             @(UIKeyboardTypeNamePhonePad),
+                                   @"email-address":             @(UIKeyboardTypeEmailAddress),
+                                   @"decimal-pad":               @(UIKeyboardTypeDecimalPad),
+                                   @"twitter":                  @(UIKeyboardTypeTwitter),
+                                   @"web-search":                @(UIKeyboardTypeWebSearch),
+                                   }))
+
+
+AZ_ENUM_CONVERTER(keyboardAppearance, (@{
+                                         @"default":          @(UIKeyboardAppearanceDefault),
+                                         @"dark":             @(UIKeyboardAppearanceDark),
+                                         @"light":            @(UIKeyboardAppearanceLight),
+                                         }))
+
+AZ_ENUM_CONVERTER(returnKeyType, (@{
+                                    @"default":        @(UIReturnKeyDefault),
+                                    @"go":             @(UIReturnKeyGo),
+                                    @"google":         @(UIReturnKeyGoogle),
+                                    @"join":           @(UIReturnKeyJoin),
+                                    @"next":           @(UIReturnKeyNext),
+                                    @"route":          @(UIReturnKeyRoute),
+                                    @"search":         @(UIReturnKeySearch),
+                                    @"send":           @(UIReturnKeySend),
+                                    @"yahoo":          @(UIReturnKeyYahoo),
+                                    @"done":           @(UIReturnKeyDone),
+                                    @"emergency-call":  @(UIReturnKeyEmergencyCall),
+                                    }))
+
+
+
+
 @end
