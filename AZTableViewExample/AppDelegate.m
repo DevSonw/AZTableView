@@ -31,7 +31,12 @@
     UIViewController *viewController = [UIViewController new];
     AZSection *section = [AZSection new];
     NSDate *date = [NSDate date];
-    NSArray *ar = [NSArray arrayWithObjects:[self jsonController:@"sectionTemplate"], [self baseCont], [self dictionaryCont], nil];
+    NSArray *ar = [NSArray arrayWithObjects:
+                   [self jsonController:@"sectionTemplate"],
+                   [self jsonController:@"basicForm"],
+                   [self baseCont],
+                   [self dictionaryCont],
+                   nil];
     NSLog(@"Create time: %f s", [[NSDate date] timeIntervalSinceDate:date]);
     //    NSArray *ar = [NSArray arrayWithObjects:[self jsonCont], nil];
     

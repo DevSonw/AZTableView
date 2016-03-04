@@ -64,9 +64,8 @@
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         AZRow *row = [tableView.root visibleRowAtIndexPath:indexPath];
-//        tableView.action.delegate.clickOrigin = nil;
         if (row.onDelete) {
-            row.onDelete(row, nil);
+            row.onDelete(row, [tableView cellForRowAtIndexPath:indexPath]);
         } else{
             [tableView deleteRowAtIndexPath:indexPath];
         }
@@ -78,9 +77,8 @@
 {
     AZSection *section = [tableView.root visibleSectionAtIndex:fromIndexPath.section];
     AZRow *row = [section visibleRowAtIndex:fromIndexPath.row];
-//    tableView.action.delegate.clickOrigin = nil;
     if (row.onValueChanged) {
-        row.onValueChanged(row, nil);
+        row.onValueChanged(row, [tableView cellForRowAtIndexPath:fromIndexPath]);
     }
     [section moveVisibleRowFromIndex:fromIndexPath.row toIndex:toIndexPath.row];
 }

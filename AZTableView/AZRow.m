@@ -281,7 +281,7 @@
         self.selected = !self.selected;
         [self selected:self.selected forCell:cell];
         if (self.onValueChanged) {
-            self.onValueChanged(self, nil);
+            self.onValueChanged(self, [tableView cellForRowAtIndexPath:indexPath]);
         }
         [tableView deselect];
     }

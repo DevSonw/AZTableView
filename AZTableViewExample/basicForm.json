@@ -1,0 +1,100 @@
+{
+    "title": "Basic Form",
+    "grouped": true,
+    "sections":[{
+                "rows":[
+                        {
+                        "type": "input",
+                        "text": "Username",
+                        "key": "username",
+                        "value": "Value",
+                        "textWidth": 100,
+                        "style": "subtitle",
+                        "detailTextColor": "red"
+                        },
+                        {
+                        "type": "input",
+                        "text": "Username",
+                        "placeholder": "Placeholder"
+                        },
+                        {
+                        "type": "input",
+                        "text": "Username",
+                        "value": "disabled",
+                        "enabled": false
+                        },
+                        {
+                        "type": "input",
+                        "text": "Username",
+                        "value": "Value",
+                        "detail": "helper text",
+                        "detailTextColor": "red",
+                        "style": "subtitle",
+                        "image": "fa-user"
+                        },
+                        {
+                        "type": "input",
+                        "text": "Long label long label",
+                        "value": "Value"
+                        },
+                        {
+                        "type": "input",
+                        "text": "style:value2",
+                        "value": "Value",
+                        "style": "value2"
+                        },
+                        {
+                        "type": "input",
+                        "text": "Username",
+                        "hiddenToolbar": true,
+                        "placeholder": "hiddenToolbar"
+                        },
+                        {
+                        "type": "input",
+                        "text": "Username",
+                        "placeholder": "hiddenPrevAndNext",
+                        "hiddenPrevAndNext": true
+                        },
+                        {
+                        "type": "input",
+                        "text": "Username",
+                        "autocorrectionType": "no",
+                        "placeholder": "autocorrectionType:no"
+                        },
+                        {
+                        "type": "input",
+                        "text": "Username",
+                        "autocapitalizationType": "none",
+                        "placeholder": "autocapitalizationType:none"
+                        },
+                        {
+                        "type": "input",
+                        "text": "Number",
+                        "keyboardType": "numberPad",
+                        "placeholder": "keyboardType:numberPad"
+                        },
+                        {
+                        "type": "input",
+                        "keyboardType": "numberPad",
+                        "keyboardAppearance": "dark",
+                        "placeholder": "dark, numberPad",
+                        "valueChangedAction": "valueChanged"
+                        },
+                        {
+                        "type": "input",
+                        "text": "Password",
+                        "secureTextEntry": true,
+                        "key": "password",
+                        "image": "fa-unlock"
+                        },
+                        {
+                        "type": "input",
+                        "value": "value",
+                        "clearsOnBeginEditing": true,
+                        "placeholder": "clearsOnBeginEditing",
+                        "action": "submit",
+                        "image": "fa-user"
+                        }
+                        ]
+                }]
+}
