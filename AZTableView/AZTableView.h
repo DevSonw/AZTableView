@@ -23,6 +23,11 @@ id <UITableViewDelegate> bbDelegate;
 @property (nonatomic, retain) AZRoot *root; ///< The root setting
 @property (strong, nonatomic) NSString *refreshAction;
 
+@property (assign) BOOL bounce;
+@property (assign) float offsetTop;
+
+@property (assign) BOOL shouldCheckKeyboard; ///< Fix tableView content inset when input row focus.
+
 -(id)initWithRoot:(AZRoot *)root;
 
 -(void)deselect;

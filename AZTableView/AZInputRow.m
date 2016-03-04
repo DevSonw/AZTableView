@@ -80,12 +80,16 @@
 
 - (BOOL)tableViewCellShouldBeginEditing:(AZInputTableViewCell *)tableViewCell{
     self.focused = YES;
+    tableViewCell.tableView.shouldCheckKeyboard = YES;
+    
     return YES;
 }
 
 - (void)tableViewCellDidBeginEditing:(AZInputTableViewCell *)tableViewCell{
     AZTableView *tableView = tableViewCell.tableView;
     self.focused = YES;
+    tableViewCell.tableView.shouldCheckKeyboard = YES;
+
     if ([tableView cellForRowAtIndexPath:[tableView indexPathForSelectedRow]] != tableViewCell) {
         [tableView selectRowAtIndexPath:[tableView indexPathForCell:tableViewCell] animated:NO scrollPosition:UITableViewScrollPositionNone];
     }
@@ -100,6 +104,8 @@
 
 - (void)tableViewCellDidEndEditing:(AZInputTableViewCell *)tableViewCell{
     self.focused = NO;
+    tableViewCell.tableView.shouldCheckKeyboard = NO;
+    
     [tableViewCell.tableView deselect];
     if (self.onBlur) {
         self.onBlur(self, tableViewCell);

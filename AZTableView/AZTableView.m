@@ -10,23 +10,35 @@
 #import "AZTableViewDataSource.h"
 #import "AZTableViewDelegate.h"
 #import "AZTableViewDelegateWithRowHeight.h"
+#import "AZConvert.h"
 
 @interface AZTableView()
 @property (retain, nonatomic) UIRefreshControl *refreshControl;
 @end
 
-@implementation AZTableView
+@implementation AZTableView{
+    BOOL _keyboardIsShowing;
+    CGFloat _keyboardHeight;
+
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 - (id)initWithFrame:(CGRect)frame style:(UITableViewStyle)style{
     if (self = [super initWithFrame:frame style:style]) {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     }
     return self;
 }
 
-@synthesize root = _root, refreshAction, refreshControl = _refreshControl;
+@synthesize root = _root, refreshAction, refreshControl = _refreshControl, bounce = _bounce, offsetTop = _offsetTop;
 
 -(id)initWithRoot:(AZRoot *)root{
-    if (self = [super initWithFrame:CGRectMake(0, 0, 0, 0) style:root.grouped ? UITableViewStyleGrouped : UITableViewStylePlain]) {
+    if (self = [self initWithFrame:CGRectMake(0, 0, 0, 0) style:root.grouped ? UITableViewStyleGrouped : UITableViewStylePlain]) {
         self.allowsSelectionDuringEditing = YES;
         self.root = root;
         root.tableView = self;
@@ -44,62 +56,28 @@
     return self;
 }
 
--(void)update:(NSDictionary *)setting{
-    [self update:setting init:NO];
+- (void)setBounce:(BOOL)bounce{
+    self.alwaysBounceVertical = bounce;
 }
 
--(void)update:(NSDictionary *)setting init:(BOOL)init{
-    if (!init) {
-//        [self.root update:setting];
-    }
-    
-//    [AZUtil setStringProperties:@[@"refreshAction"] for:self from:setting];
-//    [AZUtil setNumberProperties:@[@"rowHeight", @"highPerformance"] for:self from:setting];
-//    [AZUtil setColorProperties:@[@"separatorColor", @"backgroundColor"] for:self from:setting];
-    
-    if (setting[@"editing"]) {
-        [self setEditing:self.root.editing animated:YES];
-    }
-    if (setting[@"bounce"]) {
-        self.alwaysBounceVertical = [setting[@"bounce"] boolValue];
-    }
-    if (setting[@"offsetTop"]) {
-        [self setContentInset:UIEdgeInsetsMake(-([setting[@"offsetTop"] floatValue]), 0, 0, 0)];
-    }
-    
-    if (setting[@"separatorStyle"]) {
-        self.tableFooterView = nil;
-        if ([setting[@"separatorStyle"] isEqualToString:@"none"]) {
-            self.separatorStyle = UITableViewCellSeparatorStyleNone;
-        } else if ([setting[@"separatorStyle"] isEqualToString:@"noextra"]) {
-            //http://stackoverflow.com/questions/1369831/eliminate-extra-separators-below-uitableview-in-iphone-sdk
-            self.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-        } else {
-            self.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-        }
-    }
-    
-    if (self.refreshAction && !self.refreshControl) {
-        _refreshControl = [[UIRefreshControl alloc] init];
-        [_refreshControl addTarget:self action:@selector(handleRefresh:) forControlEvents:UIControlEventValueChanged];
-        [self addSubview:_refreshControl];
-    } else if(!self.refreshAction && self.refreshControl){
-        [self.refreshControl removeFromSuperview];
-        self.refreshControl = nil;
-    }
-    if (!init) {
-        if (setting[@"sections"] || setting[@"data"] || setting[@"addData"]) {
-            AZRow *row = [self.root focusedRow];
-            [self reloadData];
-            //Re focus row...
-            if (row && row.section && !row.section.hidden && !row.hidden && row.enabled) {
-                [self focusRow:row];
-            } else {
-                row.focused = NO;
-            }
-        }
-    }
+-(BOOL)bounce{
+    return self.alwaysBounceVertical;
 }
+
+- (void)setOffsetTop:(float)offsetTop{
+    _offsetTop = offsetTop;
+    [self setContentInset:UIEdgeInsetsMake(-(_offsetTop), 0, 0, 0)];
+}
+
+-(float)offsetTop{
+    return _offsetTop;
+}
+
+-(void)setSeparatorStyle:(UITableViewCellSeparatorStyle)separatorStyle{
+    [super setSeparatorStyle:separatorStyle];
+}
+
+
 
 - (void)scrollToTop{
     [self scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
@@ -189,5 +167,47 @@
     }
     return NO;
 }
+
+
+- (void)keyboardWillShow:(NSNotification *)sender
+{
+    if (!self.shouldCheckKeyboard || _keyboardIsShowing || self.frame.size.height == 0) {
+        return;
+    }
+    _keyboardIsShowing = YES;
+
+    _keyboardHeight = [[sender.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size.height + 30.f;
+    
+    NSTimeInterval duration = [[sender.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+    UIViewAnimationOptions curveOption = [[sender.userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey] unsignedIntegerValue] << 16;
+    
+    UIEdgeInsets edgeInsets = self.contentInset;
+    edgeInsets.bottom += _keyboardHeight;
+    [UIView animateWithDuration:duration delay:0 options:UIViewAnimationOptionBeginFromCurrentState|curveOption animations:^{
+        self.contentInset = edgeInsets;
+//        self.scrollIndicatorInsets = edgeInsets;
+    } completion:^(BOOL finished) {
+    }];
+}
+
+- (void)keyboardWillHide:(NSNotification *)sender
+{
+    if (!self.shouldCheckKeyboard || !_keyboardIsShowing) {
+        return;
+    }
+    _keyboardIsShowing = NO;
+        NSTimeInterval duration = [[sender.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+    UIViewAnimationOptions curveOption = [[sender.userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey] unsignedIntegerValue] << 16;
+    
+    UIEdgeInsets edgeInsets = self.contentInset;
+    edgeInsets.bottom -= _keyboardHeight;
+    [UIView animateWithDuration:duration delay:0 options:UIViewAnimationOptionBeginFromCurrentState|curveOption animations:^{
+        UIEdgeInsets edgeInsets = UIEdgeInsetsZero;
+        self.contentInset = edgeInsets;
+//        self.scrollIndicatorInsets = edgeInsets;
+    } completion:^(BOOL finished) {
+    }];
+}
+
 
 @end
