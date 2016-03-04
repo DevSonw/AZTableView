@@ -381,6 +381,9 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (nullable NSArray<NSString *> *)modelPropertyWhitelist;
 
+
+- (NSDictionary *)modelCustomPreTransformFromDictionary:(NSDictionary *)dic;
+
 /**
  If the default json-to-model transform does not fit to your model object, implement
  this method to do additional process. You can also use this method to validate the 
