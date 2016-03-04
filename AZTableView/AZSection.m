@@ -13,7 +13,7 @@
 
 @implementation AZSection
 
-@synthesize hidden, header, key, value = _value, footer, rows = _rows, root, headerHeight, footerHeight, indexTitle, bindData;
+@synthesize hidden, header, ref, value = _value, footer, rows = _rows, root, headerHeight, footerHeight, indexTitle, bindData;
 
 + (NSArray *)modelPropertyBlacklist {
     return @[@"rows"];
@@ -74,67 +74,6 @@
     }
     return self;
 }
-
-
-//- (void)update:(NSDictionary *)setting{
-////    [super update:setting];
-//    if ([[setting objectForKey:@"rows"] isKindOfClass:[NSArray class]]) {
-//        self.rows = [[NSMutableArray alloc] init];
-//        for (id s in [setting objectForKey:@"rows"]) {
-//            AZRow *row = [AZRow rowWithSetting:s];
-//            [self addRow:row];
-//        }
-//    }else if (!self.rowTemplate && [[setting objectForKey:@"items"] isKindOfClass:[NSArray class]]) {
-//        self.rows = [[NSMutableArray alloc] init];
-//        for (id s in [setting objectForKey:@"items"]) {
-//            AZRow *row = [AZItem rowWithSetting:s];
-//            [self addRow:row];
-//        }
-//    }
-//}
-
-//- (void)bindData:(NSDictionary *)data {
-//    if (self.bind) {
-//        NSDictionary *setting = [AZUtil settingFromBind:self.bind data:data];
-//        [self update:setting];
-//        NSString *iterate = @"iterate";
-//        if (self.bind[iterate]){
-//            if (setting[iterate] || ![self.rows count]) {
-//                [self toCollection:setting[iterate]];
-//            }
-//            return;
-//        }
-//    }
-//    for (AZRow *row in self.rows) {
-//        [row bindData:data];
-//    }
-//}
-
-//- (void)toCollection:(NSArray *)items  {
-//    [self.rows removeAllObjects];
-//    if ([items count]) {
-//        if (self.rowTemplate) {
-//            for (NSDictionary *data in items) {
-//                AZRow *row = [AZRow rowWithSetting:self.rowTemplate];
-//                //Set data for collection
-//                row.data = data;
-//                [self addRow:row];
-//                [row bindData:data];
-//            }
-//        } else if(self.itemTemplate){
-//            for (NSDictionary *data in items) {
-//                AZRow *row = [AZItem rowWithSetting:self.itemTemplate];
-//                //Set data for collection
-//                row.data = data;
-//                [self addRow:row];
-//                [row bindData:data];
-//            }
-//        }
-//    } else if(self.rowTemplate && self.emptyRow){
-//        AZRow *row = [AZRow rowWithSetting:self.emptyRow];
-//        [self addRow:row];
-//    }
-//}
 
 - (void)addRow:(AZRow *)row{
     if (self.rows == nil) {

@@ -18,11 +18,11 @@
 
 @implementation AZRow
 
-@synthesize identifier = _identifier, section, text, value, hidden, enabled, focusable, height, accessoryAction, action, valueChangedAction, key, data = _data, style = _style, detail, accessoryType, accessoryView = _accessoryView, selected = _selected, deletable, deletedAction, textFont, textFontSize, detailTextFont, detailTextFontSize, detailTextLine, accessibilityLabel, bindData;
+@synthesize identifier = _identifier, section, text, value, hidden, enabled, focusable, height, ref, data = _data, style = _style, detail, accessoryType, accessoryView = _accessoryView, selected = _selected, deletable, textFont, textFontSize, detailTextFont, detailTextFontSize, detailTextLine, accessibilityLabel, bindData;
 
-@synthesize onSelect;
+@synthesize onSelect, onAccessory, onDelete, onValueChanged;
 
-@synthesize textColor = _textColor, detailTextColor = _detailTextColor, backgroundColor = _backgroundColor;
+@synthesize textColor, detailTextColor, backgroundColor;
 
 @synthesize image, imageURL, selectedImage, imageCornerRadius;
 
@@ -76,13 +76,6 @@
     return self;
 }
 
--(id)initWithSetting:(NSDictionary *)setting{
-    if (self = [self init]) {
-        [self update:setting];
-    }
-    return self;
-}
-
 -(void)setSelected:(BOOL)selected{
     if (self.section.selectable && !self.section.multiple && selected) {
         for (AZRow *row in self.section.rows) {
@@ -92,20 +85,6 @@
         }
     }
     _selected = selected;
-}
-
-
-
-- (void)update:(NSDictionary *)setting{
-//    [super update:setting];
-    //TODO: when reset accessoryAction to nil, the type is not changed.
-    if (self.enabled && self.accessoryType == UITableViewCellAccessoryNone) {
-        self.accessoryType = self.accessoryAction ? UITableViewCellAccessoryDetailDisclosureButton : (self.action ?  UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone);
-    }
-    //Auto set key
-//    if (!self.key && self.bind && self.bind[@"value"]) {
-//        self.key = self.bind[@"value"];
-//    }
 }
 
 - (void)setAccessoryView:(id)accessoryView{
@@ -158,7 +137,7 @@
 
 - (void)updateCell:(AZTableViewCell *)cell tableView:(AZTableView *)tableView indexPath:(NSIndexPath *)indexPath{
     cell.textLabel.text = self.text;
-    cell.selectionStyle = self.enabled && self.action ? UITableViewCellSelectionStyleBlue : UITableViewCellSelectionStyleNone;
+    cell.selectionStyle = self.enabled && self.onSelect ? UITableViewCellSelectionStyleBlue : UITableViewCellSelectionStyleNone;
     cell.accessoryType = self.accessoryType;
     cell.detailTextLabel.text = self.detail;
     cell.accessoryView = nil;
@@ -262,13 +241,12 @@
 //TODO: test ios6
 - (CGFloat)heightForTableView:(AZTableView *)tableView{
     if (self.height < 0 && self.detailTextLine == 0) {
-        BOOL ios7 = [[[UIDevice currentDevice] systemVersion] floatValue]>=7.f;
         float imageWidth = 0.f;
         if (self.image){
-            imageWidth = [UIImage imageNamed:self.image].size.width + (ios7 ? 15.f : 20.f);
+            imageWidth = [UIImage imageNamed:self.image].size.width + 15.f;
         }
-        float padding = ios7 ? 30.f : (tableView.root.grouped ? 40.f : 20.f);
-        float fontSize = ios7 ? 12.f : 14.f;
+        float padding = 30.f;
+        float fontSize = 12.f;
         CGSize constraint = CGSizeMake(tableView.frame.size.width - imageWidth - padding, 20000);
         UIFont *font = self.detailTextFont ? [UIFont fontWithName:self.detailTextFont size: self.detailTextFontSize > 0 ? self.detailTextFontSize : fontSize] : [UIFont systemFontOfSize:fontSize];
         CGSize  size= [self.detail sizeWithFont:font constrainedToSize:constraint lineBreakMode:NSLineBreakByTruncatingTail];
@@ -281,20 +259,9 @@
     return self.height >= 0 ? self.height : 44;
 }
 
--(NSDictionary *)extraData:(NSIndexPath *)indexPath{
-    return @{
-             @"section": @(indexPath.section),
-             @"row": @(indexPath.row),
-             @"value": self.value ? self.value : [NSNull null],
-             @"key": self.key ? self.key : [NSNull null],
-             @"data": self.data ? self.data : [NSNull null],
-             };
-}
-
 - (void)selectedAccessory:(AZTableView *)tableView indexPath:(NSIndexPath *)indexPath{
-    if (self.accessoryAction && self.enabled) {
-//        tableView.action.delegate.clickOrigin = [tableView cellForRowAtIndexPath:indexPath];
-        [tableView action:self.accessoryAction data:self.data extra:[self extraData:indexPath]];
+    if (self.onAccessory && self.enabled) {
+        self.onAccessory(self, [tableView cellForRowAtIndexPath:indexPath], self.value);
     }
 }
 
@@ -313,48 +280,14 @@
         }
         self.selected = !self.selected;
         [self selected:self.selected forCell:cell];
-        if (self.valueChangedAction) {
-            [tableView action:self.valueChangedAction data:@(self.selected) extra:[self extraData:indexPath]];
+        if (self.onValueChanged) {
+            self.onValueChanged(self, nil, self.value);
         }
         [tableView deselect];
     }
     if (self.onSelect && self.enabled) {
         self.onSelect(self, [tableView cellForRowAtIndexPath:indexPath], self.data);
     }
-    
-    if (self.action && self.enabled) {
-//        tableView.action.delegate.clickOrigin = [tableView cellForRowAtIndexPath:indexPath];
-        [tableView action:self.action data: self.section.selectable ? @(self.selected) : self.data extra:[self extraData:indexPath]];
-    }
 }
 
-
-+(NSDictionary*)styles {
-    static NSDictionary *kStyles = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        kStyles = @{
-                    @"default":       @(UITableViewCellStyleDefault),
-                    @"subtitle":      @(UITableViewCellStyleSubtitle),
-                    @"value1":        @(UITableViewCellStyleValue1),
-                    @"value2":        @(UITableViewCellStyleValue2),
-                    };
-    });
-    return kStyles;
-}
-
-+(NSDictionary*)accessoryTypes {
-    static NSDictionary *kAccessoryTypes = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        kAccessoryTypes = @{
-                            @"none":                    @(UITableViewCellAccessoryNone),
-                            @"checkmark":               @(UITableViewCellAccessoryCheckmark),
-                            @"detailDisclosureButton":  @(UITableViewCellAccessoryDetailDisclosureButton),
-                            @"disclosureIndicator":     @(UITableViewCellAccessoryDisclosureIndicator),
-                            @"detailButton":            @(UITableViewCellAccessoryDetailButton),
-                            };
-    });
-    return kAccessoryTypes;
-}
 @end

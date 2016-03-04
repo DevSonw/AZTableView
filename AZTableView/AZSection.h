@@ -14,10 +14,7 @@
 @interface AZSection : NSObject
 
 @property(nonatomic, weak) AZRoot *root;
-
-@property (retain, nonatomic) NSDictionary *bindData;
-
-@property(nonatomic, retain) NSString *key;
+@property(nonatomic, strong) NSString *ref;
 @property(nonatomic, strong) id value;
 
 @property(nonatomic, retain) NSString *header;
@@ -37,6 +34,8 @@
 @property(nonatomic, assign) BOOL multiple;
 @property(nonatomic, assign) BOOL sortable;
 @property(nonatomic, assign) BOOL loading;
+
+@property (retain, nonatomic) NSDictionary *bindData;
 
 
 +(id)sectionWithType:(NSString *)type;

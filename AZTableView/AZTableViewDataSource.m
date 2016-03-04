@@ -65,8 +65,8 @@
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         AZRow *row = [tableView.root visibleRowAtIndexPath:indexPath];
 //        tableView.action.delegate.clickOrigin = nil;
-        if (row.deletedAction) {
-            [tableView action:row.deletedAction data:row.data extra:[row extraData:indexPath]];
+        if (row.onDelete) {
+            row.onDelete(row, nil, nil);
         } else{
             [tableView deleteRowAtIndexPath:indexPath];
         }
@@ -79,11 +79,8 @@
     AZSection *section = [tableView.root visibleSectionAtIndex:fromIndexPath.section];
     AZRow *row = [section visibleRowAtIndex:fromIndexPath.row];
 //    tableView.action.delegate.clickOrigin = nil;
-    if (row.valueChangedAction) {
-        [tableView action:row.valueChangedAction data:@{
-                                                        @"section": @(toIndexPath.section),
-                                                        @"row": @(toIndexPath.row),
-                                                        } extra:[row extraData:fromIndexPath]];
+    if (row.onValueChanged) {
+        row.onValueChanged(row, nil, nil);
     }
     [section moveVisibleRowFromIndex:fromIndexPath.row toIndex:toIndexPath.row];
 }

@@ -23,17 +23,14 @@ typedef void (^AZRootEvent)(NSString *eventName, AZRow *row, UIView *from, id va
 @interface AZRoot : NSObject
 
 @property(nonatomic, weak) AZTableView *tableView; ///< Week reference the tableView
-@property(nonatomic, weak) AZCollectionView *collectionView;
+@property(nonatomic, weak) AZCollectionView *collectionView; ///< Week reference the collectionView
 
 @property (assign) BOOL grouped;
 @property (assign, nonatomic) BOOL highPerformance;
 @property (assign) BOOL editing;
 @property (assign) BOOL showIndexTitle;
+
 @property (retain, nonatomic) NSMutableArray<AZSection *> *sections;
-
-
-@property (retain, nonatomic) NSDictionary *bindData;
-@property (copy, nonatomic) AZRootEvent onEvent;
 
 
 - (void)addSection:(AZSection *)section;
@@ -52,6 +49,14 @@ typedef void (^AZRootEvent)(NSString *eventName, AZRow *row, UIView *from, id va
 - (AZRow *)focusedRow;
 
 - (NSDictionary *)values;
+
+
+/**
+ The property and method extend for create model by YYModel
+ */
+
+@property (retain, nonatomic) NSDictionary *bindData;
+@property (copy, nonatomic) AZRootEvent onEvent;
 
 +(NSDictionary *)dataFromBind:(NSDictionary *)bind source:(NSDictionary *)source;
 +(void)transformTemplate:(NSString *)key data:(NSMutableDictionary *)data;

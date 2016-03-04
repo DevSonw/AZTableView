@@ -251,19 +251,19 @@
 }
 
 
-- (NSDictionary *)values{
-    NSMutableDictionary *values = [NSMutableDictionary dictionary];
-    for (AZSection *section in self.sections) {
-        if (section.key && section.value) {
-            values[section.key] = section.value;
-        }
-        for (AZRow *row in section.rows) {
-            if (row.key && row.value && row.enabled) {
-                values[row.key] = row.value;
-            }
-        }
-    }
-    return values;
-}
+//- (NSDictionary *)values{
+//    NSMutableDictionary *values = [NSMutableDictionary dictionary];
+//    for (AZSection *section in self.sections) {
+//        if (section.key && section.value) {
+//            values[section.key] = section.value;
+//        }
+//        for (AZRow *row in section.rows) {
+//            if (row.key && row.value && row.enabled) {
+//                values[row.key] = row.value;
+//            }
+//        }
+//    }
+//    return values;
+//}
 
 @end
