@@ -32,8 +32,6 @@ id <UITableViewDelegate> bbDelegate;
 
 -(void)deselect;
 
--(void)action:(id)action data:(id)data extra:(id)extra;
-
 -(BOOL)deleteRowAtIndexPath:(NSIndexPath *)indexPath;
 
 - (void)stopRefresh;

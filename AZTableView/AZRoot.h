@@ -27,7 +27,6 @@ typedef void (^AZRootEvent)(NSString *eventName, AZRow *row, UIView *fromView);
 
 @property (assign) BOOL grouped;
 @property (assign, nonatomic) BOOL highPerformance;
-@property (assign) BOOL editing;
 @property (assign) BOOL showIndexTitle;
 
 @property (retain, nonatomic) NSMutableArray<AZSection *> *sections;

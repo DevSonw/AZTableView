@@ -12,6 +12,9 @@
 #import <objc/message.h>
 #import "AZRoot.h"
 
+
+static NSMapTable<Class, NSDictionary *> *AZModelProperties = nil;
+
 @implementation AZConvert
 
 + (void) convertForModel:(id)model data:(NSDictionary *)data root:(AZRoot *)root{
@@ -21,7 +24,24 @@
     //Weak reference the root instance for block memory circle.
     __weak AZRoot *_root = root;
     
-    NSDictionary *propertyInfos = [YYClassInfo classInfoWithClass:((id<YYModel>)model).class].propertyInfos;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        AZModelProperties = [NSMapTable mapTableWithKeyOptions:NSMapTableWeakMemory valueOptions:NSMapTableCopyIn];
+    });
+    
+    Class cls = ((id<YYModel>)model).class;
+    if (![AZModelProperties objectForKey:cls]) {
+        NSMutableDictionary *propertyInfos = [NSMutableDictionary new];
+        // Create all property metas.
+        YYClassInfo *curClassInfo = [YYClassInfo classInfoWithClass:cls];
+        while (curClassInfo && curClassInfo.superCls != nil) { // recursive parse super class, but ignore root class (NSObject/NSProxy)
+            [propertyInfos addEntriesFromDictionary:curClassInfo.propertyInfos];
+            curClassInfo = curClassInfo.superClassInfo;
+        }
+        [AZModelProperties setObject:propertyInfos forKey:cls];
+    }
+    
+    NSDictionary *propertyInfos = [AZModelProperties objectForKey:cls];
     
     id (*convert)(id, SEL, id) = (typeof(convert))objc_msgSend;
     
