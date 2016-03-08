@@ -183,6 +183,7 @@
     
     UIEdgeInsets edgeInsets = self.contentInset;
     edgeInsets.bottom += _keyboardHeight;
+
     [UIView animateWithDuration:duration delay:0 options:UIViewAnimationOptionBeginFromCurrentState|curveOption animations:^{
         self.contentInset = edgeInsets;
 //        self.scrollIndicatorInsets = edgeInsets;
@@ -202,7 +203,6 @@
     UIEdgeInsets edgeInsets = self.contentInset;
     edgeInsets.bottom -= _keyboardHeight;
     [UIView animateWithDuration:duration delay:0 options:UIViewAnimationOptionBeginFromCurrentState|curveOption animations:^{
-        UIEdgeInsets edgeInsets = UIEdgeInsetsZero;
         self.contentInset = edgeInsets;
 //        self.scrollIndicatorInsets = edgeInsets;
     } completion:^(BOOL finished) {
