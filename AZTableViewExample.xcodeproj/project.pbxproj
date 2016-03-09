@@ -32,6 +32,8 @@
 		B12F03571C8FED15007BC6D5 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B12F03561C8FED15007BC6D5 /* MobileCoreServices.framework */; };
 		B12F03591C8FED3E007BC6D5 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B12F03581C8FED3E007BC6D5 /* libz.tbd */; };
 		B12F035B1C8FED48007BC6D5 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B12F035A1C8FED48007BC6D5 /* libsqlite3.tbd */; };
+		B12F035D1C8FFCD2007BC6D5 /* github@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B12F035C1C8FFCD2007BC6D5 /* github@2x.png */; };
+		B13847501C90295800A84F78 /* WebP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B138474F1C90295800A84F78 /* WebP.framework */; };
 		B15D76AE1C87EFCB0037E02E /* NSObject+YYModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B15D76AA1C87EFCB0037E02E /* NSObject+YYModel.m */; };
 		B15D76AF1C87EFCB0037E02E /* YYClassInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = B15D76AC1C87EFCB0037E02E /* YYClassInfo.m */; };
 		B15D76B31C8806A20037E02E /* AZButtonRow.m in Sources */ = {isa = PBXBuildFile; fileRef = B15D76B21C8806A20037E02E /* AZButtonRow.m */; };
@@ -104,6 +106,8 @@
 		B12F03561C8FED15007BC6D5 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		B12F03581C8FED3E007BC6D5 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		B12F035A1C8FED48007BC6D5 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		B12F035C1C8FFCD2007BC6D5 /* github@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "github@2x.png"; sourceTree = "<group>"; };
+		B138474F1C90295800A84F78 /* WebP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebP.framework; path = ../Vendor/WebP.framework; sourceTree = "<group>"; };
 		B15D76A91C87EFCB0037E02E /* NSObject+YYModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+YYModel.h"; sourceTree = "<group>"; };
 		B15D76AA1C87EFCB0037E02E /* NSObject+YYModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+YYModel.m"; sourceTree = "<group>"; };
 		B15D76AB1C87EFCB0037E02E /* YYClassInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYClassInfo.h; sourceTree = "<group>"; };
@@ -158,6 +162,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B13847501C90295800A84F78 /* WebP.framework in Frameworks */,
 				B12F035B1C8FED48007BC6D5 /* libsqlite3.tbd in Frameworks */,
 				B12F03591C8FED3E007BC6D5 /* libz.tbd in Frameworks */,
 				B12F03571C8FED15007BC6D5 /* MobileCoreServices.framework in Frameworks */,
@@ -300,6 +305,7 @@
 		B199D4F61C86D4F200369782 /* AZTableViewExample */ = {
 			isa = PBXGroup;
 			children = (
+				B12F035C1C8FFCD2007BC6D5 /* github@2x.png */,
 				B199D4FA1C86D4F200369782 /* AppDelegate.h */,
 				B199D4FB1C86D4F300369782 /* AppDelegate.m */,
 				B199D5031C86D4F300369782 /* Assets.xcassets */,
@@ -317,6 +323,7 @@
 			children = (
 				B12F035A1C8FED48007BC6D5 /* libsqlite3.tbd */,
 				B12F03581C8FED3E007BC6D5 /* libz.tbd */,
+				B138474F1C90295800A84F78 /* WebP.framework */,
 				B12F03561C8FED15007BC6D5 /* MobileCoreServices.framework */,
 				B12F03541C8FED0C007BC6D5 /* Accelerate.framework */,
 				B12F03521C8FED04007BC6D5 /* ImageIO.framework */,
@@ -418,6 +425,7 @@
 				B15D76CD1C89817E0037E02E /* AZTableView.bundle in Resources */,
 				B15D76B81C8847BA0037E02E /* sectionTemplate.json in Resources */,
 				B199D5041C86D4F300369782 /* Assets.xcassets in Resources */,
+				B12F035D1C8FFCD2007BC6D5 /* github@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -572,6 +580,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/Vendor",
 				);
 				INFOPLIST_FILE = AZTableViewExample/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
@@ -588,6 +597,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/Vendor",
 				);
 				INFOPLIST_FILE = AZTableViewExample/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;

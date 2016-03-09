@@ -31,9 +31,7 @@ typedef void (^AZRowEvent)(AZRow *row, UIView *fromView);
 @property(nonatomic, retain) NSString *text; ///< The textLabel text
 @property(nonatomic, retain) NSString *detail; ///< The detailTextlabel text
 @property(nonatomic, retain) NSString *image; ///< The image name for cell
-@property(nonatomic, retain) NSString *imageURL; ///< The image url
-@property(nonatomic, retain) NSString *imageData; ///< The image base64 encoding string.
-
+@property(nonatomic, retain) NSString *imageURL; ///< The image url or the image base64 encoding string(data:image/gif;base64,xxxx). when image by name provided, will resize the image by url to image by name.
 @property(nonatomic, assign) CGFloat imageCornerRadius;
 @property(nonatomic, retain) NSString *accessibilityLabel; ///< The accessibility for voiceOver
 

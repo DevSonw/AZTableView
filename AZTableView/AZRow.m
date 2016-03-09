@@ -151,30 +151,8 @@
 //        };
 //    }
     
-    if ([self.imageURL length]) {
-        __weak UIImageView* imageView = cell.imageView;
-        UIImage *_image = nil;
-        if (self.image) {
-            _image = [UIImage imageNamed:self.image];
-        }
-        CGSize size = _image.size;
-//        [cell.imageView sd_setImageWithURL:[NSURL URLWithString:self.imageURL] placeholderImage:_image completed:^(UIImage *img, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-//            //Resize to placeholder size
-//            if (img && size.width) {
-//                imageView.image = [img resize:size];
-//            }
-//        }];
-    } else if (self.image) {
-        cell.imageView.image = [UIImage imageNamed:self.image];
-    } else if (self.imageData) {
-        cell.imageView.image = [UIImage imageWithData:[[NSData alloc] initWithBase64Encoding:self.imageData]];
-    } else {
-        cell.imageView.image = nil;
-    }
-    if (cell.imageView.image && self.imageCornerRadius) {
-        cell.imageView.layer.cornerRadius = self.imageCornerRadius;
-        cell.imageView.layer.masksToBounds = YES;
-    }
+    [self.class setImageForImageView:cell.imageView imageNamed:self.image url:self.imageURL cornerRadius:self.imageCornerRadius];
+    
     cell.loading = self.loading;
     cell.textLabel.enabled = self.enabled;
     cell.detailTextLabel.enabled = self.enabled;
@@ -204,6 +182,66 @@
         [self selected:self.selected forCell:cell];
     }
 }
+
++ (void)setImageForImageView:(UIImageView *)imageView imageNamed:(NSString *)imageNamed url:(NSString *)url cornerRadius:(CGFloat)cornerRadius{
+    
+    UIImage *image = nil;
+    if (imageNamed) {
+        image = [UIImage imageNamed:imageNamed];
+        if (cornerRadius) {
+            image = [image yy_imageByRoundCornerRadius:cornerRadius];
+        }
+    }
+    //Reset the image view.
+    //Set the placehoder if has imageURL.
+    imageView.image = image;
+    
+    CGFloat scale = [UIScreen mainScreen].scale;
+    
+    if ([url length]) {
+        __weak UIImageView *_imageView = imageView;
+
+        BOOL isBase64 = [url hasPrefix:@"data:image/"];
+        if (isBase64) {
+            //Parse data async
+            //The imageView has display, so size will not changed when image set.
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                NSArray *ar = [url componentsSeparatedByString:@";base64,"];
+                if ([ar count] == 2) {
+                    NSData *data = [[NSData alloc] initWithBase64EncodedString:ar[1] options:0];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        UIImage *image = [[YYImage alloc] initWithData:data scale:scale];
+                        if (cornerRadius) {
+                            image =[image yy_imageByRoundCornerRadius:cornerRadius];
+                        }
+                        _imageView.image = image;
+                    });
+                }
+            });
+        } else {
+            [imageView yy_setImageWithURL:[NSURL URLWithString:url] placeholder:image options:YYWebImageOptionSetImageWithFadeAnimation progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+            } transform:^UIImage * _Nullable(UIImage * _Nonnull image, NSURL * _Nonnull url) {
+                return image;
+            } completion:^(UIImage * _Nullable image, NSURL * _Nonnull url, YYWebImageFromType from, YYWebImageStage stage, NSError * _Nullable error) {
+                if ([image isKindOfClass:[YYImage class]]) {
+                    YYImageType type = [(YYImage *)image animatedImageType];
+                    if (type == YYImageTypeGIF) {
+                        //GIF animated.
+                        image = [UIImage yy_imageWithSmallGIFData:[(YYImage *)image animatedImageData] scale:scale];
+                        _imageView.image = image;
+                        return;
+                    }
+                }
+                if (cornerRadius) {
+                    image =[image yy_imageByRoundCornerRadius:cornerRadius];
+                }
+                _imageView.image = image;
+
+            }];
+        }
+    }
+}
+
 
 - (void)selected:(BOOL)selected forCell:(AZTableViewCell *)cell{
     if (self.selectedImage && self.image) {
