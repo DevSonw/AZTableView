@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "ViewController.h"
+
 #import "AZTableView.h"
 
 @interface AppDelegate ()
@@ -80,7 +80,7 @@
     
     AZTableView *tableView = [[AZTableView alloc] initWithRoot:root];
     
-    ViewController *cont = [ViewController new];
+    UIViewController *cont = [UIViewController new];
     cont.title = @"In view ViewController";
     cont.view = tableView;
     return cont;
@@ -138,7 +138,7 @@
     
     AZTableView *tableView = [[AZTableView alloc] initWithRoot:root];
 
-    ViewController *cont = [ViewController new];
+    UIViewController *cont = [UIViewController new];
     cont.title = dic[@"title"];
     cont.view = tableView;
     return cont;
