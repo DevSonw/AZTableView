@@ -49,7 +49,7 @@
     return [self new];
 }
 
-- (NSDictionary *)modelCustomPreTransformFromDictionary:(NSDictionary *)dic {
+- (NSDictionary *)modelCustomWillTransformFromDictionary:(NSDictionary *)dic {
     if (dic[@"bind"]) {
         NSMutableDictionary *data = [NSMutableDictionary dictionaryWithDictionary:dic];
         [data addEntriesFromDictionary:[AZRoot dataFromBind:dic[@"bind"] source:dic[@"bindData"] ? dic[@"bindData"] : (self.section.bindData ? self.section.bindData : self.section.root.bindData)]];

@@ -7,6 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+
+#if __has_include(<YYImage/YYImage.h>)
+#import <YYWebImage/YYWebImage.h>
+#else
+#import "YYWebImage.h"
+#endif
+
 #import "AZRoot.h"
 #import "AZSection.h"
 #import "AZRow.h"

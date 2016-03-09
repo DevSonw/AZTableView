@@ -50,7 +50,7 @@
     return @[@"sections"];
 }
 
-- (NSDictionary *)modelCustomPreTransformFromDictionary:(NSDictionary *)dic {
+- (NSDictionary *)modelCustomWillTransformFromDictionary:(NSDictionary *)dic {
     NSMutableDictionary *data = [NSMutableDictionary dictionaryWithDictionary:dic];
     if (dic[@"bind"]) {
         [data addEntriesFromDictionary:[AZRoot dataFromBind:dic[@"bind"] source:dic[@"bindData"]]];

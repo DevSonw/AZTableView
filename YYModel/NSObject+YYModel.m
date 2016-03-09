@@ -132,7 +132,7 @@ static force_inline NSNumber *YYNSNumberCreateFromID(__unsafe_unretained id valu
 }
 
 /// Parse string to date.
-static NSDate *YYNSDateFromString(__unsafe_unretained NSString *string) {
+static force_inline NSDate *YYNSDateFromString(__unsafe_unretained NSString *string) {
     typedef NSDate* (^YYNSDateParseBlock)(NSString *string);
     #define kParserNum 32
     static YYNSDateParseBlock blocks[kParserNum + 1] = {0};
@@ -419,7 +419,7 @@ static force_inline id YYValueForMultiKeys(__unsafe_unretained NSDictionary *dic
     YYEncodingNSType _nsType;
     
     BOOL _hasCustomTransformFromDictionary;
-    BOOL _hasPreCustomTransformFromDictionary;
+    BOOL _hasCustomWillTransformFromDictionary;
 
     BOOL _hasCustomTransformToDictionary;
     BOOL _hasCustomClassFromDictionary;
@@ -563,7 +563,7 @@ static force_inline id YYValueForMultiKeys(__unsafe_unretained NSDictionary *dic
     _hasCustomTransformFromDictionary = ([cls instancesRespondToSelector:@selector(modelCustomTransformFromDictionary:)]);
     _hasCustomTransformToDictionary = ([cls instancesRespondToSelector:@selector(modelCustomTransformToDictionary:)]);
     _hasCustomClassFromDictionary = ([cls respondsToSelector:@selector(modelCustomClassForDictionary:)]);
-    _hasPreCustomTransformFromDictionary = ([cls instancesRespondToSelector:@selector(modelCustomPreTransformFromDictionary:)]);
+    _hasCustomWillTransformFromDictionary = ([cls instancesRespondToSelector:@selector(modelCustomWillTransformFromDictionary:)]);
 
     return self;
 }
@@ -1429,8 +1429,8 @@ static NSString *ModelDescription(NSObject *model) {
     _YYModelMeta *modelMeta = [_YYModelMeta metaWithClass:object_getClass(self)];
     if (modelMeta->_keyMappedCount == 0) return NO;
     
-    if (modelMeta->_hasPreCustomTransformFromDictionary) {
-        dic = [((id<YYModel>)self) modelCustomPreTransformFromDictionary:dic];
+    if (modelMeta->_hasCustomWillTransformFromDictionary) {
+        dic = [((id<YYModel>)self) modelCustomWillTransformFromDictionary:dic];
         if (![dic isKindOfClass:[NSDictionary class]]) return NO;
     }
     
