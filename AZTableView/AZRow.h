@@ -97,5 +97,10 @@ typedef void (^AZRowEvent)(AZRow *row, UIView *fromView);
 - (void)selectedAccessory:(AZTableView *)tableView indexPath:(NSIndexPath *)indexPath;
 - (void)selected:(id)view indexPath:(NSIndexPath *)indexPath;
 
+/**
+ The default tintColor
+ */
++ (UIColor *)tintColor;
+
 
 @end

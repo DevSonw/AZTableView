@@ -7,6 +7,7 @@
 //
 
 #import "AZButtonTableViewCell.h"
+#import "AZRow.h"
 
 @implementation AZButtonTableViewCell
 
@@ -15,14 +16,14 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         self.textLabel.textAlignment = NSTextAlignmentCenter;
-//        [self setTextColor:[BBUtil tintColor]];
+        [self setTextColor:[AZRow tintColor]];
     }
     return self;
 }
 
 - (void)prepareForReuse{
     [super prepareForReuse];
-//    [self setTextColor:[BBUtil tintColor]];
+    [self setTextColor:[AZRow tintColor]];
 }
 
 -(void)layoutSubviews{
