@@ -9,10 +9,10 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import "AZTableViewCell.h"
+#if __has_include(<YYImage/YYImage.h>)
+#import <YYModel/YYModel.h>
+#else
 #import "YYModel.h"
-
-#ifndef cellLeftMargin
-#define cellLeftMargin (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_6_1 ? 15 : 10)
 #endif
 
 @class AZRow;
