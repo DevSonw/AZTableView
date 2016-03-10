@@ -34,6 +34,7 @@
 		B12F035B1C8FED48007BC6D5 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B12F035A1C8FED48007BC6D5 /* libsqlite3.tbd */; };
 		B12F035D1C8FFCD2007BC6D5 /* github@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B12F035C1C8FFCD2007BC6D5 /* github@2x.png */; };
 		B13847501C90295800A84F78 /* WebP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B138474F1C90295800A84F78 /* WebP.framework */; };
+		B13847521C91068000A84F78 /* github30@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B13847511C91068000A84F78 /* github30@2x.png */; };
 		B15D76AE1C87EFCB0037E02E /* NSObject+YYModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B15D76AA1C87EFCB0037E02E /* NSObject+YYModel.m */; };
 		B15D76AF1C87EFCB0037E02E /* YYClassInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = B15D76AC1C87EFCB0037E02E /* YYClassInfo.m */; };
 		B15D76B31C8806A20037E02E /* AZButtonRow.m in Sources */ = {isa = PBXBuildFile; fileRef = B15D76B21C8806A20037E02E /* AZButtonRow.m */; };
@@ -108,6 +109,7 @@
 		B12F035A1C8FED48007BC6D5 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		B12F035C1C8FFCD2007BC6D5 /* github@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "github@2x.png"; sourceTree = "<group>"; };
 		B138474F1C90295800A84F78 /* WebP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebP.framework; path = ../Vendor/WebP.framework; sourceTree = "<group>"; };
+		B13847511C91068000A84F78 /* github30@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "github30@2x.png"; sourceTree = "<group>"; };
 		B15D76A91C87EFCB0037E02E /* NSObject+YYModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+YYModel.h"; sourceTree = "<group>"; };
 		B15D76AA1C87EFCB0037E02E /* NSObject+YYModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+YYModel.m"; sourceTree = "<group>"; };
 		B15D76AB1C87EFCB0037E02E /* YYClassInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYClassInfo.h; sourceTree = "<group>"; };
@@ -305,6 +307,7 @@
 		B199D4F61C86D4F200369782 /* AZTableViewExample */ = {
 			isa = PBXGroup;
 			children = (
+				B13847511C91068000A84F78 /* github30@2x.png */,
 				B12F035C1C8FFCD2007BC6D5 /* github@2x.png */,
 				B199D4FA1C86D4F200369782 /* AppDelegate.h */,
 				B199D4FB1C86D4F300369782 /* AppDelegate.m */,
@@ -421,6 +424,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B15D76CB1C897DE20037E02E /* basicForm.json in Resources */,
+				B13847521C91068000A84F78 /* github30@2x.png in Resources */,
 				B199D5071C86D4F300369782 /* LaunchScreen.storyboard in Resources */,
 				B15D76CD1C89817E0037E02E /* AZTableView.bundle in Resources */,
 				B15D76B81C8847BA0037E02E /* sectionTemplate.json in Resources */,

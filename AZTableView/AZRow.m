@@ -183,66 +183,6 @@
     }
 }
 
-+ (void)setImageForImageView:(UIImageView *)imageView imageNamed:(NSString *)imageNamed url:(NSString *)url cornerRadius:(CGFloat)cornerRadius{
-    
-    UIImage *image = nil;
-    if (imageNamed) {
-        image = [UIImage imageNamed:imageNamed];
-        if (cornerRadius) {
-            image = [image yy_imageByRoundCornerRadius:cornerRadius];
-        }
-    }
-    //Reset the image view.
-    //Set the placehoder if has imageURL.
-    imageView.image = image;
-    
-    CGFloat scale = [UIScreen mainScreen].scale;
-    
-    if ([url length]) {
-        __weak UIImageView *_imageView = imageView;
-
-        BOOL isBase64 = [url hasPrefix:@"data:image/"];
-        if (isBase64) {
-            //Parse data async
-            //The imageView has display, so size will not changed when image set.
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                NSArray *ar = [url componentsSeparatedByString:@";base64,"];
-                if ([ar count] == 2) {
-                    NSData *data = [[NSData alloc] initWithBase64EncodedString:ar[1] options:0];
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        UIImage *image = [[YYImage alloc] initWithData:data scale:scale];
-                        if (cornerRadius) {
-                            image =[image yy_imageByRoundCornerRadius:cornerRadius];
-                        }
-                        _imageView.image = image;
-                    });
-                }
-            });
-        } else {
-            [imageView yy_setImageWithURL:[NSURL URLWithString:url] placeholder:image options:YYWebImageOptionSetImageWithFadeAnimation progress:^(NSInteger receivedSize, NSInteger expectedSize) {
-            } transform:^UIImage * _Nullable(UIImage * _Nonnull image, NSURL * _Nonnull url) {
-                return image;
-            } completion:^(UIImage * _Nullable image, NSURL * _Nonnull url, YYWebImageFromType from, YYWebImageStage stage, NSError * _Nullable error) {
-                if ([image isKindOfClass:[YYImage class]]) {
-                    YYImageType type = [(YYImage *)image animatedImageType];
-                    if (type == YYImageTypeGIF) {
-                        //GIF animated.
-                        image = [UIImage yy_imageWithSmallGIFData:[(YYImage *)image animatedImageData] scale:scale];
-                        _imageView.image = image;
-                        return;
-                    }
-                }
-                if (cornerRadius) {
-                    image =[image yy_imageByRoundCornerRadius:cornerRadius];
-                }
-                _imageView.image = image;
-
-            }];
-        }
-    }
-}
-
-
 - (void)selected:(BOOL)selected forCell:(AZTableViewCell *)cell{
     if (self.selectedImage && self.image) {
         cell.imageView.image = [UIImage imageNamed: selected ? self.selectedImage : self.image];
@@ -338,5 +278,77 @@
     }
     return [UIColor colorWithRed:0.0 green:122.0/255.0 blue:1.0 alpha:1.0];
 }
+
+
++ (void)setImageForImageView:(UIImageView *)imageView imageNamed:(NSString *)imageNamed url:(NSString *)url cornerRadius:(CGFloat)cornerRadius{
+    
+    UIImage *image = nil;
+    CGSize size;
+    if (imageNamed) {
+        image = [UIImage imageNamed:imageNamed];
+        size = image.size;
+        if (cornerRadius) {
+            image = [image yy_imageByRoundCornerRadius:cornerRadius];
+        }
+    }
+    //Reset the image view.
+    //Set the placehoder if has imageURL.
+    imageView.image = image;
+    
+    CGFloat scale = [UIScreen mainScreen].scale;
+    
+    if ([url length]) {
+        __weak UIImageView *_imageView = imageView;
+        
+        BOOL isBase64 = [url hasPrefix:@"data:image/"];
+        if (isBase64) {
+            NSArray *ar = [url componentsSeparatedByString:@";base64,"];
+            if ([ar count] == 2) {
+                NSData *data = [[NSData alloc] initWithBase64EncodedString:ar[1] options:0];
+                UIImage *image = [[YYImage alloc] initWithData:data scale:scale];
+                if (cornerRadius) {
+                    image =[image yy_imageByRoundCornerRadius:cornerRadius];
+                }
+                //Resize the image.
+                if (size.width != image.size.width && size.height != image.size.height) {
+                    image = [image yy_imageByResizeToSize:size];
+                }
+                _imageView.image = image;
+            }
+            //Parse data async
+            //The imageView has display, so size will not changed when image set.
+//            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+//                dispatch_async(dispatch_get_main_queue(), ^{
+//                });
+//            });
+        } else {
+            [imageView yy_setImageWithURL:[NSURL URLWithString:url] placeholder:image options:YYWebImageOptionSetImageWithFadeAnimation progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+            } transform:^UIImage * _Nullable(UIImage * _Nonnull image, NSURL * _Nonnull url) {
+                return image;
+            } completion:^(UIImage * _Nullable image, NSURL * _Nonnull url, YYWebImageFromType from, YYWebImageStage stage, NSError * _Nullable error) {
+                //The animated GIF image in UIImageView will make the cell not smooth when scroll.
+//                if ([image isKindOfClass:[YYImage class]]) {
+//                    YYImageType type = [(YYImage *)image animatedImageType];
+//                    if (type == YYImageTypeGIF) {
+//                        //GIF animated.
+//                        image = [UIImage yy_imageWithSmallGIFData:[(YYImage *)image animatedImageData] scale:scale];
+//                        _imageView.image = image;
+//                        return;
+//                    }
+//                }
+                if (cornerRadius) {
+                    image =[image yy_imageByRoundCornerRadius:cornerRadius];
+                }
+                //Resize the image.
+                if (size.width != image.size.width && size.height != image.size.height) {
+                    image = [image yy_imageByResizeToSize:size];
+                }
+                _imageView.image = image;
+                
+            }];
+        }
+    }
+}
+
 
 @end
