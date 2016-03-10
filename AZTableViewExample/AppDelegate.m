@@ -58,7 +58,8 @@ static NSString *NSStringFromIndexPath(NSIndexPath *indexPath){
     AZSection *section = [AZSection new];
     NSDate *date = [NSDate date];
     NSArray *ar = [NSArray arrayWithObjects:
-                   [self basicRow],
+                   [self displayRow],
+                   [self formRow],
                    [self rowEvent],
                    [self dictionaryCont],
                    [self jsonController:@"sectionTemplate"],
@@ -84,7 +85,7 @@ static NSString *NSStringFromIndexPath(NSIndexPath *indexPath){
 }
 
 
--(UIViewController *)basicRow{
+-(UIViewController *)displayRow{
     AZRow *row1 = [AZRow new];
     row1.text = @"Default row";
     
@@ -171,6 +172,105 @@ static NSString *NSStringFromIndexPath(NSIndexPath *indexPath){
 
 - (void)alert:(NSString *)title message:(NSString *)message{
     [[[UIAlertView alloc] initWithTitle:title message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
+}
+
+-(UIViewController *)formRow{
+    UIViewController *cont = [UIViewController new];
+    
+    AZInputRow *row1 = [AZInputRow new];
+    row1.text = @"Name";
+    row1.placeholder = @"Placeholder";
+    
+    AZInputRow *row2 = [AZInputRow new];
+    row2.text = @"Password";
+    row2.placeholder = @"secureTextEntry";
+    row2.secureTextEntry = YES;
+    
+    AZInputRow *row3 = [AZInputRow new];
+    row3.text = @"Name";
+    row3.value = @"Default value";
+    
+    AZInputRow *row4 = [AZInputRow new];
+    row4.text = @"Name";
+    row4.value = @"Disabled";
+    row4.enabled = false;
+  
+    AZInputRow *row5 = [AZInputRow new];
+    row5.text = @"Name";
+    row5.style = UITableViewCellStyleSubtitle;
+    row5.detailTextColor = [UIColor redColor];
+    row5.placeholder = @"Placeholder";
+    row5.detail = @"Help text";
+    row5.height = 60.f;
+    
+    AZInputRow *row6 = [AZInputRow new];
+    row6.text = @"Style:value2";
+    row6.style = UITableViewCellStyleValue2;
+    row6.value = @"Default value";
+    
+    AZInputRow *row7 = [AZInputRow new];
+    row7.text = @"Name";
+    row7.placeholder = @"hiddenToolbar";
+    row7.hiddenToolbar = YES;
+  
+    AZInputRow *row8 = [AZInputRow new];
+    row8.text = @"Name";
+    row8.placeholder = @"hiddenPrevAndNext";
+    row8.hiddenPrevAndNext = YES;
+  
+    AZInputRow *row9 = [AZInputRow new];
+    row9.text = @"Name";
+    row9.placeholder = @"autocorrectionType:no";
+    row9.autocorrectionType = UITextAutocorrectionTypeNo;
+
+    AZInputRow *row10 = [AZInputRow new];
+    row10.text = @"Name";
+    row10.placeholder = @"autocapitalizationType:none";
+    row10.autocapitalizationType = UITextAutocapitalizationTypeNone;
+
+    AZInputRow *row11 = [AZInputRow new];
+    row11.text = @"Number";
+    row11.placeholder = @"keyboardType:number-pad";
+    row11.keyboardType = UIKeyboardTypeNumberPad;
+
+    AZInputRow *row12 = [AZInputRow new];
+    row12.text = @"Name";
+    row12.placeholder = @"keyboardAppearance:dark";
+    row12.keyboardAppearance = UIKeyboardAppearanceDark;
+    
+    AZInputRow *row13 = [AZInputRow new];
+    row13.text = @"Name";
+    row13.placeholder = @"clearsOnBeginEditing";
+    row13.clearsOnBeginEditing = YES;
+
+    AZSection *section1 = [AZSection new];
+    section1.header = @"Picker";
+    
+    AZRoot *root = [AZRoot new];
+    AZSection *section = [AZSection new];
+    section.header = @"Input";
+    [section addRow:row1];
+    [section addRow:row2];
+    [section addRow:row3];
+    [section addRow:row4];
+    [section addRow:row5];
+    [section addRow:row6];
+    [section addRow:row7];
+    [section addRow:row8];
+    [section addRow:row9];
+    [section addRow:row10];
+    [section addRow:row11];
+    [section addRow:row12];
+    [section addRow:row13];
+
+    [root addSection:section];
+    [root addSection:section1];
+
+    AZTableView *tableView = [[AZTableView alloc] initWithRoot:root];
+    tableView.editing = YES; //For deletable, sortable
+    cont.title = @"Form row";
+    cont.view = tableView;
+    return cont;
 }
 
 -(UIViewController *)rowEvent{
