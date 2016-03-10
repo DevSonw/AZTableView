@@ -70,8 +70,8 @@
                         {
                         "type": "input",
                         "text": "Number",
-                        "keyboardType": "numberPad",
-                        "placeholder": "keyboardType:numberPad"
+                        "keyboardType": "number-pad",
+                        "placeholder": "keyboardType:number-pad"
                         },
                         {
                         "type": "input",
