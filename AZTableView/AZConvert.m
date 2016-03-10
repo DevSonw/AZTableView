@@ -186,7 +186,7 @@ AZ_ENUM_CONVERTER(dateMode, (@{
                                @"count-down-timer":  @(UIDatePickerModeCountDownTimer),
                                }))
 
-AZ_ENUM_CONVERTER(autocapitalizationType, (@{
+AZ_ENUM_CONVERTER(autoCapitalize, (@{
                                              @"none":                    @(UITextAutocapitalizationTypeNone),
                                              @"words":                   @(UITextAutocapitalizationTypeWords),
                                              @"sentences":               @(UITextAutocapitalizationTypeSentences),

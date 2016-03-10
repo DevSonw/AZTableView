@@ -10,14 +10,14 @@
 
 @implementation AZInputRow
 
-@synthesize textFieldColor, placeholder, autocapitalizationType, autoCorrect, keyboardType, keyboardAppearance, returnKeyType, enablesReturnKeyAutomatically, secureTextEntry, clearsOnBeginEditing, hiddenPrevAndNext, hiddenToolbar, textWidth, placeholderTextColor;
+@synthesize textFieldColor, placeholder, autoCapitalize, autoCorrect, keyboardType, keyboardAppearance, returnKeyType, enablesReturnKeyAutomatically, secureTextEntry, clearsOnBeginEditing, hiddenPrevAndNext, hiddenToolbar, textWidth, placeholderTextColor;
 
 @synthesize onBlur, onFocus, onDone;
 
 
 - (id)init{
     if (self = [super init]) {
-        self.autocapitalizationType = UITextAutocapitalizationTypeSentences;
+        self.autoCapitalize = UITextAutocapitalizationTypeSentences;
         self.autoCorrect = YES;
         self.keyboardType = UIKeyboardTypeDefault;
         self.keyboardAppearance = UIKeyboardAppearanceDefault;
@@ -47,7 +47,7 @@
     } else {
         cell.textField.attributedPlaceholder = nil;
     }
-    cell.textField.autocapitalizationType = self.autocapitalizationType;
+    cell.textField.autocapitalizationType = self.autoCapitalize;
     cell.textField.autocorrectionType = self.autoCorrect ? UITextAutocorrectionTypeYes : UITextAutocorrectionTypeNo;
     cell.textField.keyboardType = self.keyboardType;
     cell.textField.keyboardAppearance = self.keyboardAppearance;

@@ -20,7 +20,7 @@
 @property (nonatomic, assign) BOOL hiddenToolbar;
 @property (nonatomic, assign) BOOL hiddenPrevAndNext;
 
-@property(nonatomic) UITextAutocapitalizationType autocapitalizationType; // default is UITextAutocapitalizationTypeSentences
+@property(nonatomic) UITextAutocapitalizationType autoCapitalize; // default is UITextAutocapitalizationTypeSentences
 @property(nonatomic) BOOL autoCorrect;         // The textField autocorrectionType. default YES.
 @property(nonatomic) UIKeyboardType keyboardType;                         // default is UIKeyboardTypeDefault
 @property(nonatomic) UIKeyboardAppearance keyboardAppearance;             // default is UIKeyboardAppearanceDefault

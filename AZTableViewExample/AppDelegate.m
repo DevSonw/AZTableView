@@ -226,8 +226,8 @@ static NSString *NSStringFromIndexPath(NSIndexPath *indexPath){
 
     AZInputRow *row10 = [AZInputRow new];
     row10.text = @"Name";
-    row10.placeholder = @"autocapitalizationType:none";
-    row10.autocapitalizationType = UITextAutocapitalizationTypeNone;
+    row10.placeholder = @"autoCapitalize:none";
+    row10.autoCapitalize = UITextAutocapitalizationTypeNone;
 
     AZInputRow *row11 = [AZInputRow new];
     row11.text = @"Number";

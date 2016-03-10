@@ -64,8 +64,8 @@
                         {
                         "type": "input",
                         "text": "Username",
-                        "autocapitalizationType": "none",
-                        "placeholder": "autocapitalizationType:none"
+                        "autoCapitalize": "none",
+                        "placeholder": "autoCapitalize:none"
                         },
                         {
                         "type": "input",
