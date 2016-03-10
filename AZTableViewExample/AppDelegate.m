@@ -179,7 +179,8 @@ static NSString *NSStringFromIndexPath(NSIndexPath *indexPath){
     
     AZInputRow *row1 = [AZInputRow new];
     row1.text = @"Name";
-    row1.placeholder = @"Placeholder";
+    row1.placeholder = @"placeholderTextColor:cyan";
+    row1.placeholderTextColor = [UIColor cyanColor];
     
     AZInputRow *row2 = [AZInputRow new];
     row2.text = @"Password";

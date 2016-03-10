@@ -15,6 +15,8 @@
 @property (nonatomic, assign) CGFloat textWidth;
 
 @property (nonatomic, strong) NSString *placeholder;
+@property (nonatomic, strong) UIColor *placeholderTextColor;
+
 @property (nonatomic, assign) BOOL hiddenToolbar;
 @property (nonatomic, assign) BOOL hiddenPrevAndNext;
 

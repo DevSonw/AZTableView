@@ -10,7 +10,7 @@
 
 @implementation AZInputRow
 
-@synthesize textFieldColor, placeholder, autocapitalizationType, autocorrectionType, keyboardType, keyboardAppearance, returnKeyType, enablesReturnKeyAutomatically, secureTextEntry, clearsOnBeginEditing, hiddenPrevAndNext, hiddenToolbar, textWidth;
+@synthesize textFieldColor, placeholder, autocapitalizationType, autocorrectionType, keyboardType, keyboardAppearance, returnKeyType, enablesReturnKeyAutomatically, secureTextEntry, clearsOnBeginEditing, hiddenPrevAndNext, hiddenToolbar, textWidth, placeholderTextColor;
 
 @synthesize onBlur, onFocus, onDone;
 
@@ -37,6 +37,16 @@
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     //    cell.userInteractionEnabled = self.enabled;//will disable the accessoryView
     cell.textField.placeholder = self.placeholder;
+    if (self.placeholder.length > 0 && self.placeholderTextColor) {
+        cell.textField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:self.placeholder
+                                                                     attributes:@{
+                                                                                  NSForegroundColorAttributeName : self.placeholderTextColor
+                                                                                  }];
+    } else if (self.placeholder.length) {
+        cell.textField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:self.placeholder];
+    } else {
+        cell.textField.attributedPlaceholder = nil;
+    }
     cell.textField.autocapitalizationType = self.autocapitalizationType;
     cell.textField.autocorrectionType = self.autocorrectionType;
     cell.textField.keyboardType = self.keyboardType;
