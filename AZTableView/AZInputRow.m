@@ -73,8 +73,8 @@
 - (void)tableViewCell:(AZInputTableViewCell *)tableViewCell valueChanged:(id)value{
 //    NSDictionary *extra = [self extraData:[tableViewCell.tableView indexPathForCell:tableViewCell]];
     self.value = value;
-    if (self.onValueChanged) {
-        self.onValueChanged(self, tableViewCell);
+    if (self.onChange) {
+        self.onChange(self, tableViewCell);
     }
 }
 

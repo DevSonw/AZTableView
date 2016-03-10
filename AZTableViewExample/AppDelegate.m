@@ -206,10 +206,10 @@ static NSString *NSStringFromIndexPath(NSIndexPath *indexPath){
     
     AZInputRow *row4 = [AZInputRow new];
     row4.text = @"Input";
-    row4.placeholder = @"onValueChanged,onDone";
-    row4.onValueChanged = ^(AZRow *row, UIView *fromView){
-        NSLog(@"onValueChanged: %@", row.value);
-        cont.title = [NSString stringWithFormat:@"Input onValueChanged: %@", row.value];
+    row4.placeholder = @"onChange,onDone";
+    row4.onChange = ^(AZRow *row, UIView *fromView){
+        NSLog(@"onChange: %@", row.value);
+        cont.title = [NSString stringWithFormat:@"Input onChange: %@", row.value];
     };
     row4.onDone = ^(AZRow *row, UIView *fromView){
         NSLog(@"onDone");
