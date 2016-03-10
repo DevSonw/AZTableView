@@ -33,7 +33,7 @@
         _textField.delegate = self;
         [_textField sizeToFit];
         _textField.clearButtonMode = UITextFieldViewModeWhileEditing;
-        _textField.autoresizingMask = ( UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
+        _textField.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         [_textField addTarget:self action:@selector(textFieldEditingChanged:) forControlEvents:UIControlEventEditingChanged];
         [self.contentView addSubview:_textField];
     }
