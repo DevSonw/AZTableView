@@ -221,8 +221,8 @@ static NSString *NSStringFromIndexPath(NSIndexPath *indexPath){
   
     AZInputRow *row9 = [AZInputRow new];
     row9.text = @"Name";
-    row9.placeholder = @"autocorrectionType:no";
-    row9.autocorrectionType = UITextAutocorrectionTypeNo;
+    row9.placeholder = @"autoCorrect";
+    row9.autoCorrect = NO;
 
     AZInputRow *row10 = [AZInputRow new];
     row10.text = @"Name";

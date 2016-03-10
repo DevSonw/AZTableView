@@ -195,11 +195,11 @@ AZ_ENUM_CONVERTER(autocapitalizationType, (@{
 
 
 
-AZ_ENUM_CONVERTER(autocorrectionType, (@{
-                                         @"default":        @(UITextAutocorrectionTypeDefault),
-                                         @"no":             @(UITextAutocorrectionTypeNo),
-                                         @"yes":            @(UITextAutocorrectionTypeYes),
-                                         }))
+//AZ_ENUM_CONVERTER(autocorrectionType, (@{
+//                                         @"default":        @(UITextAutocorrectionTypeDefault),
+//                                         @"no":             @(UITextAutocorrectionTypeNo),
+//                                         @"yes":            @(UITextAutocorrectionTypeYes),
+//                                         }))
 
 
 AZ_ENUM_CONVERTER(keyboardType, (@{

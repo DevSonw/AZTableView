@@ -58,8 +58,8 @@
                         {
                         "type": "input",
                         "text": "Username",
-                        "autocorrectionType": "no",
-                        "placeholder": "autocorrectionType:no"
+                        "autoCorrect": false,
+                        "placeholder": "autoCorrect"
                         },
                         {
                         "type": "input",
