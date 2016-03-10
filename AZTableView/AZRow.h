@@ -70,9 +70,10 @@ typedef void (^AZRowEvent)(AZRow *row, UIView *fromView);
 @property (retain, nonatomic) NSDictionary *bindData;
 
 @property(nonatomic, copy) AZRowEvent onSelect;
-@property(nonatomic, copy) AZRowEvent onDelete;
 @property(nonatomic, copy) AZRowEvent onAccessory;
 @property(nonatomic, copy) AZRowEvent onValueChanged;
+@property(nonatomic, copy) AZRowEvent onDelete;
+@property(nonatomic, copy) AZRowEvent onMove;
 
 
 + (id)rowWithType:(NSString *)type;

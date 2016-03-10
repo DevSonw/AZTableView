@@ -47,6 +47,8 @@ typedef void (^AZRootEvent)(NSString *eventName, AZRow *row, UIView *fromView);
 - (AZRow *)prevSiblingFocusableRow:(AZRow *)row;
 - (AZRow *)focusedRow;
 
+- (void)moveVisibleRowFromIndex:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath;
+
 
 /**
  The property and method extend for create model by YYModel

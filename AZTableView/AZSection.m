@@ -129,20 +129,6 @@
     return NSNotFound;
 }
 
-- (void)moveVisibleRowFromIndex:(NSUInteger)fromIndex toIndex:(NSUInteger)toIndex{
-    if (fromIndex == toIndex) {
-        return;
-    }
-    AZRow *row = [self visibleRowAtIndex:fromIndex];
-    NSInteger index = [self.rows indexOfObject:[self visibleRowAtIndex:toIndex]];
-    [self.rows removeObject:row];
-    if (index == NSNotFound || index >= [self.rows count]) {
-        [self.rows addObject:row];
-    } else {
-        [self.rows insertObject:row atIndex:index];
-    }
-}
-
 - (id)value{
     if (self.selectable) {
         NSMutableArray *res = [NSMutableArray array];

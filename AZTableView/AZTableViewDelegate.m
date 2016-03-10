@@ -81,9 +81,12 @@
     [row didEndDisplayingCell:cell forTableView:tableView];
 }
 
-- (NSIndexPath *)tableView:(UITableView *)tableView targetIndexPathForMoveFromRowAtIndexPath:(NSIndexPath *)sourceIndexPath toProposedIndexPath:(NSIndexPath *)proposedDestinationIndexPath
+- (NSIndexPath *)tableView:(AZTableView *)tableView targetIndexPathForMoveFromRowAtIndexPath:(NSIndexPath *)sourceIndexPath toProposedIndexPath:(NSIndexPath *)proposedDestinationIndexPath
 {
-    if( sourceIndexPath.section != proposedDestinationIndexPath.section )
+
+    AZSection *fromSection = [tableView.root visibleSectionAtIndex:sourceIndexPath.section];
+    AZSection *toSection = [tableView.root visibleSectionAtIndex:proposedDestinationIndexPath.section];
+    if( !(fromSection.ref == toSection.ref || [fromSection.ref isEqualToString:toSection.ref]) )
     {
         return sourceIndexPath;
     }

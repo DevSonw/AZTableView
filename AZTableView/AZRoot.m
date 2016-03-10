@@ -250,6 +250,31 @@
     return cur;
 }
 
+- (void)moveVisibleRowFromIndex:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath{
+    if (fromIndexPath.row == toIndexPath.row && fromIndexPath.section == toIndexPath.section) {
+        return;
+    }
+    
+    AZSection *fromSection = [self visibleSectionAtIndex:fromIndexPath.section];
+    AZSection *toSection = nil;
+    if (fromIndexPath.section == toIndexPath.section) {
+        toSection = fromSection;
+    } else {
+        toSection = [self visibleSectionAtIndex:toIndexPath.section];
+    }
+
+    AZRow *row = [fromSection visibleRowAtIndex:fromIndexPath.row];
+    
+    NSInteger index = [toSection.rows indexOfObject:[toSection visibleRowAtIndex:toIndexPath.row]];
+    
+    [fromSection.rows removeObject:row];
+    
+    if (index == NSNotFound || index >= [toSection.rows count]) {
+        [toSection.rows addObject:row];
+    } else {
+        [toSection.rows insertObject:row atIndex:index];
+    }
+}
 
 //- (NSDictionary *)values{
 //    NSMutableDictionary *values = [NSMutableDictionary dictionary];

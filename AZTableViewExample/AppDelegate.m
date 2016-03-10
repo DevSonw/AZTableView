@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 
 #import "AZTableView.h"
+#import "AZInputRow.h"
 
 //#import <objc/runtime.h>
 //static void *TITLEKEY;
@@ -29,6 +30,11 @@
 //}
 //
 //@end
+
+static NSString *NSStringFromIndexPath(NSIndexPath *indexPath){
+    return [NSString stringWithFormat:@"section %ld, row %ld", (long)indexPath.section, (long)indexPath.row];
+}
+
 
 @interface AppDelegate ()
 
@@ -138,7 +144,6 @@
     row10.text = @"Change row height";
     row10.height = 80.f;
     
-    
     AZSection *section = [AZSection new];
     [section addRow:row1];
     [section addRow:row2];
@@ -169,33 +174,106 @@
 }
 
 -(UIViewController *)rowEvent{
+    UIViewController *cont = [UIViewController new];
+
     AZRow *row1 = [AZRow new];
-    row1.text = @"Click event: onSelect";
-    
+    row1.text = @"onSelect";
     row1.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     row1.onSelect = ^(AZRow *row, UIView *fromView){
+        NSLog(@"onSelect");
         [self alert:@"onSelect" message:nil];
     };
     
     AZRow *row2 = [AZRow new];
-    row2.text = @"Title";
-    row2.detail = @"Detail";
-    row2.style = UITableViewCellStyleSubtitle;
+    row2.text = @"onAccessory";
+    row2.accessoryType = UITableViewCellAccessoryDetailButton;
+    row2.onAccessory = ^(AZRow *row, UIView *fromView){
+        NSLog(@"onSelect");
+        [self alert:@"onAccessory" message:nil];
+    };
+
+    AZInputRow *row3 = [AZInputRow new];
+    row3.text = @"Input";
+    row3.placeholder = @"onFocus,onBlur";
+    row3.onFocus = ^(AZRow *row, UIView *fromView){
+        NSLog(@"onFocus");
+        cont.title = [NSString stringWithFormat:@"Input onFocus: %@", row.value];
+    };
+    row3.onBlur = ^(AZRow *row, UIView *fromView){
+        NSLog(@"onBlur");
+        cont.title = [NSString stringWithFormat:@"Input onBlur: %@", row.value];
+    };
+    
+    AZInputRow *row4 = [AZInputRow new];
+    row4.text = @"Input";
+    row4.placeholder = @"onValueChanged,onDone";
+    row4.onValueChanged = ^(AZRow *row, UIView *fromView){
+        NSLog(@"onValueChanged: %@", row.value);
+        cont.title = [NSString stringWithFormat:@"Input onValueChanged: %@", row.value];
+    };
+    row4.onDone = ^(AZRow *row, UIView *fromView){
+        NSLog(@"onDone");
+        cont.title = [NSString stringWithFormat:@"Input onDone: %@", row.value];
+    };
+
+    AZRow *row5 = [AZRow new];
+    row5.text = @"onDelete";
+    row5.deletable = YES;
+    
+    row5.onDelete = ^(AZRow *row, UIView *fromView){
+        NSLog(@"onDelete");
+        [self alert:@"onDelete" message:nil];
+    };
+
     AZSection *section = [AZSection new];
     [section addRow:row1];
     [section addRow:row2];
+    [section addRow:row3];
+    [section addRow:row4];
+    [section addRow:row5];
+
+    AZSection *sortSection1 = [AZSection new];
+    sortSection1.sortable = YES;
     
+    AZSection *sortSection2 = [AZSection new];
+    sortSection2.sortable = YES;
+    
+    for (int i = 0; i < 3; i++) {
+        AZRow *row = [AZRow new];
+        row.text = [NSString stringWithFormat:@"Group 1, Item %d", i];
+        row.onMove = ^(AZRow *row, UIView *fromView){
+            NSLog(@"onMove %@", NSStringFromIndexPath(row.indexPath));
+            NSLog(@"%@, %@", sortSection1.rows, sortSection2.rows);
+            cont.title = [NSString stringWithFormat:@"onMove: %@", NSStringFromIndexPath(row.indexPath)];
+        };
+        [sortSection1 addRow:row];
+    }
+
+    for (int i = 0; i < 3; i++) {
+        AZRow *row = [AZRow new];
+        row.text = [NSString stringWithFormat:@"Group 2, Item %d", i];
+        row.onMove = ^(AZRow *row, UIView *fromView){
+            NSLog(@"onMove %@", NSStringFromIndexPath(row.indexPath));
+            NSLog(@"%@, %@", sortSection1.rows, sortSection2.rows);
+            cont.title = [NSString stringWithFormat:@"onMove: %@", NSStringFromIndexPath(row.indexPath)];
+        };
+        [sortSection2 addRow:row];
+        
+    }
+
     AZRoot *root = [AZRoot new];
     [root addSection:section];
+    [root addSection:sortSection1];
+    [root addSection:sortSection2];
     root.grouped = YES;
     
     AZTableView *tableView = [[AZTableView alloc] initWithRoot:root];
-    
-    UIViewController *cont = [UIViewController new];
+    tableView.editing = YES; //For deletable, sortable
     cont.title = @"Row event";
     cont.view = tableView;
     return cont;
 }
+
 
 -(UIViewController *)dictionaryCont{
     

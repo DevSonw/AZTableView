@@ -48,9 +48,6 @@
 - (NSInteger)numberOfVisibleRows;
 - (NSUInteger)indexForVisibleRow:(AZRow*)row;
 
-- (void)moveVisibleRowFromIndex:(NSUInteger)fromIndex toIndex:(NSUInteger)toIndex;
-
-
 - (UIView *)headerForTableView:(AZTableView *)tableView;
 - (UIView *)footerForTableView:(AZTableView *)tableView;
 - (CGFloat)headerHeightForTableView:(AZTableView *)tableView;

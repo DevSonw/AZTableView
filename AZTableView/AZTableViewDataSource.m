@@ -77,10 +77,12 @@
 {
     AZSection *section = [tableView.root visibleSectionAtIndex:fromIndexPath.section];
     AZRow *row = [section visibleRowAtIndex:fromIndexPath.row];
-    if (row.onValueChanged) {
-        row.onValueChanged(row, [tableView cellForRowAtIndexPath:fromIndexPath]);
+    
+    [tableView.root moveVisibleRowFromIndex:fromIndexPath toIndexPath:toIndexPath];
+
+    if (row.onMove) {
+        row.onMove(row, [tableView cellForRowAtIndexPath:fromIndexPath]);
     }
-    [section moveVisibleRowFromIndex:fromIndexPath.row toIndex:toIndexPath.row];
 }
 
 - (BOOL)tableView:(AZTableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
