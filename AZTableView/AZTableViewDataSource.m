@@ -57,7 +57,7 @@
 - (BOOL)tableView:(AZTableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
     AZRow *row = [tableView.root visibleRowAtIndexPath:indexPath];
-    return (row.deletable || row.section.sortable) && row.enabled;
+    return (row.deletable || row.sortable) && row.enabled;
 }
 
 - (void)tableView:(AZTableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
@@ -87,7 +87,7 @@
 
 - (BOOL)tableView:(AZTableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
     AZRow *row = [tableView.root visibleRowAtIndexPath:indexPath];
-    return row.section.sortable && row.enabled;
+    return row.sortable && row.enabled;
 }
 
 /*

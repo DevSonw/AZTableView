@@ -48,6 +48,7 @@ typedef void (^AZRowEvent)(AZRow *row, UIView *fromView);
 @property(nonatomic, assign, readonly) BOOL    focused;///< If the row is focused.
 
 @property(nonatomic, assign) BOOL    deletable; ///< If the row deletable. Default NO
+@property(nonatomic, assign) BOOL    sortable; ///< If the row sortable. Default NO
 
 @property(nonatomic, assign) BOOL    selected;
 @property(nonatomic, retain) NSString *selectedImage;

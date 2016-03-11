@@ -334,13 +334,12 @@ static NSString *NSStringFromIndexPath(NSIndexPath *indexPath){
     [section addRow:row5];
 
     AZSection *sortSection1 = [AZSection new];
-    sortSection1.sortable = YES;
     
     AZSection *sortSection2 = [AZSection new];
-    sortSection2.sortable = YES;
     
     for (int i = 0; i < 3; i++) {
         AZRow *row = [AZRow new];
+        row.sortable = YES;
         row.text = [NSString stringWithFormat:@"Group 1, Item %d", i];
         row.onMove = ^(AZRow *row, UIView *fromView){
             NSLog(@"onMove %@", NSStringFromIndexPath(row.indexPath));
@@ -352,6 +351,7 @@ static NSString *NSStringFromIndexPath(NSIndexPath *indexPath){
 
     for (int i = 0; i < 3; i++) {
         AZRow *row = [AZRow new];
+        row.sortable = YES;
         row.text = [NSString stringWithFormat:@"Group 2, Item %d", i];
         row.onMove = ^(AZRow *row, UIView *fromView){
             NSLog(@"onMove %@", NSStringFromIndexPath(row.indexPath));
@@ -359,7 +359,6 @@ static NSString *NSStringFromIndexPath(NSIndexPath *indexPath){
             cont.title = [NSString stringWithFormat:@"onMove: %@", NSStringFromIndexPath(row.indexPath)];
         };
         [sortSection2 addRow:row];
-        
     }
 
     AZRoot *root = [AZRoot new];

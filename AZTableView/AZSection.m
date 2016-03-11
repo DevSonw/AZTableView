@@ -128,29 +128,29 @@
     }
     return NSNotFound;
 }
-
-- (id)value{
-    if (self.selectable) {
-        NSMutableArray *res = [NSMutableArray array];
-        for (AZRow * q in self.rows)
-        {
-            if (!q.hidden && q.selected && (q.data || q.text)){
-                [res addObject:q.data ? q.data : q.text];
-            }
-        }
-        return self.multiple ? res : [res count] ? res[0] : nil;
-    } else if (self.sortable) {
-        NSMutableArray *res = [NSMutableArray array];
-        for (AZRow * q in self.rows)
-        {
-            if (!q.hidden && (q.data || q.text)){
-                [res addObject:q.data ? q.data : q.text];
-            }
-        }
-        return res;
-    }
-    return _value;
-}
+//
+//- (id)value{
+//    if (self.selectable) {
+//        NSMutableArray *res = [NSMutableArray array];
+//        for (AZRow * q in self.rows)
+//        {
+//            if (!q.hidden && q.selected && (q.data || q.text)){
+//                [res addObject:q.data ? q.data : q.text];
+//            }
+//        }
+//        return self.multiple ? res : [res count] ? res[0] : nil;
+//    } else if (self.sortable) {
+//        NSMutableArray *res = [NSMutableArray array];
+//        for (AZRow * q in self.rows)
+//        {
+//            if (!q.hidden && (q.data || q.text)){
+//                [res addObject:q.data ? q.data : q.text];
+//            }
+//        }
+//        return res;
+//    }
+//    return _value;
+//}
 
 - (UIView *)headerForTableView:(AZTableView *)tableView{
     return nil;
