@@ -18,7 +18,7 @@
 
 @implementation AZRow
 
-@synthesize identifier = _identifier, section, text, value, hidden, enabled, focusable, height, ref, data = _data, style = _style, detail, accessoryType, accessoryView = _accessoryView, selected = _selected, deletable, textFont, textFontSize, detailTextFont, detailTextFontSize, detailTextLine, accessibilityLabel, bindData;
+@synthesize identifier = _identifier, section, text, value, hidden, enabled, focusable = _focusable, height, ref, data = _data, style = _style, detail, accessoryType, accessoryView = _accessoryView, selected = _selected, deletable, textFont, textFontSize, detailTextFont, detailTextFontSize, detailTextLine, accessibilityLabel, bindData;
 
 @synthesize onSelect, onAccessory, onDelete, onChange, onMove;
 
@@ -71,7 +71,7 @@
         self.style = UITableViewCellStyleDefault;
         self.detailTextLine = -1;
         self.height = -1;
-        self.focusable = NO;
+        _focusable = NO;
     }
     return self;
 }

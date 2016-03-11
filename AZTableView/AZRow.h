@@ -24,29 +24,31 @@ typedef void (^AZRowEvent)(AZRow *row, UIView *fromView);
 
 @interface AZRow : NSObject
 
-@property(nonatomic, weak) AZSection *section;
+@property(nonatomic, weak) AZSection *section; ///< Cache the parent section.
 
-@property(nonatomic, strong) NSString *identifier;
+@property(nonatomic, strong) NSString *identifier; ///< The identifier for cell reuse.
 
 @property(nonatomic, retain) NSString *text; ///< The textLabel text
 @property(nonatomic, retain) NSString *detail; ///< The detailTextlabel text
 @property(nonatomic, retain) NSString *image; ///< The image name for cell
 @property(nonatomic, retain) NSString *imageURL; ///< The image url or the image base64 encoding string(data:image/gif;base64,xxxx). when image by name provided, will resize the image by url to image by name.
-@property(nonatomic, assign) CGFloat imageCornerRadius;
+@property(nonatomic, assign) CGFloat imageCornerRadius; ///< Set i image corner radius
 @property(nonatomic, retain) NSString *accessibilityLabel; ///< The accessibility for voiceOver
 
-@property(nonatomic, retain) NSString *ref;
-@property(nonatomic, strong) id value;
-@property(nonatomic, copy) id data;
+@property(nonatomic, retain) NSString *ref; ///< The reference id
+@property(nonatomic, strong) id value; ///< The value for editable form row.
+@property(nonatomic, copy) id data; ///< The extra data for the row.
 
-@property(nonatomic, assign) CGFloat height;
-@property(nonatomic, assign) BOOL    hidden;
-@property(nonatomic, assign) BOOL    enabled; ///< enabled for user interface and events.
-@property(nonatomic, assign) BOOL    focusable;
-@property(nonatomic, assign) BOOL    focused;
-@property(nonatomic, assign) BOOL    hideSeparator;
+@property(nonatomic, assign) CGFloat height;  ///< Set the row height. Default 44
+@property(nonatomic, assign) BOOL    hidden; ///< If hide the row in table. Default NO.
+@property(nonatomic, assign) BOOL    enabled; ///< Enabled for user interface and events. default YES
+@property(nonatomic, assign) BOOL    hideSeparator; ///< If hide the cell separator line. default NO
 
-@property(nonatomic, assign) BOOL    deletable;
+@property(nonatomic, assign, readonly) BOOL    focusable;///< Some input row can focused.
+@property(nonatomic, assign, readonly) BOOL    focused;///< If the row is focused.
+
+@property(nonatomic, assign) BOOL    deletable; ///< If the row deletable. Default NO
+
 @property(nonatomic, assign) BOOL    selected;
 @property(nonatomic, retain) NSString *selectedImage;
 

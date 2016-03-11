@@ -14,6 +14,7 @@
 
 @synthesize onBlur, onFocus, onDone;
 
+@synthesize focusable = _focusable, focused = _focused;
 
 - (id)init{
     if (self = [super init]) {
@@ -24,7 +25,7 @@
         self.returnKeyType = UIReturnKeyDefault;
         self.enablesReturnKeyAutomatically = NO;
         self.secureTextEntry = NO;
-        self.focusable = YES;
+        _focusable = YES;
         self.accessoryType = UITableViewCellAccessoryNone;
     }
     return self;
@@ -89,7 +90,7 @@
 }
 
 - (BOOL)tableViewCellShouldBeginEditing:(AZInputTableViewCell *)tableViewCell{
-    self.focused = YES;
+    _focused = YES;
     tableViewCell.tableView.shouldCheckKeyboard = YES;
     
     return YES;
@@ -97,7 +98,7 @@
 
 - (void)tableViewCellDidBeginEditing:(AZInputTableViewCell *)tableViewCell{
     AZTableView *tableView = tableViewCell.tableView;
-    self.focused = YES;
+    _focused = YES;
     tableViewCell.tableView.shouldCheckKeyboard = YES;
 
     if ([tableView cellForRowAtIndexPath:[tableView indexPathForSelectedRow]] != tableViewCell) {
@@ -113,7 +114,8 @@
 }
 
 - (void)tableViewCellDidEndEditing:(AZInputTableViewCell *)tableViewCell{
-    self.focused = NO;
+    _focused = NO;
+
     tableViewCell.tableView.shouldCheckKeyboard = NO;
     
     [tableViewCell.tableView deselect];
@@ -125,8 +127,8 @@
 - (void)tableViewCellActionNext:(AZInputTableViewCell *)tableViewCell{
     AZRow *row = [tableViewCell.tableView.root nextSiblingFocusableRow:self];
     if (row) {
-        self.focused = NO;
-        row.focused = YES;
+        _focused = NO;
+//        row.focused = YES;
         [tableViewCell.tableView focusRow:row];
     }
 }
@@ -134,8 +136,8 @@
 - (void)tableViewCellActionPrev:(AZInputTableViewCell *)tableViewCell{
     AZRow *row = [tableViewCell.tableView.root prevSiblingFocusableRow:self];
     if (row) {
-        self.focused = NO;
-        row.focused = YES;
+        _focused = NO;
+//        row.focused = YES;
         [tableViewCell.tableView focusRow:row];
     }
 }
