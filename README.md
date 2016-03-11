@@ -32,14 +32,24 @@ Example:
 
 ```
 
+Requirements
+---------------------
+
+iOS 7.0+
+Xcode 7.0+
+
+
 Display row extend
 ---------------------
 
+### AZRow
 ### AZButtonRow
 ### AZBadgeRow
 
 Form row extend
 ---------------------
+
+All rows extend from AZRow.
 
 ### AZInputRow
 ### AZPickerRow
