@@ -32,7 +32,7 @@
 //@end
 
 static NSString *NSStringFromIndexPath(NSIndexPath *indexPath){
-    return [NSString stringWithFormat:@"section %ld, row %ld", (long)indexPath.section, (long)indexPath.row];
+    return [NSString stringWithFormat:@"section %d, row %d", (int)indexPath.section, (int)indexPath.row];
 }
 
 
