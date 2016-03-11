@@ -67,7 +67,7 @@
         if (row.onDelete) {
             row.onDelete(row, [tableView cellForRowAtIndexPath:indexPath]);
         } else{
-            [tableView deleteRowAtIndexPath:indexPath];
+            [tableView deleteRow:row indexPath:indexPath];
         }
     } else if (editingStyle == UITableViewCellEditingStyleInsert) {
     }

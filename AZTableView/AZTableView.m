@@ -13,13 +13,11 @@
 #import "AZConvert.h"
 
 @interface AZTableView()
-@property (retain, nonatomic) UIRefreshControl *refreshControl;
 @end
 
 @implementation AZTableView{
     BOOL _keyboardIsShowing;
     CGFloat _keyboardHeight;
-
 }
 
 - (void)dealloc
@@ -35,7 +33,7 @@
     return self;
 }
 
-@synthesize root = _root, refreshAction, refreshControl = _refreshControl, bounce = _bounce, offsetTop = _offsetTop;
+@synthesize root = _root, bounce = _bounce, offsetTop = _offsetTop;
 
 -(id)initWithRoot:(AZRoot *)root{
     if (self = [self initWithFrame:CGRectMake(0, 0, 0, 0) style:root.grouped ? UITableViewStyleGrouped : UITableViewStylePlain]) {
@@ -77,29 +75,8 @@
     [super setSeparatorStyle:separatorStyle];
 }
 
-
-
 - (void)scrollToTop{
     [self scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
-}
-
-- (void)refresh{
-    if (self.refreshControl && !self.refreshControl.isRefreshing) {
-        //        [self setContentOffset:CGPointMake(0, -self.contentInset.top-self.refreshControl.frame.size.height) animated:YES];
-        //        [self.refreshControl beginRefreshing];
-        [self handleRefresh:self.refreshControl];
-    }
-}
-
-- (void)stopRefresh{
-    if (self.refreshControl) {
-        [self.refreshControl endRefreshing];
-        //        [self setContentOffset:CGPointMake(0, -self.contentInset.top) animated:YES];
-    }
-}
-
--(void)handleRefresh:(UIView *)view{
-    [self action:self.refreshAction data:nil extra:nil];
 }
 
 - (void)deselect{
@@ -112,28 +89,12 @@
     }
 }
 
-- (BOOL)deleteRowAtIndexPath:(NSIndexPath *)indexPath{
-    AZRow *row = [self.root visibleRowAtIndexPath:indexPath];
-    if (row) {
-        [row.section.rows removeObject:row];
-        [self deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-        return YES;
-    }
-    return NO;
+- (void)deleteRow:(AZRow *)row indexPath:(NSIndexPath *)indexPath{
+    [row.section.rows removeObject:row];
+    [self deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
 }
 
-- (void)action:(id)action data:(id)data extra:(id)extra{
-//    [self.action action:action data:data ? data : [self.root values] extra:extra];
-}
-
-- (void)focusRow:(AZRow *)row{
-    if (!row) {
-        return;
-    }
-    [self focusRowAtIndexPath:[row indexPath]];
-}
-
-- (void)focusRowAtIndexPath:(NSIndexPath *)indexPath{
+- (void)focusCellAtIndexPath:(NSIndexPath *)indexPath{
     if (!indexPath) {
         return;
     }
@@ -154,18 +115,16 @@
     });
 }
 
-- (BOOL)updateRow:(id)setting indexPath:(NSIndexPath *)indexPath{
-    AZRow *row = [self.root visibleRowAtIndexPath:indexPath];
-    if (row) {
-//        [row update:setting];
-        AZTableViewCell *cell = (AZTableViewCell *)[self cellForRowAtIndexPath:indexPath];
-        [row updateCell:cell tableView:self indexPath:indexPath];
-        if( [cell respondsToSelector:@selector(layoutSubviews)]){
-            [cell layoutSubviews];
-        }
-        return YES;
+- (BOOL)updateCellForRow:(AZRow *)row indexPath:(NSIndexPath *)indexPath{
+    AZTableViewCell *cell = (AZTableViewCell *)[self cellForRowAtIndexPath:indexPath];
+    if(!cell){
+        return NO;
     }
-    return NO;
+    [row updateCell:cell tableView:self indexPath:indexPath];
+    if( [cell respondsToSelector:@selector(layoutSubviews)]){
+        [cell layoutSubviews];
+    }
+    return YES;
 }
 
 

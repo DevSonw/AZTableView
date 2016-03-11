@@ -82,7 +82,6 @@
 }
 
 - (void)tableViewCell:(AZInputTableViewCell *)tableViewCell valueChanged:(id)value{
-//    NSDictionary *extra = [self extraData:[tableViewCell.tableView indexPathForCell:tableViewCell]];
     self.value = value;
     if (self.onChange) {
         self.onChange(self, tableViewCell);
@@ -129,7 +128,7 @@
     if (row) {
         _focused = NO;
 //        row.focused = YES;
-        [tableViewCell.tableView focusRow:row];
+        [tableViewCell.tableView focusCellAtIndexPath:row.indexPath];
     }
 }
 
@@ -138,7 +137,7 @@
     if (row) {
         _focused = NO;
 //        row.focused = YES;
-        [tableViewCell.tableView focusRow:row];
+        [tableViewCell.tableView focusCellAtIndexPath:row.indexPath];
     }
 }
 

@@ -50,10 +50,6 @@ typedef void (^AZRowEvent)(AZRow *row, UIView *fromView);
 @property(nonatomic, assign) BOOL    deletable; ///< If the row deletable. Default NO
 @property(nonatomic, assign) BOOL    sortable; ///< If the row sortable. Default NO
 
-@property(nonatomic, assign) BOOL    selected;
-@property(nonatomic, retain) NSString *selectedImage;
-
-
 @property(nonatomic, assign) UITableViewCellStyle style;
 
 @property(nonatomic, assign) UITableViewCellAccessoryType accessoryType;

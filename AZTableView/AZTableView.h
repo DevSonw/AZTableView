@@ -28,25 +28,48 @@ id <UITableViewDelegate> bbDelegate;
 //editing, separatorColor, backgroundColor, rowHeight
 
 @property (nonatomic, retain) AZRoot *root; ///< The root setting
-@property (strong, nonatomic) NSString *refreshAction;
 
-@property (assign) BOOL bounce;
+@property (assign) BOOL bounce; ///< If always bounce vertical.
 @property (assign) float offsetTop;
 
 @property (assign) BOOL shouldCheckKeyboard; ///< Fix tableView content inset when input row focus.
 
 -(id)initWithRoot:(AZRoot *)root;
 
+/**
+ Deselect the cell.
+ */
 -(void)deselect;
 
--(BOOL)deleteRowAtIndexPath:(NSIndexPath *)indexPath;
 
-- (void)stopRefresh;
-- (void)refresh;
+/**
+ Scroll at the top of tableView.
+ */
+-(void)scrollToTop;
 
-- (void)focusRow:(AZRow *)row;
-- (void)focusRowAtIndexPath:(NSIndexPath *)indexPath;
-- (BOOL)updateRow:(id)setting indexPath:(NSIndexPath *)indexPath;
+
+/**
+ Scroll to the cell.
+ */
+
+- (void)focusCellAtIndexPath:(NSIndexPath *)indexPath;
+
+/**
+ Delete thw row from the section, Delete the row display cell from the table.
+ 
+ @param row The row for delete.
+ @param indexPath The indexPath of the cell.
+ */
+- (void)deleteRow:(AZRow *)row indexPath:(NSIndexPath *)indexPath;
+
+/**
+ Update the row display cell.
+ 
+ @param row The row for update.
+ @param indexPath The indexPath of the cell.
+ @return false when the cell is not show.
+ */
+- (BOOL)updateCellForRow:(AZRow *)row indexPath:(NSIndexPath *)indexPath;
 
 
 @end

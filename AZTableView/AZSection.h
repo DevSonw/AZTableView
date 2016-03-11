@@ -30,9 +30,6 @@
 @property(nonatomic, retain) NSMutableArray * rows;
 @property(nonatomic, assign) BOOL hidden;
 
-@property(nonatomic, assign) BOOL selectable;
-@property(nonatomic, assign) BOOL multiple;
-
 @property(nonatomic, assign) BOOL loading;
 
 @property (retain, nonatomic) NSDictionary *bindData;

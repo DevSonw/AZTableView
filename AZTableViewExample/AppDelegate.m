@@ -61,6 +61,7 @@ static NSString *NSStringFromIndexPath(NSIndexPath *indexPath){
                    [self displayRow],
                    [self formRow],
                    [self rowEvent],
+                   [self advancedFormRow],
                    [self dictionaryCont],
                    [self jsonController:@"sectionTemplate"],
                    [self jsonController:@"basicForm"],
@@ -332,15 +333,39 @@ static NSString *NSStringFromIndexPath(NSIndexPath *indexPath){
     [section addRow:row3];
     [section addRow:row4];
     [section addRow:row5];
+    
 
+    AZRoot *root = [AZRoot new];
+    [root addSection:section];
+    root.grouped = YES;
+    
+    AZTableView *tableView = [[AZTableView alloc] initWithRoot:root];
+    tableView.editing = YES; //For deletable
+    cont.title = @"Row event";
+    cont.view = tableView;
+    return cont;
+}
+
+
+-(UIViewController *)advancedFormRow{
+    
+    AZRoot *root = [AZRoot new];
+    root.grouped = YES;
+    AZTableView *tableView = [[AZTableView alloc] initWithRoot:root];
+    tableView.editing = YES;
+    
+    UIViewController *cont = [UIViewController new];
+    
     AZSection *sortSection1 = [AZSection new];
-    
+    sortSection1.header = @"Group0";
     AZSection *sortSection2 = [AZSection new];
-    
+    sortSection2.header = @"Group1";
+
     for (int i = 0; i < 3; i++) {
         AZRow *row = [AZRow new];
         row.sortable = YES;
-        row.text = [NSString stringWithFormat:@"Group 1, Item %d", i];
+        row.data = @[@(0), @(i)];
+        row.text = [NSString stringWithFormat:@"Group 0, Item %d", i];
         row.onMove = ^(AZRow *row, UIView *fromView){
             NSLog(@"onMove %@", NSStringFromIndexPath(row.indexPath));
             NSLog(@"%@, %@", sortSection1.rows, sortSection2.rows);
@@ -348,11 +373,12 @@ static NSString *NSStringFromIndexPath(NSIndexPath *indexPath){
         };
         [sortSection1 addRow:row];
     }
-
+    
     for (int i = 0; i < 3; i++) {
         AZRow *row = [AZRow new];
         row.sortable = YES;
-        row.text = [NSString stringWithFormat:@"Group 2, Item %d", i];
+        row.data = @[@(1), @(i)];
+        row.text = [NSString stringWithFormat:@"Group 1, Item %d", i];
         row.onMove = ^(AZRow *row, UIView *fromView){
             NSLog(@"onMove %@", NSStringFromIndexPath(row.indexPath));
             NSLog(@"%@, %@", sortSection1.rows, sortSection2.rows);
@@ -360,20 +386,58 @@ static NSString *NSStringFromIndexPath(NSIndexPath *indexPath){
         };
         [sortSection2 addRow:row];
     }
+    
+    AZSection *singleSelectSection = [AZSection new];
+    singleSelectSection.header = @"Single";
+    
+    __block AZRow *selectedRow = nil;
+    for (int i = 0; i < 3; i++) {
+        AZRow *row = [AZRow new];
+        if (i == 0) {
+            row.accessoryType = UITableViewCellAccessoryCheckmark;
+            selectedRow = row;
+        }
+        
+        row.text = [NSString stringWithFormat:@"Item %d", i];
+        row.onSelect = ^(AZRow *row, UIView *fromView){
+            selectedRow.accessoryType = UITableViewCellAccessoryNone;
+            row.accessoryType = UITableViewCellAccessoryCheckmark;
+            
+            [tableView updateCellForRow:selectedRow indexPath:selectedRow.indexPath];
+            [tableView updateCellForRow:row indexPath:row.indexPath];
+            [tableView deselect];
+            selectedRow = row;
+        };
+        [singleSelectSection addRow:row];
+    }
 
-    AZRoot *root = [AZRoot new];
-    [root addSection:section];
+    
+    AZSection *multipleSelectSection = [AZSection new];
+    multipleSelectSection.header = @"Multiple";
+    
+    for (int i = 0; i < 3; i++) {
+        AZRow *row = [AZRow new];
+        
+        row.text = [NSString stringWithFormat:@"Item %d", i];
+        row.onSelect = ^(AZRow *row, UIView *fromView){
+            row.value =  [row.value isEqual:@(1)] ? @(0) : @(1);
+            row.accessoryType = [row.value isEqual:@(1)] ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
+            [tableView updateCellForRow:row indexPath:row.indexPath];
+            [tableView deselect];
+        };
+        [multipleSelectSection addRow:row];
+    }
+
+    
     [root addSection:sortSection1];
     [root addSection:sortSection2];
-    root.grouped = YES;
-    
-    AZTableView *tableView = [[AZTableView alloc] initWithRoot:root];
-    tableView.editing = YES; //For deletable, sortable
-    cont.title = @"Row event";
+    [root addSection:singleSelectSection];
+    [root addSection:multipleSelectSection];
+
+    cont.title = @"Advanced from: sortable, selectable";
     cont.view = tableView;
     return cont;
 }
-
 
 -(UIViewController *)dictionaryCont{
     
