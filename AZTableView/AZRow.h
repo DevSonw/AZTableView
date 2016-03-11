@@ -39,7 +39,7 @@ typedef void (^AZRowEvent)(AZRow *row, UIView *fromView);
 @property(nonatomic, strong) id value; ///< The value for editable form row.
 @property(nonatomic, copy) id data; ///< The extra data for the row.
 
-@property(nonatomic, assign) CGFloat height;  ///< Set the row height. Default 44
+@property(nonatomic, assign) CGFloat height;  ///< Set the row height. Default -1, the cell height will 44.
 @property(nonatomic, assign) BOOL    hidden; ///< If hide the row in table. Default NO.
 @property(nonatomic, assign) BOOL    enabled; ///< Enabled for user interface and events. default YES
 @property(nonatomic, assign) BOOL    hideSeparator; ///< If hide the cell separator line. default NO
@@ -52,29 +52,32 @@ typedef void (^AZRowEvent)(AZRow *row, UIView *fromView);
 
 @property(nonatomic, assign) UITableViewCellStyle style;
 
-@property(nonatomic, assign) UITableViewCellAccessoryType accessoryType;
-@property(nonatomic, retain) id accessoryView;
+@property(nonatomic, assign) UITableViewCellAccessoryType accessoryType; ///< The cell accessory type.
+@property(nonatomic, retain) id accessoryView; ///< Custom accessoryView
 
 @property(nonatomic, retain) UIColor *backgroundColor;
 @property(nonatomic, retain) UIColor *textColor;
-@property(nonatomic, retain) NSString *textFont; //The text font family
+@property(nonatomic, retain) NSString *textFont; ///< The text font family
 @property(nonatomic, assign) CGFloat textFontSize;
 @property(nonatomic, retain) UIColor *detailTextColor;
 @property(nonatomic, retain) NSString *detailTextFont;
 @property(nonatomic, assign) CGFloat detailTextFontSize;
-@property(nonatomic, assign) NSInteger detailTextLine;
+@property(nonatomic, assign) NSInteger detailTextLine; ///< The maximum number of detail text lines. Default -1, the cell value 1. Unlimit if 0.
 
 @property(nonatomic, assign) BOOL loading;
 
 @property (retain, nonatomic) NSDictionary *bindData;
 
-@property(nonatomic, copy) AZRowEvent onSelect;
-@property(nonatomic, copy) AZRowEvent onAccessory;
-@property(nonatomic, copy) AZRowEvent onChange;
-@property(nonatomic, copy) AZRowEvent onDelete;
-@property(nonatomic, copy) AZRowEvent onMove;
+@property(nonatomic, copy) AZRowEvent onSelect; ///< Event when cell selected
+@property(nonatomic, copy) AZRowEvent onAccessory; ///< Event when accessory view click
+@property(nonatomic, copy) AZRowEvent onChange;  ///< Event when the value changed.
+@property(nonatomic, copy) AZRowEvent onDelete; ///< Event when the cell delete button click.
+@property(nonatomic, copy) AZRowEvent onMove; ///< Event after the cell move to another position.
 
-
+/**
+ Create row by type name.
+ 
+ */
 + (id)rowWithType:(NSString *)type;
 
 - (NSIndexPath *)indexPath;

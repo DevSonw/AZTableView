@@ -203,7 +203,9 @@
         float fontSize = 12.f;
         CGSize constraint = CGSizeMake(tableView.frame.size.width - imageWidth - padding, 20000);
         UIFont *font = self.detailTextFont ? [UIFont fontWithName:self.detailTextFont size: self.detailTextFontSize > 0 ? self.detailTextFontSize : fontSize] : [UIFont systemFontOfSize:fontSize];
-        CGSize  size= [self.detail sizeWithFont:font constrainedToSize:constraint lineBreakMode:NSLineBreakByTruncatingTail];
+        
+        NSDictionary *attribute = [NSDictionary dictionaryWithObjectsAndKeys:font, NSFontAttributeName, nil];
+        CGSize  size = [self.detail boundingRectWithSize:constraint options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:attribute context:nil].size;
         //        NSLog(@"font %@, size %@ cons %@", font, NSStringFromCGSize(size), NSStringFromCGSize(constraint));
         CGFloat predictedHeight = size.height + 27.0f;
         if (self.text)

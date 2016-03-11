@@ -146,6 +146,18 @@ static NSString *NSStringFromIndexPath(NSIndexPath *indexPath){
     row10.text = @"Change row height";
     row10.height = 80.f;
     
+    AZRow *row11 = [AZRow new];
+    row11.text = @"Detail number of lines 2";
+    row11.style = UITableViewCellStyleSubtitle;
+    row11.detail = @"AlphaGo's algorithm uses a combination of machine learning and tree search techniques, combined with extensive training, both from human and computer play.";
+    row11.detailTextLine = 3;
+    row11.height = 80.f;
+    
+    AZRow *row12 = [AZRow new];
+    row12.style = UITableViewCellStyleSubtitle;
+    row12.detail = @"Unlimit line: AlphaGo's algorithm uses a combination of machine learning and tree search techniques, combined with extensive training, both from human and computer play.";
+    row12.detailTextLine = 0;
+
     AZSection *section = [AZSection new];
     [section addRow:row1];
     [section addRow:row2];
@@ -157,6 +169,8 @@ static NSString *NSStringFromIndexPath(NSIndexPath *indexPath){
     [section addRow:row8];
     [section addRow:row9];
     [section addRow:row10];
+    [section addRow:row11];
+    [section addRow:row12];
 
     AZRoot *root = [AZRoot new];
     [root addSection:section];
