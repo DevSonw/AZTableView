@@ -63,6 +63,11 @@
 		B1E194C11C96841100FD3808 /* AZAccessoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = B1E194C01C96841100FD3808 /* AZAccessoryView.m */; };
 		B1E194C41C9684EA00FD3808 /* AZLoadingAccessoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = B1E194C31C9684EA00FD3808 /* AZLoadingAccessoryView.m */; };
 		B1E194C71C96950000FD3808 /* AZButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B1E194C61C96950000FD3808 /* AZButton.m */; };
+		C6482A701C96AC4C00350589 /* AZPickerRow.m in Sources */ = {isa = PBXBuildFile; fileRef = C6482A6D1C96AC4C00350589 /* AZPickerRow.m */; };
+		C6482A711C96AC4C00350589 /* AZPickerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C6482A6F1C96AC4C00350589 /* AZPickerTableViewCell.m */; };
+		C6482A781C96AC6200350589 /* AZBadgeRow.m in Sources */ = {isa = PBXBuildFile; fileRef = C6482A731C96AC6200350589 /* AZBadgeRow.m */; };
+		C6482A791C96AC6200350589 /* AZBadgeLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = C6482A751C96AC6200350589 /* AZBadgeLabel.m */; };
+		C6482A7A1C96AC6200350589 /* AZBadgeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C6482A771C96AC6200350589 /* AZBadgeTableViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -166,6 +171,16 @@
 		B1E194C31C9684EA00FD3808 /* AZLoadingAccessoryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZLoadingAccessoryView.m; sourceTree = "<group>"; };
 		B1E194C51C96950000FD3808 /* AZButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZButton.h; sourceTree = "<group>"; };
 		B1E194C61C96950000FD3808 /* AZButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZButton.m; sourceTree = "<group>"; };
+		C6482A6C1C96AC4C00350589 /* AZPickerRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZPickerRow.h; sourceTree = "<group>"; };
+		C6482A6D1C96AC4C00350589 /* AZPickerRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZPickerRow.m; sourceTree = "<group>"; };
+		C6482A6E1C96AC4C00350589 /* AZPickerTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZPickerTableViewCell.h; sourceTree = "<group>"; };
+		C6482A6F1C96AC4C00350589 /* AZPickerTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZPickerTableViewCell.m; sourceTree = "<group>"; };
+		C6482A721C96AC6200350589 /* AZBadgeRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZBadgeRow.h; sourceTree = "<group>"; };
+		C6482A731C96AC6200350589 /* AZBadgeRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZBadgeRow.m; sourceTree = "<group>"; };
+		C6482A741C96AC6200350589 /* AZBadgeLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZBadgeLabel.h; sourceTree = "<group>"; };
+		C6482A751C96AC6200350589 /* AZBadgeLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZBadgeLabel.m; sourceTree = "<group>"; };
+		C6482A761C96AC6200350589 /* AZBadgeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZBadgeTableViewCell.h; sourceTree = "<group>"; };
+		C6482A771C96AC6200350589 /* AZBadgeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZBadgeTableViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -274,6 +289,12 @@
 				B15D76B21C8806A20037E02E /* AZButtonRow.m */,
 				B15D76B41C8806C90037E02E /* AZButtonTableViewCell.h */,
 				B15D76B51C8806C90037E02E /* AZButtonTableViewCell.m */,
+				C6482A721C96AC6200350589 /* AZBadgeRow.h */,
+				C6482A731C96AC6200350589 /* AZBadgeRow.m */,
+				C6482A741C96AC6200350589 /* AZBadgeLabel.h */,
+				C6482A751C96AC6200350589 /* AZBadgeLabel.m */,
+				C6482A761C96AC6200350589 /* AZBadgeTableViewCell.h */,
+				C6482A771C96AC6200350589 /* AZBadgeTableViewCell.m */,
 			);
 			name = "Display rows";
 			sourceTree = "<group>";
@@ -290,6 +311,10 @@
 				B15D76C51C8978650037E02E /* AZInputRow.m */,
 				B15D76C71C8978930037E02E /* AZInputTableViewCell.h */,
 				B15D76C81C8978930037E02E /* AZInputTableViewCell.m */,
+				C6482A6C1C96AC4C00350589 /* AZPickerRow.h */,
+				C6482A6D1C96AC4C00350589 /* AZPickerRow.m */,
+				C6482A6E1C96AC4C00350589 /* AZPickerTableViewCell.h */,
+				C6482A6F1C96AC4C00350589 /* AZPickerTableViewCell.m */,
 			);
 			name = "Form rows";
 			sourceTree = "<group>";
@@ -469,11 +494,13 @@
 				B12F03401C8FEC0F007BC6D5 /* _YYWebImageSetter.m in Sources */,
 				B12F033F1C8FEC0F007BC6D5 /* YYMemoryCache.m in Sources */,
 				B12F034C1C8FEC0F007BC6D5 /* YYWebImageManager.m in Sources */,
+				C6482A701C96AC4C00350589 /* AZPickerRow.m in Sources */,
 				B12F034B1C8FEC0F007BC6D5 /* YYImageCache.m in Sources */,
 				B15D76C91C8978930037E02E /* AZInputTableViewCell.m in Sources */,
 				B1E194C11C96841100FD3808 /* AZAccessoryView.m in Sources */,
 				B199D5281C86F75100369782 /* AZTableViewDelegate.m in Sources */,
 				B199D5191C86E1BB00369782 /* AZSection.m in Sources */,
+				C6482A791C96AC6200350589 /* AZBadgeLabel.m in Sources */,
 				B199D4FC1C86D4F300369782 /* AppDelegate.m in Sources */,
 				B15D76C31C8978510037E02E /* AZFieldTableViewCell.m in Sources */,
 				B12F033E1C8FEC0F007BC6D5 /* YYKVStorage.m in Sources */,
@@ -492,17 +519,20 @@
 				B15D76AE1C87EFCB0037E02E /* NSObject+YYModel.m in Sources */,
 				B1E194C41C9684EA00FD3808 /* AZLoadingAccessoryView.m in Sources */,
 				B1E194C71C96950000FD3808 /* AZButton.m in Sources */,
+				C6482A781C96AC6200350589 /* AZBadgeRow.m in Sources */,
 				B12F034D1C8FEC0F007BC6D5 /* YYWebImageOperation.m in Sources */,
 				B12F03441C8FEC0F007BC6D5 /* UIImage+YYWebImage.m in Sources */,
 				B199D51F1C86E1E400369782 /* AZItem.m in Sources */,
 				B199D5111C86D58C00369782 /* AZTableView.m in Sources */,
 				B199D4F91C86D4F200369782 /* main.m in Sources */,
+				C6482A7A1C96AC6200350589 /* AZBadgeTableViewCell.m in Sources */,
 				B15D76B61C8806C90037E02E /* AZButtonTableViewCell.m in Sources */,
 				B15D76AF1C87EFCB0037E02E /* YYClassInfo.m in Sources */,
 				B12F033C1C8FEC0F007BC6D5 /* YYCache.m in Sources */,
 				B12F034A1C8FEC0F007BC6D5 /* YYSpriteSheetImage.m in Sources */,
 				B12F03411C8FEC0F007BC6D5 /* CALayer+YYWebImage.m in Sources */,
 				B12F03431C8FEC0F007BC6D5 /* UIButton+YYWebImage.m in Sources */,
+				C6482A711C96AC4C00350589 /* AZPickerTableViewCell.m in Sources */,
 				B199D5251C86F10E00369782 /* AZTableViewDataSource.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
