@@ -74,6 +74,8 @@ typedef void (^AZRowEvent)(AZRow *row, UIView *fromView);
 @property(nonatomic, copy) AZRowEvent onDelete; ///< Event when the cell delete button click.
 @property(nonatomic, copy) AZRowEvent onMove; ///< Event after the cell move to another position.
 
+@property(nonatomic, assign) int selectionStyle;
+
 /**
  Create row by type name.
  

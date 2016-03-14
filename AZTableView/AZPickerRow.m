@@ -16,6 +16,7 @@
 - (id)init{
     if (self = [super init]) {
         self.style = UITableViewCellStyleValue1;
+        self.selectionStyle = UITableViewCellSelectionStyleBlue;
     }
     return self;
 }

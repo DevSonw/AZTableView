@@ -27,6 +27,7 @@
         self.secureTextEntry = NO;
         _focusable = YES;
         self.accessoryType = UITableViewCellAccessoryNone;
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     return self;
 }
@@ -34,8 +35,6 @@
 - (void)updateCell:(AZInputTableViewCell *)cell tableView:(AZTableView *)tableView indexPath:(NSIndexPath *)indexPath{
     [super updateCell:cell tableView:tableView indexPath:indexPath];
     cell.textField.text = [self.value description];
-    //    cell.selectionStyle = self.enabled ? UITableViewCellSelectionStyleBlue : UITableViewCellSelectionStyleNone;
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     //    cell.userInteractionEnabled = self.enabled;//will disable the accessoryView
     cell.textField.placeholder = self.placeholder;
     if (self.placeholder.length > 0 && self.placeholderTextColor) {

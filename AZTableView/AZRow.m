@@ -24,6 +24,8 @@
 
 @synthesize image, imageURL, imageCornerRadius;
 
+@synthesize selectionStyle;
+
 - (NSString *)description {
     return [NSString stringWithFormat:@"<%@: %p> text=%@", self.class, self, self.text, nil];
 }
@@ -77,6 +79,7 @@
         self.detailTextLine = -1;
         self.height = -1;
         _focusable = NO;
+        self.selectionStyle = -1;
     }
     return self;
 }
@@ -106,7 +109,11 @@
 
 - (void)updateCell:(AZTableViewCell *)cell tableView:(AZTableView *)tableView indexPath:(NSIndexPath *)indexPath{
     cell.textLabel.text = self.text;
-    cell.selectionStyle = self.enabled && self.onSelect ? UITableViewCellSelectionStyleBlue : UITableViewCellSelectionStyleNone;
+    if (self.selectionStyle == -1) {
+        cell.selectionStyle = self.enabled && self.onSelect ? UITableViewCellSelectionStyleBlue : UITableViewCellSelectionStyleNone;
+    } else {
+        cell.selectionStyle = self.selectionStyle;
+    }
     cell.accessoryType = self.accessoryType;
     cell.detailTextLabel.text = self.detail;
     cell.accessibilityLabel = self.accessibilityLabel;
