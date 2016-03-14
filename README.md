@@ -1,4 +1,4 @@
-AZTableView
+AZTableView(Development)
 ===================
 
 Highly customizable UITableView
@@ -39,14 +39,14 @@ iOS 7.0+
 Xcode 7.0+
 
 
-Display row extend
+Basic display row 
 ---------------------
 
 ### AZRow
 ### AZButtonRow
 ### AZBadgeRow
 
-Form row extend
+Basic form row
 ---------------------
 
 All rows extend from AZRow.
@@ -57,6 +57,36 @@ All rows extend from AZRow.
 ### AZSwitchRow
 ### AZSliderRow
 ### AZSegmentedRow
+
+
+Extend row
+---------------------
+
+### AZButtonGroupRow
+
+### AZGridRow
+
+### AZGoogleAdRow
+
+### AZHtmlRow
+
+`onLink` Event when url in html label click.
+
+### AZImagePageRow
+
+### AZCaptchaRow
+
+Use YYImageView support gif.
+
+captchaWidth
+captchaHeight
+`captchaURL` support base64 encoding data like imageURL
+`onCaptcha` Event when captcha start load
+
+
+
+
+
 
 
 
