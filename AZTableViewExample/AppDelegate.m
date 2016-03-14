@@ -177,7 +177,7 @@ static NSString *NSStringFromIndexPath(NSIndexPath *indexPath){
     AZTableView *tableView = [[AZTableView alloc] initWithRoot:root];
     
     UIViewController *cont = [UIViewController new];
-    cont.title = @"Grouped Table with Basic row style";
+    cont.title = @"Basic display row";
     cont.view = tableView;
     return cont;
 }
