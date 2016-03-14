@@ -9,44 +9,51 @@
 #import "AZRow.h"
 #import "AZTableView.h"
 #import "AZConvert.h"
+#import "AZAccessoryView.h"
 
 @interface AZRow()
-
-@property(nonatomic, retain) id realAccessoryView;
-
 @end
 
 @implementation AZRow
 
-@synthesize identifier = _identifier, section, text, value, hidden, enabled, focusable, height, ref, data = _data, style = _style, detail, accessoryType, accessoryView = _accessoryView, selected = _selected, deletable, textFont, textFontSize, detailTextFont, detailTextFontSize, detailTextLine, accessibilityLabel, bindData;
+@synthesize identifier = _identifier, section, text, value, hidden, enabled, focusable = _focusable, height, ref, data = _data, style = _style, detail, accessoryType, accessoryView = _accessoryView, deletable, sortable, textFont, textFontSize, detailTextFont, detailTextFontSize, detailTextLine, accessibilityLabel, bindData;
 
 @synthesize onSelect, onAccessory, onDelete, onChange, onMove;
 
 @synthesize textColor, detailTextColor, backgroundColor;
 
-@synthesize image, imageURL, selectedImage, imageCornerRadius;
+@synthesize image, imageURL, imageCornerRadius;
+
+@synthesize selectionStyle;
 
 - (NSString *)description {
     return [NSString stringWithFormat:@"<%@: %p> text=%@", self.class, self, self.text, nil];
 }
 
 +(id)rowWithType:(NSString *)type{
-        if ([type isKindOfClass:[NSString class]]) {
-            //For extend
-            Class cla = NSClassFromString(type);
-            if (!cla) {
-                if (type && [type length]>0) {
-                    type = [type stringByReplacingCharactersInRange:NSMakeRange(0,1) withString:[[type substringToIndex:1] capitalizedString]];
-                }
-                cla = NSClassFromString([NSString stringWithFormat:@"AZ%@Row", type]);
+    return [self createFromType:type defaultClass:self suffix:@"Row" validate:YES];
+}
+
++(id)createFromType:(NSString *)type defaultClass:(Class)defaultClass suffix:(NSString *)suffix validate:(BOOL)validate{
+    if ([type isKindOfClass:[NSString class]]) {
+        //For extend
+        Class cla = NSClassFromString(type);
+        if (!cla) {
+            if (type && [type length]>0) {
+                type = [type stringByReplacingCharactersInRange:NSMakeRange(0,1) withString:[[type substringToIndex:1] capitalizedString]];
             }
-            if (cla && [cla isSubclassOfClass:self]) {
-                return [cla new];
-            } else if(!cla){
-                [NSException raise:@"Invalid row type" format:@"type of %@ is invalid", type];
-            }
+            cla = NSClassFromString([NSString stringWithFormat:@"AZ%@%@", type, suffix]);
         }
-    return [self new];
+        if (cla) {
+            if (validate && ![cla isSubclassOfClass:defaultClass]) {
+                [NSException raise:@"Invalid type" format:@"type of %@ for '%@' is invalid", type, suffix];
+            }
+            return [cla new];
+        } else if(!cla){
+            [NSException raise:@"Not exist type" format:@"type of %@ for '%@' is no exist", type, suffix];
+        }
+    }
+    return [defaultClass new];
 }
 
 - (NSDictionary *)modelCustomWillTransformFromDictionary:(NSDictionary *)dic {
@@ -71,46 +78,11 @@
         self.style = UITableViewCellStyleDefault;
         self.detailTextLine = -1;
         self.height = -1;
-        self.focusable = NO;
+        _focusable = NO;
+        self.selectionStyle = -1;
     }
     return self;
 }
-
--(void)setSelected:(BOOL)selected{
-    if (self.section.selectable && !self.section.multiple && selected) {
-        for (AZRow *row in self.section.rows) {
-            if (row != self) {
-                row.selected = NO;
-            }
-        }
-    }
-    _selected = selected;
-}
-
-- (void)setAccessoryView:(id)accessoryView{
-    _accessoryView = accessoryView;
-    self.realAccessoryView = nil;
-}
-
-- (id)realAccessoryView{
-    if (!_realAccessoryView && _accessoryView) {
-        if ([self.accessoryView isEqual:@"loading"]) {
-            UIActivityIndicatorView *activity = [UIActivityIndicatorView new];
-            activity.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
-            [activity startAnimating];
-            _realAccessoryView = activity;
-        } else {
-            //TODO:
-//            _realAccessoryView = [AZAccessoryButton buttonWithSetting:self.accessoryView];
-        }
-    }
-    if ([_realAccessoryView isKindOfClass:[UIActivityIndicatorView class]]) {
-        [_realAccessoryView startAnimating];
-    }
-    return _realAccessoryView;
-}
-
-
 
 - (NSIndexPath *)indexPath{
     if (!self.section) {
@@ -137,19 +109,30 @@
 
 - (void)updateCell:(AZTableViewCell *)cell tableView:(AZTableView *)tableView indexPath:(NSIndexPath *)indexPath{
     cell.textLabel.text = self.text;
-    cell.selectionStyle = self.enabled && self.onSelect ? UITableViewCellSelectionStyleBlue : UITableViewCellSelectionStyleNone;
+    if (self.selectionStyle == -1) {
+        cell.selectionStyle = self.enabled && self.onSelect ? UITableViewCellSelectionStyleBlue : UITableViewCellSelectionStyleNone;
+    } else {
+        cell.selectionStyle = self.selectionStyle;
+    }
     cell.accessoryType = self.accessoryType;
     cell.detailTextLabel.text = self.detail;
-    cell.accessoryView = nil;
     cell.accessibilityLabel = self.accessibilityLabel;
-    cell.accessoryView = self.realAccessoryView;
     cell.hideSeparator = self.hideSeparator;
-//    if ([self.realAccessoryView respondsToSelector:@selector(clickHandler)]) {
-//        __weak AZRow *row = self;
-//        ((AZAccessoryButton *)self.realAccessoryView).clickHandler = ^(AZButton *button){
-//            [row selectedAccessory:tableView indexPath:indexPath];
-//        };
-//    }
+    
+    if ([self.accessoryView isKindOfClass:[NSDictionary class]]) {
+        AZAccessoryView *view = [AZAccessoryView accessoryViewWithType:self.accessoryView[@"type"]];
+        [view yy_modelSetWithDictionary:self.accessoryView];
+        cell.accessoryView = view;
+    } else {
+        cell.accessoryView = self.accessoryView;
+    }
+    if ([cell.accessoryView respondsToSelector:@selector(clickHandler)]) {
+        __weak AZRow *_weakRow = self;
+        __weak AZTableViewCell *_weakCell = cell;
+        ((AZAccessoryView *)cell.accessoryView).clickHandler = ^(AZButton *button){
+            _weakRow.onAccessory(_weakRow, _weakCell);
+        };
+    }
     
     [self.class setImageForImageView:cell.imageView imageNamed:self.image url:self.imageURL cornerRadius:self.imageCornerRadius];
     
@@ -176,19 +159,6 @@
         [cell setDetailTextFont:self.detailTextFont size:self.detailTextFontSize style:self.style];
     }
     cell.detailTextLabel.numberOfLines = self.detailTextLine >= 0 ? self.detailTextLine : 1;
-    //For selectable
-    if (self.section.selectable) {
-        cell.selectionStyle = self.enabled ? UITableViewCellSelectionStyleBlue : UITableViewCellSelectionStyleNone;
-        [self selected:self.selected forCell:cell];
-    }
-}
-
-- (void)selected:(BOOL)selected forCell:(AZTableViewCell *)cell{
-    if (self.selectedImage && self.image) {
-        cell.imageView.image = [UIImage imageNamed: selected ? self.selectedImage : self.image];
-    } else {
-        cell.accessoryType = selected ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
-    }
 }
 
 - (AZTableViewCell *)createCellForTableView:(AZTableView *)tableView{
@@ -227,7 +197,9 @@
         float fontSize = 12.f;
         CGSize constraint = CGSizeMake(tableView.frame.size.width - imageWidth - padding, 20000);
         UIFont *font = self.detailTextFont ? [UIFont fontWithName:self.detailTextFont size: self.detailTextFontSize > 0 ? self.detailTextFontSize : fontSize] : [UIFont systemFontOfSize:fontSize];
-        CGSize  size= [self.detail sizeWithFont:font constrainedToSize:constraint lineBreakMode:NSLineBreakByTruncatingTail];
+        
+        NSDictionary *attribute = [NSDictionary dictionaryWithObjectsAndKeys:font, NSFontAttributeName, nil];
+        CGSize  size = [self.detail boundingRectWithSize:constraint options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:attribute context:nil].size;
         //        NSLog(@"font %@, size %@ cons %@", font, NSStringFromCGSize(size), NSStringFromCGSize(constraint));
         CGFloat predictedHeight = size.height + 27.0f;
         if (self.text)
@@ -244,25 +216,6 @@
 }
 
 - (void)selected:(AZTableView *)tableView indexPath:(NSIndexPath *)indexPath{
-    
-    //Handle selected
-    if (self.section.selectable && self.enabled) {
-        AZTableViewCell *cell = (AZTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
-        if (!self.section.multiple) {
-            NSInteger ind = indexPath.section;
-            for (NSIndexPath *path in [tableView indexPathsForVisibleRows]) {
-                if (path.section == ind && path.row != indexPath.row) {
-                    [self selected:NO forCell:(AZTableViewCell *)[tableView cellForRowAtIndexPath:path]];
-                }
-            }
-        }
-        self.selected = !self.selected;
-        [self selected:self.selected forCell:cell];
-        if (self.onChange) {
-            self.onChange(self, [tableView cellForRowAtIndexPath:indexPath]);
-        }
-        [tableView deselect];
-    }
     if (self.onSelect && self.enabled) {
         self.onSelect(self, [tableView cellForRowAtIndexPath:indexPath]);
     }

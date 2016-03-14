@@ -1,4 +1,4 @@
-AZTableView
+AZTableView(Development)
 ===================
 
 Highly customizable UITableView
@@ -32,14 +32,27 @@ Example:
 
 ```
 
-Display row extend
+Requirements
 ---------------------
+
+iOS 7.0+
+Xcode 7.0+
+
+
+Basic display row 
+---------------------
+
+### AZRow
+
+* `text`
 
 ### AZButtonRow
 ### AZBadgeRow
 
-Form row extend
+Basic form row
 ---------------------
+
+All rows extend from AZRow.
 
 ### AZInputRow
 ### AZPickerRow
@@ -47,6 +60,53 @@ Form row extend
 ### AZSwitchRow
 ### AZSliderRow
 ### AZSegmentedRow
+
+
+Extend row
+---------------------
+
+### AZButtonGroupRow
+
+### AZGridSection
+
+The grid view in section.
+
+* `items` The string array for grid.
+* `reduceWidth` Reduce the width of the grid. 
+
+### AZGridRow
+
+* `items` The string array for grid.
+
+### AZHtmlRow
+
+* `html` The html string. `<a href="http://..."><font face=red>abc</font><a>`
+* `htmlTextLine` The number of text lines
+* `onLink` Event when url in html label click.
+
+### AZImagesRow (ImagePage)
+
+Use YYImageView support gif.
+
+* `items` The images data. `[{ image: "", imageURL: "", title: "" }]`
+* `slideInterval`
+* `hideIndicator`
+* `onSlide`
+
+
+### AZCaptchaRow
+
+Use YYImageView support gif.
+
+* `captchaWidth`
+* `captchaHeight`
+* `captchaURL` support base64 encoding data like imageURL
+* `onCaptcha` Event when captcha start load
+
+
+
+
+
 
 
 

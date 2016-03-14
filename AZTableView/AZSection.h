@@ -17,8 +17,8 @@
 @property(nonatomic, strong) NSString *ref;
 @property(nonatomic, strong) id value;
 
-@property(nonatomic, retain) NSString *header;
-@property(nonatomic, retain) NSString *footer;
+@property(nonatomic, retain) NSString *header; ///< The text in the header view.
+@property(nonatomic, retain) NSString *footer; ///< The text in the footer view.
 @property(nonatomic, retain) NSString *indexTitle;
 
 @property(nonatomic, retain) UIColor *headerBackgroundColor;
@@ -28,12 +28,9 @@
 @property(nonatomic, assign) CGFloat footerHeight;
 
 @property(nonatomic, retain) NSMutableArray * rows;
-@property(nonatomic, assign) BOOL hidden;
+@property(nonatomic, assign) BOOL hidden; ///< Don't display the section in the tableView when YES.
 
-@property(nonatomic, assign) BOOL selectable;
-@property(nonatomic, assign) BOOL multiple;
-@property(nonatomic, assign) BOOL sortable;
-@property(nonatomic, assign) BOOL loading;
+@property(nonatomic, assign) BOOL loading; ///< Show a loading view on the header title left.
 
 @property (retain, nonatomic) NSDictionary *bindData;
 

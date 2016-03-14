@@ -272,6 +272,7 @@
     if (index == NSNotFound || index >= [toSection.rows count]) {
         [toSection.rows addObject:row];
     } else {
+        row.section = toSection;//Change section.
         [toSection.rows insertObject:row atIndex:index];
     }
 }

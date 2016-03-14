@@ -10,6 +10,8 @@
 
 #import "AZTableView.h"
 #import "AZInputRow.h"
+#import "AZPickerRow.h"
+#import "AZBadgeRow.h"
 
 //#import <objc/runtime.h>
 //static void *TITLEKEY;
@@ -32,7 +34,7 @@
 //@end
 
 static NSString *NSStringFromIndexPath(NSIndexPath *indexPath){
-    return [NSString stringWithFormat:@"section %ld, row %ld", (long)indexPath.section, (long)indexPath.row];
+    return [NSString stringWithFormat:@"section %d, row %d", (int)indexPath.section, (int)indexPath.row];
 }
 
 
@@ -61,9 +63,8 @@ static NSString *NSStringFromIndexPath(NSIndexPath *indexPath){
                    [self displayRow],
                    [self formRow],
                    [self rowEvent],
-                   [self dictionaryCont],
-                   [self jsonController:@"sectionTemplate"],
-                   [self jsonController:@"basicForm"],
+                   [self advancedFormRow],
+                   [self accessoryViewRow],
                    nil];
     NSLog(@"Create time: %f s", [[NSDate date] timeIntervalSinceDate:date]);
     //    NSArray *ar = [NSArray arrayWithObjects:[self jsonCont], nil];
@@ -145,6 +146,18 @@ static NSString *NSStringFromIndexPath(NSIndexPath *indexPath){
     row10.text = @"Change row height";
     row10.height = 80.f;
     
+    AZRow *row11 = [AZRow new];
+    row11.text = @"Detail number of lines 2";
+    row11.style = UITableViewCellStyleSubtitle;
+    row11.detail = @"AlphaGo's algorithm uses a combination of machine learning and tree search techniques, combined with extensive training, both from human and computer play.";
+    row11.detailTextLine = 3;
+    row11.height = 80.f;
+    
+    AZRow *row12 = [AZRow new];
+    row12.style = UITableViewCellStyleSubtitle;
+    row12.detail = @"Unlimit line: AlphaGo's algorithm uses a combination of machine learning and tree search techniques, combined with extensive training, both from human and computer play.";
+    row12.detailTextLine = 0;
+
     AZSection *section = [AZSection new];
     [section addRow:row1];
     [section addRow:row2];
@@ -156,22 +169,67 @@ static NSString *NSStringFromIndexPath(NSIndexPath *indexPath){
     [section addRow:row8];
     [section addRow:row9];
     [section addRow:row10];
+    [section addRow:row11];
+    [section addRow:row12];
+    
+    
+    
+    AZSection *section1 = [AZSection new];
+    section1.header = @"Badge";
+    
+    AZBadgeRow *row13 = [AZBadgeRow new];
+    row13.text = @"With Select Event";
+    row13.badge = @"1";
+    row13.badgeColor = [UIColor redColor];
+    row13.onSelect =  ^(AZRow *row, UIView *fromView){
+        NSLog(@"onSelect");
+        [self alert:@"onSelect" message:nil];
+    };
+
+    
+    AZBadgeRow *row14 = [AZBadgeRow new];
+    row14.text = @"Without Badge";
+    row14.textColor = [UIColor redColor];
+    
+    AZBadgeRow *row15 = [AZBadgeRow new];
+    row15.badge = @"2";
+    row15.text = @"Default Badge row";
+    
+    AZBadgeRow *row16 = [AZBadgeRow new];
+    row16.text = @"Custom Badge Text Color";
+    row16.badge = @"A";
+    row16.badgeTextColor = [UIColor redColor];
+    row16.badgeColor = [UIColor blackColor];
+    
+    [section1 addRow:row13];
+    [section1 addRow:row14];
+    [section1 addRow:row15];
+    [section1 addRow:row16];
+    
 
     AZRoot *root = [AZRoot new];
     [root addSection:section];
+    [root addSection:section1];
     
     root.grouped = YES;
     
     AZTableView *tableView = [[AZTableView alloc] initWithRoot:root];
     
     UIViewController *cont = [UIViewController new];
-    cont.title = @"Grouped Table with Basic row style";
+    cont.title = @"Basic display row";
     cont.view = tableView;
     return cont;
 }
 
 - (void)alert:(NSString *)title message:(NSString *)message{
     [[[UIAlertView alloc] initWithTitle:title message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
+}
+
+- (void)alert:(NSString *)title message:(NSString *)message fromViewController:(UIViewController *)viewController{
+    UIAlertController *controller = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+    [controller addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+    }]];
+    [viewController presentViewController:controller animated:YES completion:nil];
 }
 
 -(UIViewController *)formRow{
@@ -243,9 +301,6 @@ static NSString *NSStringFromIndexPath(NSIndexPath *indexPath){
     row13.text = @"Name";
     row13.placeholder = @"clearsOnBeginEditing";
     row13.clearsOnBeginEditing = YES;
-
-    AZSection *section1 = [AZSection new];
-    section1.header = @"Picker";
     
     AZRoot *root = [AZRoot new];
     AZSection *section = [AZSection new];
@@ -263,11 +318,61 @@ static NSString *NSStringFromIndexPath(NSIndexPath *indexPath){
     [section addRow:row11];
     [section addRow:row12];
     [section addRow:row13];
+    
+    AZTableView *tableView = [[AZTableView alloc] initWithRoot:root];
 
+    AZSection *section1 = [AZSection new];
+    section1.header = @"Picker";
+    
+    
+    AZPickerRow *row14 = [AZPickerRow new];
+    row14.text = @" Picker";
+    row14.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+    row14.items = @[@[@"A",@"B",@"C",@"E",@"F"]];
+    
+    AZPickerRow *row15 = [AZPickerRow new];
+    row15.text = @"Two Picker";
+    row15.placeholder = @"placeholder";
+    row15.style = UITableViewCellStyleSubtitle;
+    row15.detailTextColor = [UIColor blueColor];
+    
+    NSArray *items1 = @[@[@"A",@"B",@"C"],@[@"A",@"B",@"C"]];
+    NSArray *items2 = @[@[@"A",@"B",@"C"],@[@"A",@"B",@"C", @"D", @"E", @"F"]];
+
+    row15.items = items1;
+    row15.selectedIndexes = @[@"1",@"2"];
+    
+    __weak AZPickerRow *weakRow15 = row15;
+    __block BOOL switched = NO;
+    row15.onChange = ^(AZRow *row, UIView *fromView){
+        NSLog(@"onChange %@", row.value);
+        weakRow15.items = switched ? items1 : items2;
+        switched = !switched;
+        weakRow15.value = @[row.value[0], @"A"];
+        [tableView updateCellForRow:row indexPath:row.indexPath];
+    };
+    row15.onBlur = ^(AZRow *row, UIView *fromView){
+        NSLog(@"onBlur %@", row.value);
+    };
+    
+    AZPickerRow *row16 = [AZPickerRow new];
+    row16.text = @"Three Picker";
+    row16.items =@[@[@"A",@"B",@"C"],@[@"A",@"B",@"C"],@[@"D",@"E",@"F"]];
+    row16.selectedIndexes = @[@"0",@"1",@"2"];
+    
+    AZPickerRow *row17 = [AZPickerRow new];
+    row17.text = @"Without default Selected";
+    row17.items = @[@[@"A",@"B",@"C"],@[@"A",@"B",@"C"]];
+    
+    [section1 addRow:row14];
+    [section1 addRow:row15];
+    [section1 addRow:row16];
+    [section1 addRow:row17];
+    
+    
     [root addSection:section];
     [root addSection:section1];
-
-    AZTableView *tableView = [[AZTableView alloc] initWithRoot:root];
+    
     tableView.editing = YES; //For deletable, sortable
     cont.title = @"Form row";
     cont.view = tableView;
@@ -332,16 +437,39 @@ static NSString *NSStringFromIndexPath(NSIndexPath *indexPath){
     [section addRow:row3];
     [section addRow:row4];
     [section addRow:row5];
+    
 
+    AZRoot *root = [AZRoot new];
+    [root addSection:section];
+    root.grouped = YES;
+    
+    AZTableView *tableView = [[AZTableView alloc] initWithRoot:root];
+    tableView.editing = YES; //For deletable
+    cont.title = @"Row event";
+    cont.view = tableView;
+    return cont;
+}
+
+
+-(UIViewController *)advancedFormRow{
+    
+    AZRoot *root = [AZRoot new];
+    root.grouped = YES;
+    AZTableView *tableView = [[AZTableView alloc] initWithRoot:root];
+    tableView.editing = YES;
+    
+    UIViewController *cont = [UIViewController new];
+    
     AZSection *sortSection1 = [AZSection new];
-    sortSection1.sortable = YES;
-    
+    sortSection1.header = @"Group0";
     AZSection *sortSection2 = [AZSection new];
-    sortSection2.sortable = YES;
-    
+    sortSection2.header = @"Group1";
+
     for (int i = 0; i < 3; i++) {
         AZRow *row = [AZRow new];
-        row.text = [NSString stringWithFormat:@"Group 1, Item %d", i];
+        row.sortable = YES;
+        row.data = @[@(0), @(i)];
+        row.text = [NSString stringWithFormat:@"Group 0, Item %d", i];
         row.onMove = ^(AZRow *row, UIView *fromView){
             NSLog(@"onMove %@", NSStringFromIndexPath(row.indexPath));
             NSLog(@"%@, %@", sortSection1.rows, sortSection2.rows);
@@ -349,32 +477,71 @@ static NSString *NSStringFromIndexPath(NSIndexPath *indexPath){
         };
         [sortSection1 addRow:row];
     }
-
+    
     for (int i = 0; i < 3; i++) {
         AZRow *row = [AZRow new];
-        row.text = [NSString stringWithFormat:@"Group 2, Item %d", i];
+        row.sortable = YES;
+        row.data = @[@(1), @(i)];
+        row.text = [NSString stringWithFormat:@"Group 1, Item %d", i];
         row.onMove = ^(AZRow *row, UIView *fromView){
             NSLog(@"onMove %@", NSStringFromIndexPath(row.indexPath));
             NSLog(@"%@, %@", sortSection1.rows, sortSection2.rows);
             cont.title = [NSString stringWithFormat:@"onMove: %@", NSStringFromIndexPath(row.indexPath)];
         };
         [sortSection2 addRow:row];
+    }
+    
+    AZSection *singleSelectSection = [AZSection new];
+    singleSelectSection.header = @"Single";
+    
+    __block AZRow *selectedRow = nil;
+    for (int i = 0; i < 3; i++) {
+        AZRow *row = [AZRow new];
+        if (i == 0) {
+            row.accessoryType = UITableViewCellAccessoryCheckmark;
+            selectedRow = row;
+        }
         
+        row.text = [NSString stringWithFormat:@"Item %d", i];
+        row.onSelect = ^(AZRow *row, UIView *fromView){
+            selectedRow.accessoryType = UITableViewCellAccessoryNone;
+            row.accessoryType = UITableViewCellAccessoryCheckmark;
+            
+            [tableView updateCellForRow:selectedRow indexPath:selectedRow.indexPath];
+            [tableView updateCellForRow:row indexPath:row.indexPath];
+            [tableView deselect];
+            selectedRow = row;
+        };
+        [singleSelectSection addRow:row];
     }
 
-    AZRoot *root = [AZRoot new];
-    [root addSection:section];
+    
+    AZSection *multipleSelectSection = [AZSection new];
+    multipleSelectSection.header = @"Multiple";
+    
+    for (int i = 0; i < 3; i++) {
+        AZRow *row = [AZRow new];
+        
+        row.text = [NSString stringWithFormat:@"Item %d", i];
+        row.onSelect = ^(AZRow *row, UIView *fromView){
+            row.value =  [row.value isEqual:@(1)] ? @(0) : @(1);
+            row.accessoryType = [row.value isEqual:@(1)] ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
+            [tableView updateCellForRow:row indexPath:row.indexPath];
+            [tableView deselect];
+        };
+        [multipleSelectSection addRow:row];
+    }
+
+    
     [root addSection:sortSection1];
     [root addSection:sortSection2];
-    root.grouped = YES;
-    
-    AZTableView *tableView = [[AZTableView alloc] initWithRoot:root];
-    tableView.editing = YES; //For deletable, sortable
-    cont.title = @"Row event";
+    [root addSection:singleSelectSection];
+    [root addSection:multipleSelectSection];
+
+    cont.title = @"Advanced from: sortable, selectable";
     cont.view = tableView;
     return cont;
 }
-
 
 -(UIViewController *)dictionaryCont{
     
@@ -434,6 +601,46 @@ static NSString *NSStringFromIndexPath(NSIndexPath *indexPath){
     return cont;
 }
 
+-(UIViewController *)accessoryViewRow{
+    
+    UIViewController *cont = [UIViewController new];
+    __weak UIViewController *weakCont = cont;
+    AZRow *row1 = [AZRow new];
+    row1.text = @"Checkmark";
+    row1.accessoryType = UITableViewCellAccessoryCheckmark;
+    
+    AZRow *row2 = [AZRow new];
+    row2.text = @"Detail button";
+    row2.accessoryType = UITableViewCellAccessoryDetailButton;
+    
+    row2.onAccessory = ^(AZRow *row, UIView *fromView){
+        [self alert:@"onAccessory" message:nil fromViewController:weakCont];
+    };
+    
+    AZRow *row3 = [AZRow new];
+    row3.text = @"Detail disclosure button";
+    row3.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+
+    AZRow *row4 = [AZRow new];
+    row4.text = @"Disclosure indicator";
+    row4.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    
+    AZSection *section = [AZSection new];
+    [section addRow:row1];
+    [section addRow:row2];
+    [section addRow:row3];
+    [section addRow:row4];
+
+    AZRoot *root = [AZRoot new];
+    [root addSection:section];
+    root.grouped = YES;
+    
+    AZTableView *tableView = [[AZTableView alloc] initWithRoot:root];
+    tableView.editing = YES; //For deletable
+    cont.title = @"Accessory view in row";
+    cont.view = tableView;
+    return cont;
+}
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

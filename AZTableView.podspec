@@ -8,15 +8,23 @@ Pod::Spec.new do |s|
                    Highly customizable UITableView
                    DESC
 
-  s.homepage     = "https://github.com/zzdhidden/AZTableView"
+  s.homepage     = "https://github.com/zhixingapp/AZTableView"
   s.license      = "MIT"
   s.author       = { "Arron zhang" => "arronzhang@me.com" }
   s.platform     = :ios, '7.0'
-  s.source       = { :git => "https://github.com/zzdhidden/AZTableView.git", :tag => s.version.to_s }
-  s.source_files  = 'AZTableView', 'YYModel'
-  s.exclude_files = 'AZTableViewExample'
+  s.source       = { :git => "https://github.com/zhixingapp/AZTableView.git", :tag => s.version.to_s }
   s.requires_arc = true
+  s.default_subspec = "All"
 
-  s.dependency 'YYWebImage'
+  s.subspec "All" do |sp|
+    sp.dependency 'AZTableView/Core'
+  end
+
+  s.subspec "Core" do |sp|
+    sp.dependency 'YYWebImage'
+    sp.resources = 'AZTableView/*.{lproj,bundle}'
+    sp.source_files  = 'AZTableView', 'YYModel'
+    sp.exclude_files = 'AZTableViewExample'
+  end
 
 end
