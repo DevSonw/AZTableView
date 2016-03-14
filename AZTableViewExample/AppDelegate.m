@@ -319,7 +319,8 @@ static NSString *NSStringFromIndexPath(NSIndexPath *indexPath){
     [section addRow:row12];
     [section addRow:row13];
     
-    
+    AZTableView *tableView = [[AZTableView alloc] initWithRoot:root];
+
     AZSection *section1 = [AZSection new];
     section1.header = @"Picker";
     
@@ -334,8 +335,25 @@ static NSString *NSStringFromIndexPath(NSIndexPath *indexPath){
     row15.placeholder = @"placeholder";
     row15.style = UITableViewCellStyleSubtitle;
     row15.detailTextColor = [UIColor blueColor];
-    row15.items = @[@[@"A",@"B",@"C"],@[@"A",@"B",@"C"]];
+    
+    NSArray *items1 = @[@[@"A",@"B",@"C"],@[@"A",@"B",@"C"]];
+    NSArray *items2 = @[@[@"A",@"B",@"C"],@[@"A",@"B",@"C", @"D", @"E", @"F"]];
+
+    row15.items = items1;
     row15.selectedIndexes = @[@"1",@"2"];
+    
+    __weak AZPickerRow *weakRow15 = row15;
+    __block BOOL switched = NO;
+    row15.onChange = ^(AZRow *row, UIView *fromView){
+        NSLog(@"onChange %@", row.value);
+        weakRow15.items = switched ? items1 : items2;
+        switched = !switched;
+        weakRow15.value = @[row.value[0], @"A"];
+        [tableView updateCellForRow:row indexPath:row.indexPath];
+    };
+    row15.onBlur = ^(AZRow *row, UIView *fromView){
+        NSLog(@"onBlur %@", row.value);
+    };
     
     AZPickerRow *row16 = [AZPickerRow new];
     row16.text = @"Three Picker";
@@ -355,7 +373,6 @@ static NSString *NSStringFromIndexPath(NSIndexPath *indexPath){
     [root addSection:section];
     [root addSection:section1];
     
-    AZTableView *tableView = [[AZTableView alloc] initWithRoot:root];
     tableView.editing = YES; //For deletable, sortable
     cont.title = @"Form row";
     cont.view = tableView;
