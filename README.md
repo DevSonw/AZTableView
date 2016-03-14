@@ -43,6 +43,9 @@ Basic display row
 ---------------------
 
 ### AZRow
+
+* `text`
+
 ### AZButtonRow
 ### AZBadgeRow
 
@@ -64,15 +67,32 @@ Extend row
 
 ### AZButtonGroupRow
 
+### AZGridSection
+
+The grid view in section.
+
+* `items` The string array for grid.
+* `reduceWidth` Reduce the width of the grid. 
+
 ### AZGridRow
 
-### AZGoogleAdRow
+* `items` The string array for grid.
 
 ### AZHtmlRow
 
+* `html` The html string. `<a href="http://..."><font face=red>abc</font><a>`
+* `htmlTextLine` The number of text lines
 * `onLink` Event when url in html label click.
 
-### AZImagePageRow
+### AZImagesRow (ImagePage)
+
+Use YYImageView support gif.
+
+* `items` The images data. `[{ image: "", imageURL: "", title: "" }]`
+* `slideInterval`
+* `hideIndicator`
+* `onSlide`
+
 
 ### AZCaptchaRow
 
