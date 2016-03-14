@@ -60,6 +60,9 @@
 		B199D5251C86F10E00369782 /* AZTableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = B199D5241C86F10E00369782 /* AZTableViewDataSource.m */; };
 		B199D5281C86F75100369782 /* AZTableViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B199D5271C86F75100369782 /* AZTableViewDelegate.m */; };
 		B199D52B1C86F7C300369782 /* AZTableViewDelegateWithRowHeight.m in Sources */ = {isa = PBXBuildFile; fileRef = B199D52A1C86F7C300369782 /* AZTableViewDelegateWithRowHeight.m */; };
+		B1E194C11C96841100FD3808 /* AZAccessoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = B1E194C01C96841100FD3808 /* AZAccessoryView.m */; };
+		B1E194C41C9684EA00FD3808 /* AZLoadingAccessoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = B1E194C31C9684EA00FD3808 /* AZLoadingAccessoryView.m */; };
+		B1E194C71C96950000FD3808 /* AZButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B1E194C61C96950000FD3808 /* AZButton.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -157,6 +160,12 @@
 		B199D5271C86F75100369782 /* AZTableViewDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZTableViewDelegate.m; sourceTree = "<group>"; };
 		B199D5291C86F7C300369782 /* AZTableViewDelegateWithRowHeight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZTableViewDelegateWithRowHeight.h; sourceTree = "<group>"; };
 		B199D52A1C86F7C300369782 /* AZTableViewDelegateWithRowHeight.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZTableViewDelegateWithRowHeight.m; sourceTree = "<group>"; };
+		B1E194BF1C96841100FD3808 /* AZAccessoryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZAccessoryView.h; sourceTree = "<group>"; };
+		B1E194C01C96841100FD3808 /* AZAccessoryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZAccessoryView.m; sourceTree = "<group>"; };
+		B1E194C21C9684EA00FD3808 /* AZLoadingAccessoryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZLoadingAccessoryView.h; sourceTree = "<group>"; };
+		B1E194C31C9684EA00FD3808 /* AZLoadingAccessoryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZLoadingAccessoryView.m; sourceTree = "<group>"; };
+		B1E194C51C96950000FD3808 /* AZButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZButton.h; sourceTree = "<group>"; };
+		B1E194C61C96950000FD3808 /* AZButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZButton.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -360,10 +369,24 @@
 				B199D5271C86F75100369782 /* AZTableViewDelegate.m */,
 				B199D5291C86F7C300369782 /* AZTableViewDelegateWithRowHeight.h */,
 				B199D52A1C86F7C300369782 /* AZTableViewDelegateWithRowHeight.m */,
+				B1E194BE1C96838700FD3808 /* Accessory */,
 				B15D76BD1C8977FE0037E02E /* Form rows */,
 				B15D76B01C8805D50037E02E /* Display rows */,
 			);
 			path = AZTableView;
+			sourceTree = "<group>";
+		};
+		B1E194BE1C96838700FD3808 /* Accessory */ = {
+			isa = PBXGroup;
+			children = (
+				B1E194C51C96950000FD3808 /* AZButton.h */,
+				B1E194C61C96950000FD3808 /* AZButton.m */,
+				B1E194BF1C96841100FD3808 /* AZAccessoryView.h */,
+				B1E194C01C96841100FD3808 /* AZAccessoryView.m */,
+				B1E194C21C9684EA00FD3808 /* AZLoadingAccessoryView.h */,
+				B1E194C31C9684EA00FD3808 /* AZLoadingAccessoryView.m */,
+			);
+			name = Accessory;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -448,6 +471,7 @@
 				B12F034C1C8FEC0F007BC6D5 /* YYWebImageManager.m in Sources */,
 				B12F034B1C8FEC0F007BC6D5 /* YYImageCache.m in Sources */,
 				B15D76C91C8978930037E02E /* AZInputTableViewCell.m in Sources */,
+				B1E194C11C96841100FD3808 /* AZAccessoryView.m in Sources */,
 				B199D5281C86F75100369782 /* AZTableViewDelegate.m in Sources */,
 				B199D5191C86E1BB00369782 /* AZSection.m in Sources */,
 				B199D4FC1C86D4F300369782 /* AppDelegate.m in Sources */,
@@ -466,6 +490,8 @@
 				B199D51C1C86E1CE00369782 /* AZRow.m in Sources */,
 				B199D52B1C86F7C300369782 /* AZTableViewDelegateWithRowHeight.m in Sources */,
 				B15D76AE1C87EFCB0037E02E /* NSObject+YYModel.m in Sources */,
+				B1E194C41C9684EA00FD3808 /* AZLoadingAccessoryView.m in Sources */,
+				B1E194C71C96950000FD3808 /* AZButton.m in Sources */,
 				B12F034D1C8FEC0F007BC6D5 /* YYWebImageOperation.m in Sources */,
 				B12F03441C8FEC0F007BC6D5 /* UIImage+YYWebImage.m in Sources */,
 				B199D51F1C86E1E400369782 /* AZItem.m in Sources */,

@@ -49,22 +49,7 @@
 
 
 +(id)sectionWithType:(NSString *)type{
-        if ([type isKindOfClass:[NSString class]]) {
-            //For extend
-            Class cla = NSClassFromString(type);
-            if (!cla) {
-                if (type && [type length]>0) {
-                    type = [type stringByReplacingCharactersInRange:NSMakeRange(0,1) withString:[[type substringToIndex:1] capitalizedString]];
-                }
-                cla = NSClassFromString([NSString stringWithFormat:@"AZ%@Section", type]);
-            }
-            if (cla && [cla isSubclassOfClass:self]) {
-                return [cla new];
-            } else if(!cla){
-                [NSException raise:@"Invalid section type" format:@"type of %@ is invalid", type];
-            }
-        }
-    return [self new];
+    return [AZRow createFromType:type defaultClass:self suffix:@"Section" validate:YES];
 }
 
 -(id)init{

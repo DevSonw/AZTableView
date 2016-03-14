@@ -62,6 +62,7 @@ static NSString *NSStringFromIndexPath(NSIndexPath *indexPath){
                    [self formRow],
                    [self rowEvent],
                    [self advancedFormRow],
+                   [self accessoryViewRow],
                    nil];
     NSLog(@"Create time: %f s", [[NSDate date] timeIntervalSinceDate:date]);
     //    NSArray *ar = [NSArray arrayWithObjects:[self jsonCont], nil];
@@ -184,6 +185,13 @@ static NSString *NSStringFromIndexPath(NSIndexPath *indexPath){
 
 - (void)alert:(NSString *)title message:(NSString *)message{
     [[[UIAlertView alloc] initWithTitle:title message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
+}
+
+- (void)alert:(NSString *)title message:(NSString *)message fromViewController:(UIViewController *)viewController{
+    UIAlertController *controller = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+    [controller addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+    }]];
+    [viewController presentViewController:controller animated:YES completion:nil];
 }
 
 -(UIViewController *)formRow{
@@ -508,6 +516,46 @@ static NSString *NSStringFromIndexPath(NSIndexPath *indexPath){
     return cont;
 }
 
+-(UIViewController *)accessoryViewRow{
+    
+    UIViewController *cont = [UIViewController new];
+    __weak UIViewController *weakCont = cont;
+    AZRow *row1 = [AZRow new];
+    row1.text = @"Checkmark";
+    row1.accessoryType = UITableViewCellAccessoryCheckmark;
+    
+    AZRow *row2 = [AZRow new];
+    row2.text = @"Detail button";
+    row2.accessoryType = UITableViewCellAccessoryDetailButton;
+    
+    row2.onAccessory = ^(AZRow *row, UIView *fromView){
+        [self alert:@"onAccessory" message:nil fromViewController:weakCont];
+    };
+    
+    AZRow *row3 = [AZRow new];
+    row3.text = @"Detail disclosure button";
+    row3.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+
+    AZRow *row4 = [AZRow new];
+    row4.text = @"Disclosure indicator";
+    row4.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    
+    AZSection *section = [AZSection new];
+    [section addRow:row1];
+    [section addRow:row2];
+    [section addRow:row3];
+    [section addRow:row4];
+
+    AZRoot *root = [AZRoot new];
+    [root addSection:section];
+    root.grouped = YES;
+    
+    AZTableView *tableView = [[AZTableView alloc] initWithRoot:root];
+    tableView.editing = YES; //For deletable
+    cont.title = @"Accessory view in row";
+    cont.view = tableView;
+    return cont;
+}
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

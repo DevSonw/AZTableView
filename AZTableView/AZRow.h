@@ -80,6 +80,9 @@ typedef void (^AZRowEvent)(AZRow *row, UIView *fromView);
  */
 + (id)rowWithType:(NSString *)type;
 
++(id)createFromType:(NSString *)type defaultClass:(Class)defaultClass suffix:(NSString *)suffix validate:(BOOL)validate;
+
+
 - (NSIndexPath *)indexPath;
 
 - (AZTableViewCell *)cellForTableView:(AZTableView *)tableView indexPath:(NSIndexPath *)indexPath;

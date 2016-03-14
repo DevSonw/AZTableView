@@ -9,11 +9,9 @@
 #import "AZRow.h"
 #import "AZTableView.h"
 #import "AZConvert.h"
+#import "AZAccessoryView.h"
 
 @interface AZRow()
-
-@property(nonatomic, retain) id realAccessoryView;
-
 @end
 
 @implementation AZRow
@@ -31,22 +29,29 @@
 }
 
 +(id)rowWithType:(NSString *)type{
-        if ([type isKindOfClass:[NSString class]]) {
-            //For extend
-            Class cla = NSClassFromString(type);
-            if (!cla) {
-                if (type && [type length]>0) {
-                    type = [type stringByReplacingCharactersInRange:NSMakeRange(0,1) withString:[[type substringToIndex:1] capitalizedString]];
-                }
-                cla = NSClassFromString([NSString stringWithFormat:@"AZ%@Row", type]);
+    return [self createFromType:type defaultClass:self suffix:@"Row" validate:YES];
+}
+
++(id)createFromType:(NSString *)type defaultClass:(Class)defaultClass suffix:(NSString *)suffix validate:(BOOL)validate{
+    if ([type isKindOfClass:[NSString class]]) {
+        //For extend
+        Class cla = NSClassFromString(type);
+        if (!cla) {
+            if (type && [type length]>0) {
+                type = [type stringByReplacingCharactersInRange:NSMakeRange(0,1) withString:[[type substringToIndex:1] capitalizedString]];
             }
-            if (cla && [cla isSubclassOfClass:self]) {
-                return [cla new];
-            } else if(!cla){
-                [NSException raise:@"Invalid row type" format:@"type of %@ is invalid", type];
-            }
+            cla = NSClassFromString([NSString stringWithFormat:@"AZ%@%@", type, suffix]);
         }
-    return [self new];
+        if (cla) {
+            if (validate && ![cla isSubclassOfClass:defaultClass]) {
+                [NSException raise:@"Invalid type" format:@"type of %@ for '%@' is invalid", type, suffix];
+            }
+            return [cla new];
+        } else if(!cla){
+            [NSException raise:@"Not exist type" format:@"type of %@ for '%@' is no exist", type, suffix];
+        }
+    }
+    return [defaultClass new];
 }
 
 - (NSDictionary *)modelCustomWillTransformFromDictionary:(NSDictionary *)dic {
@@ -76,31 +81,6 @@
     return self;
 }
 
-- (void)setAccessoryView:(id)accessoryView{
-    _accessoryView = accessoryView;
-    self.realAccessoryView = nil;
-}
-
-- (id)realAccessoryView{
-    if (!_realAccessoryView && _accessoryView) {
-        if ([self.accessoryView isEqual:@"loading"]) {
-            UIActivityIndicatorView *activity = [UIActivityIndicatorView new];
-            activity.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
-            [activity startAnimating];
-            _realAccessoryView = activity;
-        } else {
-            //TODO:
-//            _realAccessoryView = [AZAccessoryButton buttonWithSetting:self.accessoryView];
-        }
-    }
-    if ([_realAccessoryView isKindOfClass:[UIActivityIndicatorView class]]) {
-        [_realAccessoryView startAnimating];
-    }
-    return _realAccessoryView;
-}
-
-
-
 - (NSIndexPath *)indexPath{
     if (!self.section) {
         return nil;
@@ -129,16 +109,23 @@
     cell.selectionStyle = self.enabled && self.onSelect ? UITableViewCellSelectionStyleBlue : UITableViewCellSelectionStyleNone;
     cell.accessoryType = self.accessoryType;
     cell.detailTextLabel.text = self.detail;
-    cell.accessoryView = nil;
     cell.accessibilityLabel = self.accessibilityLabel;
-    cell.accessoryView = self.realAccessoryView;
     cell.hideSeparator = self.hideSeparator;
-//    if ([self.realAccessoryView respondsToSelector:@selector(clickHandler)]) {
-//        __weak AZRow *row = self;
-//        ((AZAccessoryButton *)self.realAccessoryView).clickHandler = ^(AZButton *button){
-//            [row selectedAccessory:tableView indexPath:indexPath];
-//        };
-//    }
+    
+    if ([self.accessoryView isKindOfClass:[NSDictionary class]]) {
+        AZAccessoryView *view = [AZAccessoryView accessoryViewWithType:self.accessoryView[@"type"]];
+        [view yy_modelSetWithDictionary:self.accessoryView];
+        cell.accessoryView = view;
+    } else {
+        cell.accessoryView = self.accessoryView;
+    }
+    if ([cell.accessoryView respondsToSelector:@selector(clickHandler)]) {
+        __weak AZRow *_weakRow = self;
+        __weak AZTableViewCell *_weakCell = cell;
+        ((AZAccessoryView *)cell.accessoryView).clickHandler = ^(AZButton *button){
+            _weakRow.onAccessory(_weakRow, _weakCell);
+        };
+    }
     
     [self.class setImageForImageView:cell.imageView imageNamed:self.image url:self.imageURL cornerRadius:self.imageCornerRadius];
     
