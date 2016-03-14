@@ -78,8 +78,8 @@ Extend row
 
 Use YYImageView support gif.
 
-* captchaWidth
-* captchaHeight
+* `captchaWidth`
+* `captchaHeight`
 * `captchaURL` support base64 encoding data like imageURL
 * `onCaptcha` Event when captcha start load
 
