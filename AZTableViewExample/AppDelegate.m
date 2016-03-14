@@ -62,9 +62,6 @@ static NSString *NSStringFromIndexPath(NSIndexPath *indexPath){
                    [self formRow],
                    [self rowEvent],
                    [self advancedFormRow],
-                   [self dictionaryCont],
-                   [self jsonController:@"sectionTemplate"],
-                   [self jsonController:@"basicForm"],
                    nil];
     NSLog(@"Create time: %f s", [[NSDate date] timeIntervalSinceDate:date]);
     //    NSArray *ar = [NSArray arrayWithObjects:[self jsonCont], nil];
