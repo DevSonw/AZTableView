@@ -10,6 +10,8 @@
 
 #import "AZTableView.h"
 #import "AZInputRow.h"
+#import "AZPickerRow.h"
+#import "AZBadgeRow.h"
 
 //#import <objc/runtime.h>
 //static void *TITLEKEY;
@@ -168,9 +170,45 @@ static NSString *NSStringFromIndexPath(NSIndexPath *indexPath){
     [section addRow:row10];
     [section addRow:row11];
     [section addRow:row12];
+    
+    
+    
+    AZSection *section1 = [AZSection new];
+    section1.header = @"Badge";
+    
+    AZBadgeRow *row13 = [AZBadgeRow new];
+    row13.text = @"With Select Event";
+    row13.badge = @"1";
+    row13.badgeColor = [UIColor redColor];
+    row13.onSelect =  ^(AZRow *row, UIView *fromView){
+        NSLog(@"onSelect");
+        [self alert:@"onSelect" message:nil];
+    };
+
+    
+    AZBadgeRow *row14 = [AZBadgeRow new];
+    row14.text = @"Without Badge";
+    row14.textColor = [UIColor redColor];
+    
+    AZBadgeRow *row15 = [AZBadgeRow new];
+    row15.badge = @"2";
+    row15.text = @"Default Badge row";
+    
+    AZBadgeRow *row16 = [AZBadgeRow new];
+    row16.text = @"Custom Badge Text Color";
+    row16.badge = @"A";
+    row16.badgeTextColor = [UIColor redColor];
+    row16.badgeColor = [UIColor blackColor];
+    
+    [section1 addRow:row13];
+    [section1 addRow:row14];
+    [section1 addRow:row15];
+    [section1 addRow:row16];
+    
 
     AZRoot *root = [AZRoot new];
     [root addSection:section];
+    [root addSection:section1];
     
     root.grouped = YES;
     
@@ -255,9 +293,6 @@ static NSString *NSStringFromIndexPath(NSIndexPath *indexPath){
     row13.text = @"Name";
     row13.placeholder = @"clearsOnBeginEditing";
     row13.clearsOnBeginEditing = YES;
-
-    AZSection *section1 = [AZSection new];
-    section1.header = @"Picker";
     
     AZRoot *root = [AZRoot new];
     AZSection *section = [AZSection new];
@@ -275,10 +310,43 @@ static NSString *NSStringFromIndexPath(NSIndexPath *indexPath){
     [section addRow:row11];
     [section addRow:row12];
     [section addRow:row13];
-
+    
+    
+    AZSection *section1 = [AZSection new];
+    section1.header = @"Picker";
+    
+    
+    AZPickerRow *row14 = [AZPickerRow new];
+    row14.text = @" Picker";
+    row14.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+    row14.items = @[@[@"A",@"B",@"C",@"E",@"F"]];
+    
+    AZPickerRow *row15 = [AZPickerRow new];
+    row15.text = @"Two Picker";
+    row15.placeholder = @"placeholder";
+    row15.style = UITableViewCellStyleSubtitle;
+    row15.detailTextColor = [UIColor blueColor];
+    row15.items = @[@[@"A",@"B",@"C"],@[@"A",@"B",@"C"]];
+    row15.selectedIndexes = @[@"1",@"2"];
+    
+    AZPickerRow *row16 = [AZPickerRow new];
+    row16.text = @"Three Picker";
+    row16.items =@[@[@"A",@"B",@"C"],@[@"A",@"B",@"C"],@[@"D",@"E",@"F"]];
+    row16.selectedIndexes = @[@"0",@"1",@"2"];
+    
+    AZPickerRow *row17 = [AZPickerRow new];
+    row17.text = @"Without default Selected";
+    row17.items = @[@[@"A",@"B",@"C"],@[@"A",@"B",@"C"]];
+    
+    [section1 addRow:row14];
+    [section1 addRow:row15];
+    [section1 addRow:row16];
+    [section1 addRow:row17];
+    
+    
     [root addSection:section];
     [root addSection:section1];
-
+    
     AZTableView *tableView = [[AZTableView alloc] initWithRoot:root];
     tableView.editing = YES; //For deletable, sortable
     cont.title = @"Form row";
