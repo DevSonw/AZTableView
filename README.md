@@ -70,7 +70,7 @@ Extend row
 
 ### AZHtmlRow
 
-`onLink` Event when url in html label click.
+* `onLink` Event when url in html label click.
 
 ### AZImagePageRow
 
@@ -78,10 +78,10 @@ Extend row
 
 Use YYImageView support gif.
 
-captchaWidth
-captchaHeight
-`captchaURL` support base64 encoding data like imageURL
-`onCaptcha` Event when captcha start load
+* captchaWidth
+* captchaHeight
+* `captchaURL` support base64 encoding data like imageURL
+* `onCaptcha` Event when captcha start load
 
 
 
