@@ -75,7 +75,9 @@
 - (void)setEnabled:(BOOL)enabled{
     [super setEnabled:enabled];
     if (!_titleColor) {
-        [self setTitleColor:[self defColor] forState:UIControlStateNormal];
+        UIColor *color = [self defColor];
+        [self setTitleColor:color forState:UIControlStateNormal];
+        [self setTitleColor:[color colorWithAlphaComponent:0.6] forState:UIControlStateHighlighted];
     }
     if (!_borderColor) {
         self.layer.borderColor = [self defColor].CGColor;
@@ -98,6 +100,7 @@
 - (void)setTitleColor:(UIColor *)titleColor{
     _titleColor = titleColor;
     [self setTitleColor:titleColor forState:UIControlStateNormal];
+    [self setTitleColor:[titleColor colorWithAlphaComponent:0.6] forState:UIControlStateHighlighted];
 }
 
 -(UIColor *)titleColor{
@@ -125,7 +128,8 @@
     _image = image;
     UIImage *img = [image isKindOfClass:[UIImage class]] ? image : [UIImage imageNamed:image];
     [self setImage: img forState:UIControlStateNormal];
-    if (!_spacing) {
+    //Set default spacing.
+    if (!_spacing && !_verticalSpacing) {
         self.spacing = 4.0f;
     }
     [self sizeToFit];
@@ -139,6 +143,9 @@
         frame.size.height += _verticalSpacing + 2.f;
     }
     self.frame = frame;
+    if (_verticalSpacing) {
+        [self setVerticalSpacing:_verticalSpacing];
+    }
 }
 
 - (void)setSpacing:(CGFloat)spacing{

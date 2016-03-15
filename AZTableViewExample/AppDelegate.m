@@ -55,7 +55,10 @@ static NSString *NSStringFromIndexPath(NSIndexPath *indexPath){
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-
+    UIWindow *window = [[UIWindow alloc] init];
+    self.window = window;
+//    window.tintColor = [UIColor redColor]; // Change tint color
+    
     UIViewController *viewController = [UIViewController new];
     AZSection *section = [AZSection new];
     NSDate *date = [NSDate date];
@@ -65,6 +68,7 @@ static NSString *NSStringFromIndexPath(NSIndexPath *indexPath){
                    [self rowEvent],
                    [self advancedFormRow],
                    [self accessoryViewRow],
+                   [self buttonGroupRow],
                    nil];
     NSLog(@"Create time: %f s", [[NSDate date] timeIntervalSinceDate:date]);
     //    NSArray *ar = [NSArray arrayWithObjects:[self jsonCont], nil];
@@ -78,8 +82,6 @@ static NSString *NSStringFromIndexPath(NSIndexPath *indexPath){
     AZTableView *tableView = [[AZTableView alloc] initWithRoot:root];
     viewController.view = tableView;
     viewController.title = @"AZTableView Example";
-    UIWindow *window = [[UIWindow alloc] init];
-    self.window = window;
     self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:viewController];
     [self.window makeKeyAndVisible];
     return YES;
@@ -729,6 +731,79 @@ static NSString *NSStringFromIndexPath(NSIndexPath *indexPath){
     AZTableView *tableView = [[AZTableView alloc] initWithRoot:root];
     tableView.editing = YES; //For deletable
     cont.title = @"Accessory view in row";
+    cont.view = tableView;
+    return cont;
+}
+
+-(UIViewController *)exampleRow{
+    UIViewController *cont = [UIViewController new];
+    
+    AZRow *row1 = [AZInputRow new];
+    row1.text = @"Name";
+    
+    AZRoot *root = [AZRoot new];
+    AZSection *section = [AZSection new];
+    [root addSection:section];
+    section.header = @"Input";
+    [section addRow:row1];
+    
+    AZTableView *tableView = [[AZTableView alloc] initWithRoot:root];
+    cont.title = @"Example";
+    cont.view = tableView;
+    return cont;
+}
+
+-(UIViewController *)buttonGroupRow{
+    UIViewController *cont = [UIViewController new];
+    __weak UIViewController *weakCont = cont;
+    AZButtonGroupRow *row1 = [AZButtonGroupRow new];
+    AZButton *btn1 = [AZButton new];
+    btn1.title = @"btn1";
+    AZButton *btn2 = [AZButton new];
+    btn2.title = @"btn2";
+    AZButton *btn3 = [AZButton new];
+    btn3.title = @"btn3";
+    row1.items = @[btn1, btn2, btn3];
+    row1.height = 60.f;
+    row1.onSelect =   ^(AZRow *row, UIView *fromView){
+        NSLog(@"onSelect");
+        [self alert:@"onSelect" message:[NSString stringWithFormat:@"select index: %@", row.value] fromViewController:weakCont];
+    };
+    
+    AZButtonGroupRow *row2 = [AZButtonGroupRow new];
+    row2.height = 60.f;
+    row2.items = @[
+  @{ @"title": @"btn1", @"image": @"github-icon"},
+  @{ @"title": @"btn2", @"image": @"github-icon"},
+  @{ @"title": @"disabled", @"image": @"github-icon", @"enabled": @(0)},
+  ];
+    row2.separatorColor = [UIColor clearColor];
+    row2.onSelect =   ^(AZRow *row, UIView *fromView){
+        NSLog(@"onSelect");
+        [self alert:@"onSelect" message:[NSString stringWithFormat:@"select index: %@", row.value] fromViewController:weakCont];
+    };
+    
+    AZButtonGroupRow *row3 = [AZButtonGroupRow new];
+    row3.height = 80.f;
+    row3.items = @[
+                   @{ @"title": @"btn1", @"image": @"github-icon", @"verticalSpacing": @(4)},
+                   @{ @"title": @"btn2", @"image": @"github-icon", @"verticalSpacing": @(4)},
+                   @{ @"title": @"disabled", @"image": @"github-icon", @"verticalSpacing": @(4), @"enabled": @(0)},
+                   ];
+    row3.onSelect =   ^(AZRow *row, UIView *fromView){
+        NSLog(@"onSelect");
+        [self alert:@"onSelect" message:[NSString stringWithFormat:@"select index: %@", row.value] fromViewController:weakCont];
+    };
+    
+    AZRoot *root = [AZRoot new];
+    AZSection *section = [AZSection new];
+    [root addSection:section];
+    [section addRow:row1];
+    [section addRow:row2];
+    [section addRow:row3];
+
+    AZTableView *tableView = [[AZTableView alloc] initWithRoot:root];
+    cont.title = @"Button group row";
     cont.view = tableView;
     return cont;
 }
