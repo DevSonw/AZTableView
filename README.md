@@ -67,6 +67,10 @@ Extend row
 
 ### AZButtonGroupRow
 
+* `items` Button items, support create by YYModel dictionary
+* `separatorColor` Separator color between buttons, default tableView separator color.
+* `onSelect` Event when button click. the button index saved at `row.value`
+
 ### AZGridSection
 
 The grid view in section.
