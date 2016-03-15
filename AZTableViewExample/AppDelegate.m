@@ -10,6 +10,9 @@
 
 #import "AZTableView.h"
 #import "AZInputRow.h"
+#import "AZGridRow.h"
+#import "AZGridSection.h"
+#import "AZHtmlRow.h"
 
 //#import <objc/runtime.h>
 //static void *TITLEKEY;
@@ -62,6 +65,8 @@ static NSString *NSStringFromIndexPath(NSIndexPath *indexPath){
                    [self formRow],
                    [self rowEvent],
                    [self advancedFormRow],
+                   [self gridRow],
+                   [self htmlRow],
                    nil];
     NSLog(@"Create time: %f s", [[NSDate date] timeIntervalSinceDate:date]);
     //    NSArray *ar = [NSArray arrayWithObjects:[self jsonCont], nil];
@@ -286,6 +291,7 @@ static NSString *NSStringFromIndexPath(NSIndexPath *indexPath){
     return cont;
 }
 
+
 -(UIViewController *)rowEvent{
     UIViewController *cont = [UIViewController new];
 
@@ -508,6 +514,94 @@ static NSString *NSStringFromIndexPath(NSIndexPath *indexPath){
     return cont;
 }
 
+
+- (UIViewController *)gridRow
+{
+    UIViewController *cont = [UIViewController new];
+    
+    AZRoot *root = [AZRoot new];
+    
+    AZGridSection *section = [AZGridSection new];
+//    section.header = @"Eval Script";
+    section.items = @[@"h1",@"h2",@"h3"];
+    [root addSection:section];
+    
+    AZGridRow *row = [AZGridRow new];
+    row.items =  @[@"A",@"B",@"C"];
+    row.text = @"A";
+    [section addRow:row];
+    
+    AZGridRow *row1 = [AZGridRow new];
+    row1.items =  @[@"AA",@"BB",@"CC"];
+    row1.text = @"AA";
+    [section addRow:row1];
+
+    AZTableView *tableView = [[AZTableView alloc] initWithRoot:root];
+    tableView.editing = YES; //For deletable, sortable
+    cont.title = @"Gird row";
+    cont.view = tableView;
+    return cont;
+}
+
+- (UIViewController *)htmlRow
+{
+    UIViewController *cont = [UIViewController new];
+    
+    AZRoot *root = [AZRoot new];
+    
+    AZSection *section = [AZSection new];
+    section.header = @"HTML";
+    [root addSection:section];
+    
+    AZHtmlRow *row = [AZHtmlRow new];
+    row.html = @"<font color=blue>blue</font> <i>only html label</i><b color=blue>blue</b> ";
+    [section addRow:row];
+    
+    AZHtmlRow *row2 = [AZHtmlRow new];
+    row2.text = @"HTML text with title";
+    row2.html = @"<font color=blue>blue</font> <b>bold</b> and <i>italic</i> style";
+    [section addRow:row2];
+    
+    AZHtmlRow *row3 = [AZHtmlRow new];
+    row3.text = @"With title and detail";
+    row3.detail = @"detail text";
+    row3.html = @"<font color=blue>blue</font> <b>bold</b> and <i>italic</i> style long long long long long long long long long long";
+    [section addRow:row3];
+    
+    AZHtmlRow *row4 = [AZHtmlRow new];
+    row4.image = @"fa-github";
+    row4.detail = @"detail";
+    row4.text = @"Auto resize height";
+    row4.html = @"<b color=blue>blue</b> <b>bold</b> and <i>italic</i> style, <font face='HelveticaNeue-CondensedBold' color='#CCFF00'>Text with</font> <font face='AmericanTypewriter' color=purple>different colours</font> <font face='Futura' size=17 color='#dd1100'>and sizes</font><p><a href='http://google.com'>Clickable</a></p>";
+    row4.htmlTextLine = 0;
+    row4.onLink = @"alert";
+    [section addRow:row4];
+    
+    AZHtmlRow *row5 = [AZHtmlRow new];
+    row5.image = @"fa-github";
+    row5.detail = @"detail long long \n long";
+    row5.text = @"Auto resize height";
+    row5.detailTextLine = 0;
+    row5.html = @"<b color=blue>blue</b> <b>bold</b> and <i>italic</i> style, <font face='HelveticaNeue-CondensedBold' color='#CCFF00'>Text with</font> <font face='AmericanTypewriter' color=purple>different colours</font> <font face='Futura' size=17 color='#dd1100'>and sizes</font><p><a href='http://google.com'>Clickable</a></p>";
+    row5.htmlTextLine = 0;
+    row5.onLink = @"alert";
+    [section addRow:row5];
+    
+    AZHtmlRow *row6 = [AZHtmlRow new];
+    row6.image = @"fa-github";
+    row6.html = @"<b color=blue>blue</b> <b>bold</b> and <i>italic</i> style, <font face='HelveticaNeue-CondensedBold' color='#CCFF00'>Text with</font> <font face='AmericanTypewriter' color=purple>different colours</font> <font face='Futura' size=17 color='#dd1100'>and sizes</font><p><a href='http://google.com'>Clickable</a></p>";
+    row6.htmlTextLine = 0;
+    row6.onLink = @"alert";
+//    row6.onSelect = alert;
+    [section addRow:row6];
+    
+    AZTableView *tableView = [[AZTableView alloc] initWithRoot:root];
+    tableView.editing = YES; //For deletable, sortable
+    cont.title = @"Html row";
+    cont.view = tableView;
+    
+    return cont;
+}
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
