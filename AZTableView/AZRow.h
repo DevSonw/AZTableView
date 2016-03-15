@@ -74,13 +74,18 @@ typedef void (^AZRowEvent)(AZRow *row, UIView *fromView);
 @property(nonatomic, copy) AZRowEvent onDelete; ///< Event when the cell delete button click.
 @property(nonatomic, copy) AZRowEvent onMove; ///< Event after the cell move to another position.
 
+@property(nonatomic, assign) int selectionStyle;
+
 /**
  Create row by type name.
  
  */
 + (id)rowWithType:(NSString *)type;
 
-- (NSIndexPath *)indexPath;
++(id)createFromType:(NSString *)type defaultClass:(Class)defaultClass suffix:(NSString *)suffix validate:(BOOL)validate;
+
+
+- (NSIndexPath *)visibleIndexPath;
 
 - (AZTableViewCell *)cellForTableView:(AZTableView *)tableView indexPath:(NSIndexPath *)indexPath;
 

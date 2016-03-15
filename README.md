@@ -67,6 +67,10 @@ Extend row
 
 ### AZButtonGroupRow
 
+* `items` Button items, support create by YYModel dictionary
+* `separatorColor` Separator color between buttons, default tableView separator color.
+* `onSelect` Event when button click. the button index saved at `row.value`
+
 ### AZGridSection
 
 The grid view in section.
@@ -89,9 +93,10 @@ The grid view in section.
 Use YYImageView support gif.
 
 * `items` The images data. `[{ image: "", imageURL: "", title: "" }]`
-* `slideInterval`
-* `hideIndicator`
-* `onSlide`
+* `slideInterval` The image auto slide interval, default 0.0f don't auto slide.
+* `hideIndicator` Don't display the indicator if true.
+* `onSlide` Event when slide to the image.
+* `onSelect` Event when image click.
 
 
 ### AZCaptchaRow
@@ -101,7 +106,7 @@ Use YYImageView support gif.
 * `captchaWidth`
 * `captchaHeight`
 * `captchaURL` support base64 encoding data like imageURL
-* `onCaptcha` Event when captcha start load
+* `onCaptcha` Event when captcha start refresh
 
 
 

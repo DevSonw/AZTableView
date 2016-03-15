@@ -43,7 +43,7 @@
         
         bbDataSource = [[AZTableViewDataSource alloc] init];
         self.dataSource = bbDataSource;
-        if (root.highPerformance) {
+        if (root.rowHeightConstant) {
             bbDelegate = [[AZTableViewDelegate alloc] init];
             self.delegate = bbDelegate;
         } else {

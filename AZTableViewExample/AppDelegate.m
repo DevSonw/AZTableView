@@ -10,6 +10,8 @@
 
 #import "AZTableView.h"
 #import "AZInputRow.h"
+#import "AZPickerRow.h"
+#import "AZBadgeRow.h"
 
 //#import <objc/runtime.h>
 //static void *TITLEKEY;
@@ -53,7 +55,10 @@ static NSString *NSStringFromIndexPath(NSIndexPath *indexPath){
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-
+    UIWindow *window = [[UIWindow alloc] init];
+    self.window = window;
+    window.tintColor = [UIColor redColor]; // Change tint color
+    
     UIViewController *viewController = [UIViewController new];
     AZSection *section = [AZSection new];
     NSDate *date = [NSDate date];
@@ -62,6 +67,8 @@ static NSString *NSStringFromIndexPath(NSIndexPath *indexPath){
                    [self formRow],
                    [self rowEvent],
                    [self advancedFormRow],
+                   [self accessoryViewRow],
+                   [self buttonGroupRow],
                    nil];
     NSLog(@"Create time: %f s", [[NSDate date] timeIntervalSinceDate:date]);
     //    NSArray *ar = [NSArray arrayWithObjects:[self jsonCont], nil];
@@ -75,8 +82,6 @@ static NSString *NSStringFromIndexPath(NSIndexPath *indexPath){
     AZTableView *tableView = [[AZTableView alloc] initWithRoot:root];
     viewController.view = tableView;
     viewController.title = @"AZTableView Example";
-    UIWindow *window = [[UIWindow alloc] init];
-    self.window = window;
     self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:viewController];
     [self.window makeKeyAndVisible];
     return YES;
@@ -168,9 +173,45 @@ static NSString *NSStringFromIndexPath(NSIndexPath *indexPath){
     [section addRow:row10];
     [section addRow:row11];
     [section addRow:row12];
+    
+    
+    
+    AZSection *section1 = [AZSection new];
+    section1.header = @"Badge";
+    
+    AZBadgeRow *row13 = [AZBadgeRow new];
+    row13.text = @"With Select Event";
+    row13.badge = @"1";
+    row13.badgeColor = [UIColor redColor];
+    row13.onSelect =  ^(AZRow *row, UIView *fromView){
+        NSLog(@"onSelect");
+        [self alert:@"onSelect" message:nil];
+    };
+
+    
+    AZBadgeRow *row14 = [AZBadgeRow new];
+    row14.text = @"Without Badge";
+    row14.textColor = [UIColor redColor];
+    
+    AZBadgeRow *row15 = [AZBadgeRow new];
+    row15.badge = @"2";
+    row15.text = @"Default Badge row";
+    
+    AZBadgeRow *row16 = [AZBadgeRow new];
+    row16.text = @"Custom Badge Text Color";
+    row16.badge = @"A";
+    row16.badgeTextColor = [UIColor redColor];
+    row16.badgeColor = [UIColor blackColor];
+    
+    [section1 addRow:row13];
+    [section1 addRow:row14];
+    [section1 addRow:row15];
+    [section1 addRow:row16];
+    
 
     AZRoot *root = [AZRoot new];
     [root addSection:section];
+    [root addSection:section1];
     
     root.grouped = YES;
     
@@ -184,6 +225,13 @@ static NSString *NSStringFromIndexPath(NSIndexPath *indexPath){
 
 - (void)alert:(NSString *)title message:(NSString *)message{
     [[[UIAlertView alloc] initWithTitle:title message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
+}
+
+- (void)alert:(NSString *)title message:(NSString *)message fromViewController:(UIViewController *)viewController{
+    UIAlertController *controller = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+    [controller addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+    }]];
+    [viewController presentViewController:controller animated:YES completion:nil];
 }
 
 -(UIViewController *)formRow{
@@ -255,9 +303,6 @@ static NSString *NSStringFromIndexPath(NSIndexPath *indexPath){
     row13.text = @"Name";
     row13.placeholder = @"clearsOnBeginEditing";
     row13.clearsOnBeginEditing = YES;
-
-    AZSection *section1 = [AZSection new];
-    section1.header = @"Picker";
     
     AZRoot *root = [AZRoot new];
     AZSection *section = [AZSection new];
@@ -275,11 +320,61 @@ static NSString *NSStringFromIndexPath(NSIndexPath *indexPath){
     [section addRow:row11];
     [section addRow:row12];
     [section addRow:row13];
+    
+    AZTableView *tableView = [[AZTableView alloc] initWithRoot:root];
 
+    AZSection *section1 = [AZSection new];
+    section1.header = @"Picker";
+    
+    
+    AZPickerRow *row14 = [AZPickerRow new];
+    row14.text = @" Picker";
+    row14.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+    row14.items = @[@[@"A",@"B",@"C",@"E",@"F"]];
+    row14.value = @"A";
+    
+    AZPickerRow *row15 = [AZPickerRow new];
+    row15.text = @"Two Picker";
+    row15.placeholder = @"placeholder";
+    row15.style = UITableViewCellStyleSubtitle;
+    row15.detailTextColor = [UIColor blueColor];
+    
+    NSArray *items1 = @[@[@"A",@"B",@"C"],@[@"A",@"B",@"C"]];
+    NSArray *items2 = @[@[@"A",@"B",@"C"],@[@"A",@"B",@"C", @"D", @"E", @"F"]];
+
+    row15.items = items1;
+    row15.value = @[@"A",@"B"];
+    
+    __weak AZPickerRow *weakRow15 = row15;
+    __block BOOL switched = NO;
+    row15.onChange = ^(AZRow *row, UIView *fromView){
+        NSLog(@"onChange %@", row.value);
+        weakRow15.items = switched ? items1 : items2;
+        switched = !switched;
+        weakRow15.value = @[row.value[0], @"A"];
+        [tableView updateCellForRow:row indexPath:row.visibleIndexPath];
+    };
+    row15.onBlur = ^(AZRow *row, UIView *fromView){
+        NSLog(@"onBlur %@", row.value);
+    };
+    
+    AZPickerRow *row16 = [AZPickerRow new];
+    row16.text = @"Three Picker";
+    row16.items =@[@[@"A",@"B",@"C"],@[@"A",@"B",@"C"],@[@"D",@"E",@"F"]];
+    row16.value = @[@"A",@"B",@"E"];
+    
+    AZPickerRow *row17 = [AZPickerRow new];
+    row17.text = @"Without default Selected";
+    row17.items = @[@[@"A",@"B",@"C"],@[@"A",@"B",@"C"]];
+    
+    [section1 addRow:row14];
+    [section1 addRow:row15];
+    [section1 addRow:row16];
+    [section1 addRow:row17];
+    
     [root addSection:section];
     [root addSection:section1];
-
-    AZTableView *tableView = [[AZTableView alloc] initWithRoot:root];
+    
     tableView.editing = YES; //For deletable, sortable
     cont.title = @"Form row";
     cont.view = tableView;
@@ -378,9 +473,9 @@ static NSString *NSStringFromIndexPath(NSIndexPath *indexPath){
         row.data = @[@(0), @(i)];
         row.text = [NSString stringWithFormat:@"Group 0, Item %d", i];
         row.onMove = ^(AZRow *row, UIView *fromView){
-            NSLog(@"onMove %@", NSStringFromIndexPath(row.indexPath));
+            NSLog(@"onMove %@", NSStringFromIndexPath(row.visibleIndexPath));
             NSLog(@"%@, %@", sortSection1.rows, sortSection2.rows);
-            cont.title = [NSString stringWithFormat:@"onMove: %@", NSStringFromIndexPath(row.indexPath)];
+            cont.title = [NSString stringWithFormat:@"onMove: %@", NSStringFromIndexPath(row.visibleIndexPath)];
         };
         [sortSection1 addRow:row];
     }
@@ -391,9 +486,9 @@ static NSString *NSStringFromIndexPath(NSIndexPath *indexPath){
         row.data = @[@(1), @(i)];
         row.text = [NSString stringWithFormat:@"Group 1, Item %d", i];
         row.onMove = ^(AZRow *row, UIView *fromView){
-            NSLog(@"onMove %@", NSStringFromIndexPath(row.indexPath));
+            NSLog(@"onMove %@", NSStringFromIndexPath(row.visibleIndexPath));
             NSLog(@"%@, %@", sortSection1.rows, sortSection2.rows);
-            cont.title = [NSString stringWithFormat:@"onMove: %@", NSStringFromIndexPath(row.indexPath)];
+            cont.title = [NSString stringWithFormat:@"onMove: %@", NSStringFromIndexPath(row.visibleIndexPath)];
         };
         [sortSection2 addRow:row];
     }
@@ -414,8 +509,8 @@ static NSString *NSStringFromIndexPath(NSIndexPath *indexPath){
             selectedRow.accessoryType = UITableViewCellAccessoryNone;
             row.accessoryType = UITableViewCellAccessoryCheckmark;
             
-            [tableView updateCellForRow:selectedRow indexPath:selectedRow.indexPath];
-            [tableView updateCellForRow:row indexPath:row.indexPath];
+            [tableView updateCellForRow:selectedRow indexPath:selectedRow.visibleIndexPath];
+            [tableView updateCellForRow:row indexPath:row.visibleIndexPath];
             [tableView deselect];
             selectedRow = row;
         };
@@ -433,7 +528,7 @@ static NSString *NSStringFromIndexPath(NSIndexPath *indexPath){
         row.onSelect = ^(AZRow *row, UIView *fromView){
             row.value =  [row.value isEqual:@(1)] ? @(0) : @(1);
             row.accessoryType = [row.value isEqual:@(1)] ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
-            [tableView updateCellForRow:row indexPath:row.indexPath];
+            [tableView updateCellForRow:row indexPath:row.visibleIndexPath];
             [tableView deselect];
         };
         [multipleSelectSection addRow:row];
@@ -508,6 +603,210 @@ static NSString *NSStringFromIndexPath(NSIndexPath *indexPath){
     return cont;
 }
 
+-(UIViewController *)accessoryViewRow{
+    
+    UIViewController *cont = [UIViewController new];
+    __weak UIViewController *weakCont = cont;
+    AZRow *row1 = [AZRow new];
+    row1.text = @"Checkmark";
+    row1.accessoryType = UITableViewCellAccessoryCheckmark;
+    
+    AZRow *row2 = [AZRow new];
+    row2.text = @"Detail button";
+    row2.accessoryType = UITableViewCellAccessoryDetailButton;
+    
+    row2.onAccessory = ^(AZRow *row, UIView *fromView){
+        [self alert:@"onAccessory" message:nil fromViewController:weakCont];
+    };
+    
+    AZRow *row3 = [AZRow new];
+    row3.text = @"Detail disclosure button";
+    row3.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+
+    AZRow *row4 = [AZRow new];
+    row4.text = @"Disclosure indicator";
+    row4.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    
+    AZRow *row5 = [AZRow new];
+    row5.text = @"Custom loading accessory";
+    row5.accessoryView = [AZLoadingAccessoryView new];
+    row5.onAccessory = ^(AZRow *row, UIView *fromView){
+        [self alert:@"onAccessory" message:nil fromViewController:weakCont];
+    };
+    
+    AZRow *row6 = [AZRow new];
+    row6.text = @"Custom button accessory";
+    AZAccessoryView *btn = [AZAccessoryView new];
+    btn.title = @"View";
+    row6.accessoryView = btn;
+    row6.onAccessory = ^(AZRow *row, UIView *fromView){
+        [self alert:@"onAccessory" message:nil fromViewController:weakCont];
+    };
+    
+    AZRow *row7 = [AZRow new];
+    row7.text = @"Custom button with image";
+    AZAccessoryView *btn1 = [AZAccessoryView new];
+    btn1.title = @"Github";
+    btn1.image = [UIImage imageNamed:@"github-icon"];
+    btn1.borderColor = [UIColor redColor];
+    row7.accessoryView = btn1;
+    row7.onAccessory = ^(AZRow *row, UIView *fromView){
+        [self alert:@"onAccessory" message:nil fromViewController:weakCont];
+    };
+
+    AZRow *row8 = [AZRow new];
+    row8.text = @"disabled button";
+    AZAccessoryView *btn2 = [AZAccessoryView new];
+    btn2.title = @"View";
+    btn2.enabled = NO;
+    row8.accessoryView = btn2;
+    row8.onAccessory = ^(AZRow *row, UIView *fromView){
+        [self alert:@"onAccessory" message:nil fromViewController:weakCont];
+    };
+    
+    AZRow *row9 = [AZRow new];
+    row9.text = @"without border";
+    AZAccessoryView *btn3 = [AZAccessoryView new];
+    btn3.title = @"View";
+    btn3.borderWidth = 0.f;
+    row9.accessoryView = btn3;
+    row9.onAccessory = ^(AZRow *row, UIView *fromView){
+        [self alert:@"onAccessory" message:nil fromViewController:weakCont];
+    };
+    
+    AZRow *row10 = [AZRow new];
+    row10.text = @"Custom backgroundColor";
+    AZAccessoryView *btn4 = [AZAccessoryView new];
+    btn4.title = @"View";
+    btn4.titleColor = [UIColor whiteColor];
+    btn4.backgroundColor = [AZRow  tintColor];
+    row10.accessoryView = btn4;
+    row10.onAccessory = ^(AZRow *row, UIView *fromView){
+        [self alert:@"onAccessory" message:nil fromViewController:weakCont];
+    };
+    
+    AZRow *row11 = [AZRow new];
+    row11.text = @"Custom from dictionary";
+    row11.accessoryView = @{
+                            @"title": @"View",
+                            @"titleColor": @"white",
+                            @"backgroundColor": @"blue",
+                            @"borderWidth": @(0),
+                            };
+    row11.onAccessory = ^(AZRow *row, UIView *fromView){
+        [self alert:@"onAccessory" message:nil fromViewController:weakCont];
+    };
+    
+    AZRow *row12 = [AZRow new];
+    row12.text = @"disabled from dictionary";
+    row12.accessoryView = @{
+                            @"title": @"View",
+                            @"titleColor": @"white",
+                            @"backgroundColor": @"gray",
+                            @"borderWidth": @(0),
+                            @"enabled": @(0),
+                            };
+    row12.onAccessory = ^(AZRow *row, UIView *fromView){
+        [self alert:@"onAccessory" message:nil fromViewController:weakCont];
+    };
+
+    AZSection *section = [AZSection new];
+    [section addRow:row1];
+    [section addRow:row2];
+    [section addRow:row3];
+    [section addRow:row4];
+    [section addRow:row5];
+    [section addRow:row6];
+    [section addRow:row7];
+    [section addRow:row8];
+    [section addRow:row9];
+    [section addRow:row10];
+    [section addRow:row11];
+    [section addRow:row12];
+
+    AZRoot *root = [AZRoot new];
+    [root addSection:section];
+    root.grouped = YES;
+    
+    AZTableView *tableView = [[AZTableView alloc] initWithRoot:root];
+    tableView.editing = YES; //For deletable
+    cont.title = @"Accessory view in row";
+    cont.view = tableView;
+    return cont;
+}
+
+-(UIViewController *)exampleRow{
+    UIViewController *cont = [UIViewController new];
+    
+    AZRow *row1 = [AZInputRow new];
+    row1.text = @"Name";
+    
+    AZRoot *root = [AZRoot new];
+    AZSection *section = [AZSection new];
+    [root addSection:section];
+    section.header = @"Input";
+    [section addRow:row1];
+    
+    AZTableView *tableView = [[AZTableView alloc] initWithRoot:root];
+    cont.title = @"Example";
+    cont.view = tableView;
+    return cont;
+}
+
+-(UIViewController *)buttonGroupRow{
+    UIViewController *cont = [UIViewController new];
+    __weak UIViewController *weakCont = cont;
+    AZButtonGroupRow *row1 = [AZButtonGroupRow new];
+    AZButton *btn1 = [AZButton new];
+    btn1.title = @"btn1";
+    AZButton *btn2 = [AZButton new];
+    btn2.title = @"btn2";
+    AZButton *btn3 = [AZButton new];
+    btn3.title = @"btn3";
+    row1.items = @[btn1, btn2, btn3];
+    row1.height = 60.f;
+    row1.onSelect =   ^(AZRow *row, UIView *fromView){
+        NSLog(@"onSelect");
+        [self alert:@"onSelect" message:[NSString stringWithFormat:@"select index: %@", row.value] fromViewController:weakCont];
+    };
+    
+    AZButtonGroupRow *row2 = [AZButtonGroupRow new];
+    row2.height = 60.f;
+    row2.items = @[
+  @{ @"title": @"btn1", @"image": @"github-icon"},
+  @{ @"title": @"btn2", @"image": @"github-icon"},
+  @{ @"title": @"disabled", @"image": @"github-icon", @"enabled": @(0)},
+  ];
+    row2.separatorColor = [UIColor clearColor];
+    row2.onSelect =   ^(AZRow *row, UIView *fromView){
+        NSLog(@"onSelect");
+        [self alert:@"onSelect" message:[NSString stringWithFormat:@"select index: %@", row.value] fromViewController:weakCont];
+    };
+    
+    AZButtonGroupRow *row3 = [AZButtonGroupRow new];
+    row3.height = 80.f;
+    row3.items = @[
+                   @{ @"title": @"btn1", @"image": @"github-icon", @"verticalSpacing": @(4)},
+                   @{ @"title": @"btn2", @"image": @"github-icon", @"verticalSpacing": @(4)},
+                   @{ @"title": @"disabled", @"image": @"github-icon", @"verticalSpacing": @(4), @"enabled": @(0)},
+                   ];
+    row3.onSelect =   ^(AZRow *row, UIView *fromView){
+        NSLog(@"onSelect");
+        [self alert:@"onSelect" message:[NSString stringWithFormat:@"select index: %@", row.value] fromViewController:weakCont];
+    };
+    
+    AZRoot *root = [AZRoot new];
+    AZSection *section = [AZSection new];
+    [root addSection:section];
+    [section addRow:row1];
+    [section addRow:row2];
+    [section addRow:row3];
+
+    AZTableView *tableView = [[AZTableView alloc] initWithRoot:root];
+    cont.title = @"Button group row";
+    cont.view = tableView;
+    return cont;
+}
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
