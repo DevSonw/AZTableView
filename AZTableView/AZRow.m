@@ -84,7 +84,7 @@
     return self;
 }
 
-- (NSIndexPath *)indexPath{
+- (NSIndexPath *)visibleIndexPath{
     if (!self.section) {
         return nil;
     }

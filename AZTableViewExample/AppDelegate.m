@@ -352,7 +352,7 @@ static NSString *NSStringFromIndexPath(NSIndexPath *indexPath){
         weakRow15.items = switched ? items1 : items2;
         switched = !switched;
         weakRow15.value = @[row.value[0], @"A"];
-        [tableView updateCellForRow:row indexPath:row.indexPath];
+        [tableView updateCellForRow:row indexPath:row.visibleIndexPath];
     };
     row15.onBlur = ^(AZRow *row, UIView *fromView){
         NSLog(@"onBlur %@", row.value);
@@ -473,9 +473,9 @@ static NSString *NSStringFromIndexPath(NSIndexPath *indexPath){
         row.data = @[@(0), @(i)];
         row.text = [NSString stringWithFormat:@"Group 0, Item %d", i];
         row.onMove = ^(AZRow *row, UIView *fromView){
-            NSLog(@"onMove %@", NSStringFromIndexPath(row.indexPath));
+            NSLog(@"onMove %@", NSStringFromIndexPath(row.visibleIndexPath));
             NSLog(@"%@, %@", sortSection1.rows, sortSection2.rows);
-            cont.title = [NSString stringWithFormat:@"onMove: %@", NSStringFromIndexPath(row.indexPath)];
+            cont.title = [NSString stringWithFormat:@"onMove: %@", NSStringFromIndexPath(row.visibleIndexPath)];
         };
         [sortSection1 addRow:row];
     }
@@ -486,9 +486,9 @@ static NSString *NSStringFromIndexPath(NSIndexPath *indexPath){
         row.data = @[@(1), @(i)];
         row.text = [NSString stringWithFormat:@"Group 1, Item %d", i];
         row.onMove = ^(AZRow *row, UIView *fromView){
-            NSLog(@"onMove %@", NSStringFromIndexPath(row.indexPath));
+            NSLog(@"onMove %@", NSStringFromIndexPath(row.visibleIndexPath));
             NSLog(@"%@, %@", sortSection1.rows, sortSection2.rows);
-            cont.title = [NSString stringWithFormat:@"onMove: %@", NSStringFromIndexPath(row.indexPath)];
+            cont.title = [NSString stringWithFormat:@"onMove: %@", NSStringFromIndexPath(row.visibleIndexPath)];
         };
         [sortSection2 addRow:row];
     }
@@ -509,8 +509,8 @@ static NSString *NSStringFromIndexPath(NSIndexPath *indexPath){
             selectedRow.accessoryType = UITableViewCellAccessoryNone;
             row.accessoryType = UITableViewCellAccessoryCheckmark;
             
-            [tableView updateCellForRow:selectedRow indexPath:selectedRow.indexPath];
-            [tableView updateCellForRow:row indexPath:row.indexPath];
+            [tableView updateCellForRow:selectedRow indexPath:selectedRow.visibleIndexPath];
+            [tableView updateCellForRow:row indexPath:row.visibleIndexPath];
             [tableView deselect];
             selectedRow = row;
         };
@@ -528,7 +528,7 @@ static NSString *NSStringFromIndexPath(NSIndexPath *indexPath){
         row.onSelect = ^(AZRow *row, UIView *fromView){
             row.value =  [row.value isEqual:@(1)] ? @(0) : @(1);
             row.accessoryType = [row.value isEqual:@(1)] ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
-            [tableView updateCellForRow:row indexPath:row.indexPath];
+            [tableView updateCellForRow:row indexPath:row.visibleIndexPath];
             [tableView deselect];
         };
         [multipleSelectSection addRow:row];

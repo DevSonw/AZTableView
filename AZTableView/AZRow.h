@@ -85,7 +85,7 @@ typedef void (^AZRowEvent)(AZRow *row, UIView *fromView);
 +(id)createFromType:(NSString *)type defaultClass:(Class)defaultClass suffix:(NSString *)suffix validate:(BOOL)validate;
 
 
-- (NSIndexPath *)indexPath;
+- (NSIndexPath *)visibleIndexPath;
 
 - (AZTableViewCell *)cellForTableView:(AZTableView *)tableView indexPath:(NSIndexPath *)indexPath;
 
