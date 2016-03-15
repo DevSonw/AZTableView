@@ -29,6 +29,5 @@
 @property(nonatomic, assign) CGFloat cornerRadius; ///< The corner radius.
 
 ///accessibilityLabel, enabled
-+ (NSArray *)modelPropertyWhitelist;
 
 @end
