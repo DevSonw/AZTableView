@@ -7,6 +7,7 @@
 //
 
 #import "AZTableViewCell.h"
+#import "AZRow.h"
 
 @implementation AZTableViewCell
 
@@ -65,6 +66,9 @@
         self.backgroundColor = [UIColor whiteColor];
         if (style == UITableViewCellStyleValue1) {
             self.detailTextLabel.textColor = [UIColor colorWithRed:0.1653 green:0.2532 blue:0.4543 alpha:1.0000];
+//            self.detailTextLabel.textColor = [UIColor grayColor];
+        } else if( style == UITableViewCellStyleValue2 ){
+            self.textLabel.textColor = [AZRow tintColor];
         }
     }
     return self;

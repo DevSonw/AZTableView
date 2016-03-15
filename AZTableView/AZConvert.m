@@ -67,7 +67,7 @@ static NSMapTable<Class, NSDictionary *> *AZModelProperties = nil;
                 } break;
                 case YYEncodingTypeBlock:{
                     //Transform event block from string
-                    if ([value isKindOfClass:[NSString class]]) {
+                    if ([value isKindOfClass:[NSString class]] && root) {
                         [model setValue:^(AZRow *row, UIView *fromView){
                             if (_root.onEvent) {
                                 _root.onEvent(value, row, fromView);

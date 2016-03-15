@@ -15,4 +15,12 @@
     return [AZRow createFromType:type defaultClass:self suffix:@"AccessoryView" validate:NO];
 }
 
+-(id)init{
+    if (self = [super init]) {
+        self.borderWidth = 1.f;
+        self.cornerRadius = 4.f;
+    }
+    return self;
+}
+
 @end
