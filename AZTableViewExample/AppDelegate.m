@@ -329,6 +329,7 @@ static NSString *NSStringFromIndexPath(NSIndexPath *indexPath){
     row14.text = @" Picker";
     row14.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
     row14.items = @[@[@"A",@"B",@"C",@"E",@"F"]];
+    row14.value = @"A";
     
     AZPickerRow *row15 = [AZPickerRow new];
     row15.text = @"Two Picker";
@@ -340,7 +341,7 @@ static NSString *NSStringFromIndexPath(NSIndexPath *indexPath){
     NSArray *items2 = @[@[@"A",@"B",@"C"],@[@"A",@"B",@"C", @"D", @"E", @"F"]];
 
     row15.items = items1;
-    row15.selectedIndexes = @[@"1",@"2"];
+    row15.value = @[@"A",@"B"];
     
     __weak AZPickerRow *weakRow15 = row15;
     __block BOOL switched = NO;
@@ -358,7 +359,7 @@ static NSString *NSStringFromIndexPath(NSIndexPath *indexPath){
     AZPickerRow *row16 = [AZPickerRow new];
     row16.text = @"Three Picker";
     row16.items =@[@[@"A",@"B",@"C"],@[@"A",@"B",@"C"],@[@"D",@"E",@"F"]];
-    row16.selectedIndexes = @[@"0",@"1",@"2"];
+    row16.value = @[@"A",@"B",@"E"];
     
     AZPickerRow *row17 = [AZPickerRow new];
     row17.text = @"Without default Selected";
@@ -368,7 +369,6 @@ static NSString *NSStringFromIndexPath(NSIndexPath *indexPath){
     [section1 addRow:row15];
     [section1 addRow:row16];
     [section1 addRow:row17];
-    
     
     [root addSection:section];
     [root addSection:section1];

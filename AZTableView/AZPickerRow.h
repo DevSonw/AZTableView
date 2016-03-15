@@ -12,6 +12,4 @@
 
 @property(nonatomic, strong) NSArray *items;
 
-@property(nonatomic, strong) NSArray *selectedIndexes;
-
 @end
