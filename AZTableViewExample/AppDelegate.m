@@ -625,11 +625,102 @@ static NSString *NSStringFromIndexPath(NSIndexPath *indexPath){
     row4.text = @"Disclosure indicator";
     row4.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     
+    AZRow *row5 = [AZRow new];
+    row5.text = @"Custom loading accessory";
+    row5.accessoryView = [AZLoadingAccessoryView new];
+    row5.onAccessory = ^(AZRow *row, UIView *fromView){
+        [self alert:@"onAccessory" message:nil fromViewController:weakCont];
+    };
+    
+    AZRow *row6 = [AZRow new];
+    row6.text = @"Custom button accessory";
+    AZAccessoryView *btn = [AZAccessoryView new];
+    btn.title = @"View";
+    row6.accessoryView = btn;
+    row6.onAccessory = ^(AZRow *row, UIView *fromView){
+        [self alert:@"onAccessory" message:nil fromViewController:weakCont];
+    };
+    
+    AZRow *row7 = [AZRow new];
+    row7.text = @"Custom button with image";
+    AZAccessoryView *btn1 = [AZAccessoryView new];
+    btn1.title = @"Github";
+    btn1.image = [UIImage imageNamed:@"github-icon"];
+    btn1.borderColor = [UIColor redColor];
+    row7.accessoryView = btn1;
+    row7.onAccessory = ^(AZRow *row, UIView *fromView){
+        [self alert:@"onAccessory" message:nil fromViewController:weakCont];
+    };
+
+    AZRow *row8 = [AZRow new];
+    row8.text = @"disabled button";
+    AZAccessoryView *btn2 = [AZAccessoryView new];
+    btn2.title = @"View";
+    btn2.enabled = NO;
+    row8.accessoryView = btn2;
+    row8.onAccessory = ^(AZRow *row, UIView *fromView){
+        [self alert:@"onAccessory" message:nil fromViewController:weakCont];
+    };
+    
+    AZRow *row9 = [AZRow new];
+    row9.text = @"without border";
+    AZAccessoryView *btn3 = [AZAccessoryView new];
+    btn3.title = @"View";
+    btn3.borderWidth = 0.f;
+    row9.accessoryView = btn3;
+    row9.onAccessory = ^(AZRow *row, UIView *fromView){
+        [self alert:@"onAccessory" message:nil fromViewController:weakCont];
+    };
+    
+    AZRow *row10 = [AZRow new];
+    row10.text = @"Custom backgroundColor";
+    AZAccessoryView *btn4 = [AZAccessoryView new];
+    btn4.title = @"View";
+    btn4.titleColor = [UIColor whiteColor];
+    btn4.backgroundColor = [AZRow  tintColor];
+    row10.accessoryView = btn4;
+    row10.onAccessory = ^(AZRow *row, UIView *fromView){
+        [self alert:@"onAccessory" message:nil fromViewController:weakCont];
+    };
+    
+    AZRow *row11 = [AZRow new];
+    row11.text = @"Custom from dictionary";
+    row11.accessoryView = @{
+                            @"title": @"View",
+                            @"titleColor": @"white",
+                            @"backgroundColor": @"blue",
+                            @"borderWidth": @(0),
+                            };
+    row11.onAccessory = ^(AZRow *row, UIView *fromView){
+        [self alert:@"onAccessory" message:nil fromViewController:weakCont];
+    };
+    
+    AZRow *row12 = [AZRow new];
+    row12.text = @"disabled from dictionary";
+    row12.accessoryView = @{
+                            @"title": @"View",
+                            @"titleColor": @"white",
+                            @"backgroundColor": @"gray",
+                            @"borderWidth": @(0),
+                            @"enabled": @(0),
+                            };
+    row12.onAccessory = ^(AZRow *row, UIView *fromView){
+        [self alert:@"onAccessory" message:nil fromViewController:weakCont];
+    };
+
     AZSection *section = [AZSection new];
     [section addRow:row1];
     [section addRow:row2];
     [section addRow:row3];
     [section addRow:row4];
+    [section addRow:row5];
+    [section addRow:row6];
+    [section addRow:row7];
+    [section addRow:row8];
+    [section addRow:row9];
+    [section addRow:row10];
+    [section addRow:row11];
+    [section addRow:row12];
 
     AZRoot *root = [AZRoot new];
     [root addSection:section];

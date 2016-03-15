@@ -8,6 +8,7 @@
 
 #import "AZButton.h"
 #import "AZRow.h"
+#import "AZConvert.h"
 
 @implementation AZButton
 
@@ -26,29 +27,47 @@
     }
 }
 
+//+ (NSArray *)modelPropertyWhitelist {
+//    return @[@"accessibilityLabel", @"enabled", @"spacing", @"verticalSpacing", @"titleColor", @"title", @"titleFont", @"titleFontSize", @"image", @"backgroundColor", @"borderColor", @"borderWidth", @"cornerRadius"];
+//}
+
+- (BOOL)modelCustomTransformFromDictionary:(NSDictionary *)dic {
+    [AZConvert convertForModel:self data:dic root:nil];
+    return YES;
+}
+
 -(id)init{
     if (self = [super init]) {
         [self addTarget:self action:@selector(onClick) forControlEvents:UIControlEventTouchUpInside];
         self.titleLabel.font = [UIFont systemFontOfSize:14.f];
         self.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
         self.titleLabel.textAlignment = NSTextAlignmentCenter;
-        [self setTitleColor:[AZRow tintColor] forState:UIControlStateNormal];
         self.enabled = YES;
+        _spacing = 0.f;
+        _verticalSpacing = 0.f;
     }
     return self;
 }
 
 //https://developer.apple.com/library/ios/documentation/userexperience/conceptual/transitionguide/AppearanceCustomization.html#//apple_ref/doc/uid/TP40013174-CH15-SW3
 - (void)tintColorDidChange{
-    if( self.tintAdjustmentMode == UIViewTintAdjustmentModeDimmed ){
-        [self setTitleColor:self.tintColor forState:UIControlStateNormal];
-        if (self.borderColor) {
-            self.layer.borderColor = [self.tintColor CGColor];
-        }
-    } else {
-        [self setTitleColor:self.titleColor forState:UIControlStateNormal];
-        if (self.borderColor) {
-            self.layer.borderColor = self.borderColor.CGColor;
+    if (self.enabled) {
+        if( self.tintAdjustmentMode == UIViewTintAdjustmentModeDimmed ){
+            [self setTitleColor:self.tintColor forState:UIControlStateNormal];
+            if (self.layer.borderColor) {
+                self.layer.borderColor = [self.tintColor CGColor];
+            }
+            if( _backgroundColor ){
+                [self setBackgroundImage:[self buttonImageFromColor:self.tintColor cornerRadius:_cornerRadius] forState:UIControlStateNormal];
+            }
+        } else {
+            [self setTitleColor:_titleColor ? _titleColor : [self defColor] forState:UIControlStateNormal];
+            if (self.layer.borderColor) {
+                self.layer.borderColor = _borderColor ? _borderColor.CGColor : [self defColor].CGColor;
+            }
+            if( _backgroundColor ){
+                [self setBackgroundImage:[self buttonImageFromColor:_backgroundColor cornerRadius:_cornerRadius] forState:UIControlStateNormal];
+            }
         }
     }
 }
@@ -56,12 +75,20 @@
 - (void)setEnabled:(BOOL)enabled{
     [super setEnabled:enabled];
     if (!_titleColor) {
-        [self setTitleColor:enabled ? [AZRow tintColor] : [UIColor colorWithRed:142.0/255.0 green:142.0/255.0 blue:147.0/255.0 alpha:1] forState:UIControlStateNormal];
+        [self setTitleColor:[self defColor] forState:UIControlStateNormal];
     }
+    if (!_borderColor) {
+        self.layer.borderColor = [self defColor].CGColor;
+    }
+}
+
+- (UIColor *)defColor{
+    return self.enabled ? [AZRow tintColor] : [UIColor colorWithRed:142.0/255.0 green:142.0/255.0 blue:147.0/255.0 alpha:1];
 }
 
 -(void)setTitle:(NSString *)title{
     [self setTitle:title forState:UIControlStateNormal];
+    [self sizeToFit];
 }
 
 - (NSString *)title{
@@ -71,6 +98,10 @@
 - (void)setTitleColor:(UIColor *)titleColor{
     _titleColor = titleColor;
     [self setTitleColor:titleColor forState:UIControlStateNormal];
+}
+
+-(UIColor *)titleColor{
+    return _titleColor;
 }
 
 - (void)setTitleFont:(NSString *)titleFont {
@@ -97,16 +128,29 @@
     if (!_spacing) {
         self.spacing = 4.0f;
     }
+    [self sizeToFit];
+}
+
+- (void)sizeToFit{
+    [super sizeToFit];
+    CGRect frame = self.frame;
+    frame.size.width += _spacing + 12.f; //default padding.
+    if (_image) {
+        frame.size.height += _verticalSpacing + 2.f;
+    }
+    self.frame = frame;
 }
 
 - (void)setSpacing:(CGFloat)spacing{
     _spacing = spacing;
+    _verticalSpacing = 0.f;
     self.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, spacing);
     self.titleEdgeInsets = UIEdgeInsetsMake(0, spacing, 0, 0);
 }
 
 - (void)setVerticalSpacing:(CGFloat)spacing{
     _verticalSpacing = spacing;
+    _spacing = 0.f;
     // the space between the image and text
     // lower the text and push it left so it appears centered
     //  below the image

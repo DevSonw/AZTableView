@@ -63,6 +63,7 @@
 		B1E194C11C96841100FD3808 /* AZAccessoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = B1E194C01C96841100FD3808 /* AZAccessoryView.m */; };
 		B1E194C41C9684EA00FD3808 /* AZLoadingAccessoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = B1E194C31C9684EA00FD3808 /* AZLoadingAccessoryView.m */; };
 		B1E194C71C96950000FD3808 /* AZButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B1E194C61C96950000FD3808 /* AZButton.m */; };
+		B1E194C91C97AEEB00FD3808 /* github-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B1E194C81C97AEEB00FD3808 /* github-icon@2x.png */; };
 		C6482A701C96AC4C00350589 /* AZPickerRow.m in Sources */ = {isa = PBXBuildFile; fileRef = C6482A6D1C96AC4C00350589 /* AZPickerRow.m */; };
 		C6482A711C96AC4C00350589 /* AZPickerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C6482A6F1C96AC4C00350589 /* AZPickerTableViewCell.m */; };
 		C6482A781C96AC6200350589 /* AZBadgeRow.m in Sources */ = {isa = PBXBuildFile; fileRef = C6482A731C96AC6200350589 /* AZBadgeRow.m */; };
@@ -171,6 +172,7 @@
 		B1E194C31C9684EA00FD3808 /* AZLoadingAccessoryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZLoadingAccessoryView.m; sourceTree = "<group>"; };
 		B1E194C51C96950000FD3808 /* AZButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZButton.h; sourceTree = "<group>"; };
 		B1E194C61C96950000FD3808 /* AZButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZButton.m; sourceTree = "<group>"; };
+		B1E194C81C97AEEB00FD3808 /* github-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "github-icon@2x.png"; sourceTree = "<group>"; };
 		C6482A6C1C96AC4C00350589 /* AZPickerRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZPickerRow.h; sourceTree = "<group>"; };
 		C6482A6D1C96AC4C00350589 /* AZPickerRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZPickerRow.m; sourceTree = "<group>"; };
 		C6482A6E1C96AC4C00350589 /* AZPickerTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZPickerTableViewCell.h; sourceTree = "<group>"; };
@@ -341,6 +343,7 @@
 		B199D4F61C86D4F200369782 /* AZTableViewExample */ = {
 			isa = PBXGroup;
 			children = (
+				B1E194C81C97AEEB00FD3808 /* github-icon@2x.png */,
 				B13847511C91068000A84F78 /* github30@2x.png */,
 				B12F035C1C8FFCD2007BC6D5 /* github@2x.png */,
 				B199D4FA1C86D4F200369782 /* AppDelegate.h */,
@@ -471,6 +474,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B1E194C91C97AEEB00FD3808 /* github-icon@2x.png in Resources */,
 				B15D76CB1C897DE20037E02E /* basicForm.json in Resources */,
 				B13847521C91068000A84F78 /* github30@2x.png in Resources */,
 				B199D5071C86D4F300369782 /* LaunchScreen.storyboard in Resources */,

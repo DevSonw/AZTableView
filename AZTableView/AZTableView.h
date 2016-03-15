@@ -17,7 +17,8 @@
 #import "AZRoot.h"
 #import "AZSection.h"
 #import "AZRow.h"
-
+#import "AZAccessoryView.h"
+#import "AZLoadingAccessoryView.h"
 
 @interface AZTableView : UITableView{
 @private
