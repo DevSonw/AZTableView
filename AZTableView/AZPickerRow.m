@@ -40,15 +40,13 @@
            __block NSInteger ind = 0;
             NSArray *items = [self.items objectAtIndex:i];
                 if ([val isKindOfClass:[NSString class]]) {
-                    
                     [items enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                         if ([val isEqualToString:obj]) {
-                            NSLog(@"idx=%ld, id=%@", idx, obj);
                             ind = idx;
+                            *stop = YES;
                         }
                     }];
                 }
-            
             [indexes addObject:@(ind)];
         }
         _selectedIndexes = indexes;
