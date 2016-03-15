@@ -89,9 +89,10 @@ The grid view in section.
 Use YYImageView support gif.
 
 * `items` The images data. `[{ image: "", imageURL: "", title: "" }]`
-* `slideInterval`
-* `hideIndicator`
-* `onSlide`
+* `slideInterval` The image auto slide interval, default 0.0f don't auto slide.
+* `hideIndicator` Don't display the indicator if true.
+* `onSlide` Event when slide to the image.
+* `onSelect` Event when image click.
 
 
 ### AZCaptchaRow
