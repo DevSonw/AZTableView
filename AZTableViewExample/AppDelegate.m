@@ -57,7 +57,7 @@ static NSString *NSStringFromIndexPath(NSIndexPath *indexPath){
     // Override point for customization after application launch.
     UIWindow *window = [[UIWindow alloc] init];
     self.window = window;
-//    window.tintColor = [UIColor redColor]; // Change tint color
+    window.tintColor = [UIColor redColor]; // Change tint color
     
     UIViewController *viewController = [UIViewController new];
     AZSection *section = [AZSection new];
