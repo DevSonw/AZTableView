@@ -106,7 +106,7 @@ Use YYImageView support gif.
 * `captchaWidth`
 * `captchaHeight`
 * `captchaURL` support base64 encoding data like imageURL
-* `onCaptcha` Event when captcha start load
+* `onCaptcha` Event when captcha start refresh
 
 
 
