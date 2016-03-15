@@ -77,13 +77,13 @@
 #pragma mark - MDHTMLLabelDelegate
 - (void)HTMLLabel:(MDHTMLLabel *)label didHoldLinkWithURL:(NSURL *)URL
 {
-    if (clickHandler) {
-        clickHandler(URL);
-    }
+    
 }
 - (void)HTMLLabel:(MDHTMLLabel *)label didSelectLinkWithURL:(NSURL *)URL
 {
-    
+    if (clickHandler) {
+        clickHandler(URL);
+    }
 }
 
 @end

@@ -95,16 +95,19 @@
     [super updateCell:cell tableView:tableView indexPath:indexPath];
     cell.htmlLabel.htmlText = html;
     cell.htmlLabel.numberOfLines = htmlTextLine;
-#warning TODO by xlzou 这边有点问题
-    cell.clickHandler = onLink.length > 0 ? ^(NSURL *URL){
-        NSLog(@"点我了");
+    cell.selectionStyle = self.enabled && self.onLink ? UITableViewCellSelectionStyleBlue : UITableViewCellSelectionStyleNone;
+    __weak AZHtmlRow* row = self;
+    __weak AZHtmlTableViewCell *weakCell  = cell;
+    cell.clickHandler = self.onLink ? ^(NSURL *URL){
+        row.value = URL.absoluteString;
+        row.onLink(row,weakCell);
     }:nil;
 }
+
 
 - (Class)cellClass
 {
     return [AZHtmlTableViewCell class];
 }
-
 
 @end

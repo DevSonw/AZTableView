@@ -522,7 +522,6 @@ static NSString *NSStringFromIndexPath(NSIndexPath *indexPath){
     AZRoot *root = [AZRoot new];
     
     AZGridSection *section = [AZGridSection new];
-//    section.header = @"Eval Script";
     section.items = @[@"h1",@"h2",@"h3"];
     [root addSection:section];
     
@@ -553,9 +552,9 @@ static NSString *NSStringFromIndexPath(NSIndexPath *indexPath){
     section.header = @"HTML";
     [root addSection:section];
     
-    AZHtmlRow *row = [AZHtmlRow new];
-    row.html = @"<font color=blue>blue</font> <i>only html label</i><b color=blue>blue</b> ";
-    [section addRow:row];
+    AZHtmlRow *row1 = [AZHtmlRow new];
+    row1.html = @"<font color=blue>blue</font> <i>only html label</i><b color=blue>blue</b> ";
+    [section addRow:row1];
     
     AZHtmlRow *row2 = [AZHtmlRow new];
     row2.text = @"HTML text with title";
@@ -569,30 +568,47 @@ static NSString *NSStringFromIndexPath(NSIndexPath *indexPath){
     [section addRow:row3];
     
     AZHtmlRow *row4 = [AZHtmlRow new];
-    row4.image = @"fa-github";
+    row4.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    row4.image = @"github@2x";
     row4.detail = @"detail";
     row4.text = @"Auto resize height";
     row4.html = @"<b color=blue>blue</b> <b>bold</b> and <i>italic</i> style, <font face='HelveticaNeue-CondensedBold' color='#CCFF00'>Text with</font> <font face='AmericanTypewriter' color=purple>different colours</font> <font face='Futura' size=17 color='#dd1100'>and sizes</font><p><a href='http://google.com'>Clickable</a></p>";
     row4.htmlTextLine = 0;
-    row4.onLink = @"alert";
+    row4.onLink = ^(AZRow *row, UIView *fromView){
+        [self alert:row.value message:@""];
+    };
+    row4.onSelect = ^(AZRow *row, UIView *fromView){
+        [self alert:row.text message:@""];
+    };
     [section addRow:row4];
     
     AZHtmlRow *row5 = [AZHtmlRow new];
-    row5.image = @"fa-github";
+    row5.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    row5.image = @"github@2x";
     row5.detail = @"detail long long \n long";
     row5.text = @"Auto resize height";
     row5.detailTextLine = 0;
     row5.html = @"<b color=blue>blue</b> <b>bold</b> and <i>italic</i> style, <font face='HelveticaNeue-CondensedBold' color='#CCFF00'>Text with</font> <font face='AmericanTypewriter' color=purple>different colours</font> <font face='Futura' size=17 color='#dd1100'>and sizes</font><p><a href='http://google.com'>Clickable</a></p>";
     row5.htmlTextLine = 0;
-    row5.onLink = @"alert";
+    row5.onLink = ^(AZRow *row, UIView *fromView){
+        [self alert:row.value message:@""];
+    };
+    row5.onSelect = ^(AZRow *row, UIView *fromView){
+        [self alert:row.text message:@""];
+    };
     [section addRow:row5];
     
     AZHtmlRow *row6 = [AZHtmlRow new];
-    row6.image = @"fa-github";
+    row6.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    row6.image = @"github@2x";
     row6.html = @"<b color=blue>blue</b> <b>bold</b> and <i>italic</i> style, <font face='HelveticaNeue-CondensedBold' color='#CCFF00'>Text with</font> <font face='AmericanTypewriter' color=purple>different colours</font> <font face='Futura' size=17 color='#dd1100'>and sizes</font><p><a href='http://google.com'>Clickable</a></p>";
     row6.htmlTextLine = 0;
-    row6.onLink = @"alert";
-//    row6.onSelect = alert;
+    row6.onLink = ^(AZRow *row, UIView *fromView){
+        [self alert:row.value message:@""];
+    };
+    row6.onSelect = ^(AZRow *row, UIView *fromView){
+        [self alert:row.text message:@""];
+    };
     [section addRow:row6];
     
     AZTableView *tableView = [[AZTableView alloc] initWithRoot:root];
