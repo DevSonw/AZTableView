@@ -383,7 +383,11 @@ static NSString *NSStringFromIndexPath(NSIndexPath *indexPath){
 
 -(UIViewController *)rowEvent{
     UIViewController *cont = [UIViewController new];
-
+    AZRoot *root = [AZRoot new];
+    root.grouped = YES;
+    AZTableView *tableView = [[AZTableView alloc] initWithRoot:root];
+    __weak AZTableView *weakTableView = tableView;
+    
     AZRow *row1 = [AZRow new];
     row1.text = @"onSelect";
     row1.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -430,6 +434,7 @@ static NSString *NSStringFromIndexPath(NSIndexPath *indexPath){
     
     row5.onDelete = ^(AZRow *row, UIView *fromView){
         NSLog(@"onDelete");
+        [weakTableView deleteRow:row indexPath:[row visibleIndexPath]];
         [self alert:@"onDelete" message:nil];
     };
 
@@ -441,11 +446,8 @@ static NSString *NSStringFromIndexPath(NSIndexPath *indexPath){
     [section addRow:row5];
     
 
-    AZRoot *root = [AZRoot new];
     [root addSection:section];
-    root.grouped = YES;
-    
-    AZTableView *tableView = [[AZTableView alloc] initWithRoot:root];
+
     tableView.editing = YES; //For deletable
     cont.title = @"Row event";
     cont.view = tableView;
