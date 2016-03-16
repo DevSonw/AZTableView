@@ -18,7 +18,7 @@ Example:
     row2.text = @"Title";
     row2.detail = @"Detail message";
     row2.image = @"github"; //image named.
-    row2.style = UITableViewCellStyleSubtitle;
+    row2.cellStyle = UITableViewCellStyleSubtitle;
     
     AZSection *section = [AZSection new];
     [section addRow:row1];
