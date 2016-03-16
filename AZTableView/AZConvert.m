@@ -51,10 +51,7 @@ static NSMapTable<Class, NSDictionary *> *AZModelProperties = nil;
             YYClassPropertyInfo *prop = propertyInfos[key];
             switch ((prop.type & YYEncodingTypeMask)) {
                 case YYEncodingTypeObject:{
-                    if (!prop.cls) {
-                        //Set the (id) type data.
-                        [model setValue:value forKey:key];
-                    } else if ([prop.cls isSubclassOfClass:[NSDate class]] && [value isKindOfClass:[NSNumber class]]) {
+                    if ([prop.cls isSubclassOfClass:[NSDate class]] && [value isKindOfClass:[NSNumber class]]) {
                         //Convert number format date which YYModel ignore.
                         [model setValue:[NSDate dateWithTimeIntervalSince1970:[value doubleValue] / 1000.0] forKey:key];
                     } else {
