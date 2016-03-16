@@ -164,6 +164,11 @@ static NSString *NSStringFromIndexPath(NSIndexPath *indexPath){
     row12.cellStyle = UITableViewCellStyleSubtitle;
     row12.detail = @"Unlimit line: AlphaGo's algorithm uses a combination of machine learning and tree search techniques, combined with extensive training, both from human and computer play.";
     row12.detailTextLine = 0;
+    
+    AZRow *hideSeparator = [AZRow new];
+    hideSeparator.text = @"Hide separator line";
+    hideSeparator.hideSeparator = YES;
+
 
     AZSection *section = [AZSection new];
     [section addRow:row1];
@@ -176,9 +181,9 @@ static NSString *NSStringFromIndexPath(NSIndexPath *indexPath){
     [section addRow:row8];
     [section addRow:row9];
     [section addRow:row10];
+    [section addRow:hideSeparator];
     [section addRow:row11];
     [section addRow:row12];
-    
     
     
     AZSection *section1 = [AZSection new];
