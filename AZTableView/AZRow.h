@@ -50,7 +50,7 @@ typedef void (^AZRowEvent)(AZRow *row, UIView *fromView);
 @property(nonatomic, assign) BOOL    deletable; ///< If the row deletable. Default NO
 @property(nonatomic, assign) BOOL    sortable; ///< If the row sortable. Default NO
 
-@property(nonatomic, assign) UITableViewCellStyle style;
+@property(nonatomic, assign) UITableViewCellStyle cellStyle;
 
 @property(nonatomic, assign) UITableViewCellAccessoryType accessoryType; ///< The cell accessory type.
 @property(nonatomic, retain) id accessoryView; ///< Custom accessoryView

@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1B52F0071C97AA2500250C5E /* AZHtmlTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B52F0061C97AA2500250C5E /* AZHtmlTableViewCell.m */; };
+		1B7CE61D1C969AFE0037BD28 /* AZGridSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B7CE61C1C969AFE0037BD28 /* AZGridSection.m */; };
+		1B7CE6201C969D1F0037BD28 /* AZGridRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B7CE61F1C969D1F0037BD28 /* AZGridRow.m */; };
+		1B7CE6231C969D3A0037BD28 /* AZHtmlRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B7CE6221C969D3A0037BD28 /* AZHtmlRow.m */; };
+		1B7CE6291C96A0FD0037BD28 /* AZGridTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B7CE6281C96A0FD0037BD28 /* AZGridTableViewCell.m */; };
+		1B7CE62C1C96D1430037BD28 /* MDHTMLLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B7CE62B1C96D1430037BD28 /* MDHTMLLabel.m */; };
 		B12F033C1C8FEC0F007BC6D5 /* YYCache.m in Sources */ = {isa = PBXBuildFile; fileRef = B12F03161C8FEC0F007BC6D5 /* YYCache.m */; };
 		B12F033D1C8FEC0F007BC6D5 /* YYDiskCache.m in Sources */ = {isa = PBXBuildFile; fileRef = B12F03181C8FEC0F007BC6D5 /* YYDiskCache.m */; };
 		B12F033E1C8FEC0F007BC6D5 /* YYKVStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = B12F031A1C8FEC0F007BC6D5 /* YYKVStorage.m */; };
@@ -75,6 +81,18 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1B52F0051C97AA2500250C5E /* AZHtmlTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZHtmlTableViewCell.h; sourceTree = "<group>"; };
+		1B52F0061C97AA2500250C5E /* AZHtmlTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZHtmlTableViewCell.m; sourceTree = "<group>"; };
+		1B7CE61B1C969AFE0037BD28 /* AZGridSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZGridSection.h; sourceTree = "<group>"; };
+		1B7CE61C1C969AFE0037BD28 /* AZGridSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZGridSection.m; sourceTree = "<group>"; };
+		1B7CE61E1C969D1F0037BD28 /* AZGridRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZGridRow.h; sourceTree = "<group>"; };
+		1B7CE61F1C969D1F0037BD28 /* AZGridRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZGridRow.m; sourceTree = "<group>"; };
+		1B7CE6211C969D3A0037BD28 /* AZHtmlRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZHtmlRow.h; sourceTree = "<group>"; };
+		1B7CE6221C969D3A0037BD28 /* AZHtmlRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZHtmlRow.m; sourceTree = "<group>"; };
+		1B7CE6271C96A0FD0037BD28 /* AZGridTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AZGridTableViewCell.h; sourceTree = "<group>"; };
+		1B7CE6281C96A0FD0037BD28 /* AZGridTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AZGridTableViewCell.m; sourceTree = "<group>"; };
+		1B7CE62A1C96D1430037BD28 /* MDHTMLLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDHTMLLabel.h; sourceTree = "<group>"; };
+		1B7CE62B1C96D1430037BD28 /* MDHTMLLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDHTMLLabel.m; sourceTree = "<group>"; };
 		B12F03151C8FEC0F007BC6D5 /* YYCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYCache.h; sourceTree = "<group>"; };
 		B12F03161C8FEC0F007BC6D5 /* YYCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYCache.m; sourceTree = "<group>"; };
 		B12F03171C8FEC0F007BC6D5 /* YYDiskCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYDiskCache.h; sourceTree = "<group>"; };
@@ -213,6 +231,39 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1B7CE6181C9699830037BD28 /* AZHtmlRow */ = {
+			isa = PBXGroup;
+			children = (
+				1B7CE62A1C96D1430037BD28 /* MDHTMLLabel.h */,
+				1B7CE62B1C96D1430037BD28 /* MDHTMLLabel.m */,
+				1B7CE6211C969D3A0037BD28 /* AZHtmlRow.h */,
+				1B7CE6221C969D3A0037BD28 /* AZHtmlRow.m */,
+				1B52F0051C97AA2500250C5E /* AZHtmlTableViewCell.h */,
+				1B52F0061C97AA2500250C5E /* AZHtmlTableViewCell.m */,
+			);
+			path = AZHtmlRow;
+			sourceTree = "<group>";
+		};
+		1B7CE6191C9699830037BD28 /* AZGridRow */ = {
+			isa = PBXGroup;
+			children = (
+				1B7CE61E1C969D1F0037BD28 /* AZGridRow.h */,
+				1B7CE61F1C969D1F0037BD28 /* AZGridRow.m */,
+				1B7CE6271C96A0FD0037BD28 /* AZGridTableViewCell.h */,
+				1B7CE6281C96A0FD0037BD28 /* AZGridTableViewCell.m */,
+			);
+			path = AZGridRow;
+			sourceTree = "<group>";
+		};
+		1B7CE61A1C9699830037BD28 /* AZGridSection */ = {
+			isa = PBXGroup;
+			children = (
+				1B7CE61B1C969AFE0037BD28 /* AZGridSection.h */,
+				1B7CE61C1C969AFE0037BD28 /* AZGridSection.m */,
+			);
+			path = AZGridSection;
+			sourceTree = "<group>";
+		};
 		B12F03131C8FEC0F007BC6D5 /* YYWebImage */ = {
 			isa = PBXGroup;
 			children = (
@@ -386,6 +437,9 @@
 		B199D50E1C86D57200369782 /* AZTableView */ = {
 			isa = PBXGroup;
 			children = (
+				1B7CE61A1C9699830037BD28 /* AZGridSection */,
+				1B7CE6191C9699830037BD28 /* AZGridRow */,
+				1B7CE6181C9699830037BD28 /* AZHtmlRow */,
 				B199D50F1C86D58C00369782 /* AZTableView.h */,
 				B199D5101C86D58C00369782 /* AZTableView.m */,
 				B199D5201C86E51C00369782 /* AZTableViewCell.h */,
@@ -520,9 +574,11 @@
 				B1E194D31C97C64900FD3808 /* AZButtonGroupTableViewCell.m in Sources */,
 				B199D5161C86E11E00369782 /* AZRoot.m in Sources */,
 				B12F03401C8FEC0F007BC6D5 /* _YYWebImageSetter.m in Sources */,
+				1B7CE61D1C969AFE0037BD28 /* AZGridSection.m in Sources */,
 				B12F033F1C8FEC0F007BC6D5 /* YYMemoryCache.m in Sources */,
 				B12F034C1C8FEC0F007BC6D5 /* YYWebImageManager.m in Sources */,
 				C6482A701C96AC4C00350589 /* AZPickerRow.m in Sources */,
+				1B7CE6201C969D1F0037BD28 /* AZGridRow.m in Sources */,
 				B12F034B1C8FEC0F007BC6D5 /* YYImageCache.m in Sources */,
 				B15D76C91C8978930037E02E /* AZInputTableViewCell.m in Sources */,
 				B1E194D01C97C62500FD3808 /* AZButtonGroupRow.m in Sources */,
@@ -532,6 +588,8 @@
 				C6482A791C96AC6200350589 /* AZBadgeLabel.m in Sources */,
 				B199D4FC1C86D4F300369782 /* AppDelegate.m in Sources */,
 				B15D76C31C8978510037E02E /* AZFieldTableViewCell.m in Sources */,
+				1B7CE62C1C96D1430037BD28 /* MDHTMLLabel.m in Sources */,
+				1B7CE6291C96A0FD0037BD28 /* AZGridTableViewCell.m in Sources */,
 				B12F033E1C8FEC0F007BC6D5 /* YYKVStorage.m in Sources */,
 				B12F033D1C8FEC0F007BC6D5 /* YYDiskCache.m in Sources */,
 				B12F03481C8FEC0F007BC6D5 /* YYImage.m in Sources */,
@@ -539,6 +597,7 @@
 				B12F03451C8FEC0F007BC6D5 /* UIImageView+YYWebImage.m in Sources */,
 				B15D76C01C8978330037E02E /* AZFieldRow.m in Sources */,
 				B12F03461C8FEC0F007BC6D5 /* YYAnimatedImageView.m in Sources */,
+				1B52F0071C97AA2500250C5E /* AZHtmlTableViewCell.m in Sources */,
 				B12F03421C8FEC0F007BC6D5 /* MKAnnotationView+YYWebImage.m in Sources */,
 				B15D76B31C8806A20037E02E /* AZButtonRow.m in Sources */,
 				B15D76BB1C893B370037E02E /* AZConvert.m in Sources */,
@@ -552,6 +611,7 @@
 				B12F034D1C8FEC0F007BC6D5 /* YYWebImageOperation.m in Sources */,
 				B12F03441C8FEC0F007BC6D5 /* UIImage+YYWebImage.m in Sources */,
 				B199D51F1C86E1E400369782 /* AZItem.m in Sources */,
+				1B7CE6231C969D3A0037BD28 /* AZHtmlRow.m in Sources */,
 				B199D5111C86D58C00369782 /* AZTableView.m in Sources */,
 				B199D4F91C86D4F200369782 /* main.m in Sources */,
 				C6482A7A1C96AC6200350589 /* AZBadgeTableViewCell.m in Sources */,

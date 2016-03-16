@@ -16,7 +16,7 @@
 
 @implementation AZRow
 
-@synthesize identifier = _identifier, section, text, value, hidden, enabled, focusable = _focusable, height, ref, data = _data, style = _style, detail, accessoryType, accessoryView = _accessoryView, deletable, sortable, textFont, textFontSize, detailTextFont, detailTextFontSize, detailTextLine, accessibilityLabel, bindData;
+@synthesize identifier = _identifier, section, text, value, hidden, enabled, focusable = _focusable, height, ref, data = _data, cellStyle = _cellStyle, detail, accessoryType, accessoryView = _accessoryView, deletable, sortable, textFont, textFontSize, detailTextFont, detailTextFontSize, detailTextLine, accessibilityLabel, bindData;
 
 @synthesize onSelect, onAccessory, onDelete, onChange, onMove;
 
@@ -75,7 +75,7 @@
         self.enabled = true;
         self.identifier = nil;
         self.accessoryType = UITableViewCellAccessoryNone;
-        self.style = UITableViewCellStyleDefault;
+        self.cellStyle = UITableViewCellStyleDefault;
         self.detailTextLine = -1;
         self.height = -1;
         _focusable = NO;
@@ -142,21 +142,21 @@
     
     //Notice: need set all row color for reuse
     if (self.textColor) {
-        [cell setTextColor:self.textColor style:self.style];
+        [cell setTextColor:self.textColor style:self.cellStyle];
         
     }
     if(self.detailTextColor){
-        [cell setDetailTextColor:self.detailTextColor style:self.style];
+        [cell setDetailTextColor:self.detailTextColor style:self.cellStyle];
     }
     if(self.backgroundColor){
         cell.backgroundColor = self.backgroundColor;
     }
     
     if (self.textFont) {
-        [cell setTextFont:self.textFont size:self.textFontSize style:self.style];
+        [cell setTextFont:self.textFont size:self.textFontSize style:self.cellStyle];
     }
     if (self.detailTextFont) {
-        [cell setDetailTextFont:self.detailTextFont size:self.detailTextFontSize style:self.style];
+        [cell setDetailTextFont:self.detailTextFont size:self.detailTextFontSize style:self.cellStyle];
     }
     cell.detailTextLabel.numberOfLines = self.detailTextLine >= 0 ? self.detailTextLine : 1;
 }
@@ -172,10 +172,10 @@
             cell = [tableView dequeueReusableCellWithIdentifier:identifier];
         }
     } else {
-        NSString *identifier = [NSString stringWithFormat:@"%@-%d%@", self.class, (int)self.style, self.identifier ? [NSString stringWithFormat:@"-%@", self.identifier] : nil];
+        NSString *identifier = [NSString stringWithFormat:@"%@-%d%@", self.class, (int)self.cellStyle, self.identifier ? [NSString stringWithFormat:@"-%@", self.identifier] : nil];
         cell = [tableView dequeueReusableCellWithIdentifier:identifier];
         if (cell == nil){
-            cell = [[class alloc] initWithStyle:self.style reuseIdentifier:identifier];
+            cell = [[class alloc] initWithStyle:self.cellStyle reuseIdentifier:identifier];
         }
     }
     cell.tableView = tableView;

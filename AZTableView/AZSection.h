@@ -35,6 +35,8 @@
 @property (retain, nonatomic) NSDictionary *bindData;
 
 
+- (BOOL)modelCustomTransformFromDictionary:(NSDictionary *)dic;
+
 +(id)sectionWithType:(NSString *)type;
 
 - (void)addRow:(AZRow *)row;

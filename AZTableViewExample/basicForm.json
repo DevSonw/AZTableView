@@ -9,7 +9,7 @@
                         "key": "username",
                         "value": "Value",
                         "textWidth": 100,
-                        "style": "subtitle",
+                        "cellStyle": "subtitle",
                         "detailTextColor": "red"
                         },
                         {
@@ -29,7 +29,7 @@
                         "value": "Value",
                         "detail": "helper text",
                         "detailTextColor": "red",
-                        "style": "subtitle",
+                        "cellStyle": "subtitle",
                         "image": "fa-user"
                         },
                         {
@@ -39,9 +39,9 @@
                         },
                         {
                         "type": "input",
-                        "text": "style:value2",
+                        "text": "cellStyle:value2",
                         "value": "Value",
-                        "style": "value2"
+                        "cellStyle": "value2"
                         },
                         {
                         "type": "input",
