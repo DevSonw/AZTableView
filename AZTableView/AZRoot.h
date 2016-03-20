@@ -26,7 +26,7 @@ typedef void (^AZRootEvent)(NSString *eventName, AZRow *row, UIView *fromView);
 @property(nonatomic, weak) AZCollectionView *collectionView; ///< Week reference the collectionView
 
 @property (assign) BOOL grouped;
-@property (assign, nonatomic) BOOL highPerformance;
+@property (assign, nonatomic) BOOL rowHeightConstant; ///< Keep the row height constant, so don't need compute row height when load cell. If the data is large, compute the row height in slow....
 @property (assign) BOOL showIndexTitle;
 
 @property (retain, nonatomic) NSMutableArray<AZSection *> *sections;

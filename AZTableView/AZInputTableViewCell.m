@@ -92,6 +92,7 @@
     if (!_toolBar) {
         _toolBar = [[UIToolbar alloc] init];
         [_toolBar sizeToFit];
+        _toolBar.tintColor = [AZRow tintColor];
         _doneButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Done", @"Done")
                                                        style:UIBarButtonItemStyleDone target:self
                                                       action:@selector(handleActionBarDone:)];

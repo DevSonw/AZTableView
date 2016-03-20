@@ -9,20 +9,26 @@
 #import "AZPickerRow.h"
 #import "AZPickerTableViewCell.h"
 
+@interface AZPickerRow()
+
+@property(nonatomic, strong) NSArray *selectedIndexes;
+
+@end
+
 @implementation AZPickerRow
 
-@synthesize items = _items, selectedIndexes = _selectedIndexes;
+@synthesize items = _items;
 
 - (id)init{
     if (self = [super init]) {
-        self.style = UITableViewCellStyleValue1;
+        self.cellStyle = UITableViewCellStyleValue1;
         self.selectionStyle = UITableViewCellSelectionStyleBlue;
     }
     return self;
 }
 
--(void)setSelectedIndexes:(id)value{
-    
+-(void)setValue:(id)value
+{
     NSMutableArray *indexes = [NSMutableArray array];
     if (value) {
         if (![value isKindOfClass:[NSArray class]]) {
@@ -31,17 +37,16 @@
         NSInteger len = MIN([self.items count], [value count]);
         for (int i = 0; i < len; i++) {
             id val = [value objectAtIndex:i];
-            NSInteger ind = 0;
+           __block NSInteger ind = 0;
             NSArray *items = [self.items objectAtIndex:i];
-            NSInteger itemLen = [items count];
-            if ([val isKindOfClass:[NSNumber class]]) {
-                ind = MIN(itemLen - 1, [val intValue]);
-            }
-            else {
                 if ([val isKindOfClass:[NSString class]]) {
-                    ind = [val intValue];
+                    [items enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                        if ([val isEqualToString:obj]) {
+                            ind = idx;
+                            *stop = YES;
+                        }
+                    }];
                 }
-            }
             [indexes addObject:@(ind)];
         }
         _selectedIndexes = indexes;

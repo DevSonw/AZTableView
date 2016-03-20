@@ -127,7 +127,7 @@
     if (row) {
         _focused = NO;
 //        row.focused = YES;
-        [tableViewCell.tableView focusCellAtIndexPath:row.indexPath];
+        [tableViewCell.tableView focusCellAtIndexPath:row.visibleIndexPath];
     }
 }
 
@@ -136,7 +136,7 @@
     if (row) {
         _focused = NO;
 //        row.focused = YES;
-        [tableViewCell.tableView focusCellAtIndexPath:row.indexPath];
+        [tableViewCell.tableView focusCellAtIndexPath:row.visibleIndexPath];
     }
 }
 

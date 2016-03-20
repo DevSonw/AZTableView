@@ -7,8 +7,11 @@
 //
 
 #import "AZTableViewCell.h"
+#import "AZRow.h"
 
-@implementation AZTableViewCell
+@implementation AZTableViewCell{
+    BOOL _cacheSeparatorState;
+}
 
 @synthesize style = _style;
 
@@ -65,6 +68,9 @@
         self.backgroundColor = [UIColor whiteColor];
         if (style == UITableViewCellStyleValue1) {
             self.detailTextLabel.textColor = [UIColor colorWithRed:0.1653 green:0.2532 blue:0.4543 alpha:1.0000];
+//            self.detailTextLabel.textColor = [UIColor grayColor];
+        } else if( style == UITableViewCellStyleValue2 ){
+            self.textLabel.textColor = [AZRow tintColor];
         }
     }
     return self;
@@ -77,18 +83,34 @@
     self.textLabel.text = nil;
     self.backgroundColor = [UIColor whiteColor];
     self.detailTextLabel.text = nil;
+    
+}
+
+- (void)hackSeparator:(BOOL)hide{
+    for (UIView *view in self.subviews) {
+        // Hack! hidden the separator.
+        //    if ([self respondsToSelector:@selector(setSeparatorInset:)]) {
+        //        self.separatorInset = self.hideSeparator ? UIEdgeInsetsMake(0, self.separatorInset.left, 0, self.bounds.size.width - self.separatorInset.left) : UIEdgeInsetsMake(0, self.separatorInset.left, 0, 0);
+        //    }
+        if ([NSStringFromClass([view class]) hasSuffix:@"UITableViewCellSeparatorView"]) {
+            view.hidden = hide;
+        }
+        //iOS 7. the separator view is in scroll view.
+        if ([NSStringFromClass([view class]) hasSuffix:@"UITableViewCellScrollView"]) {
+            for (UIView *vv in view.subviews) {
+                if ([NSStringFromClass([vv class]) hasSuffix:@"UITableViewCellSeparatorView"]) {
+                    vv.hidden = hide;
+                }
+            }
+        }
+    }
 }
 
 - (void)layoutSubviews{
     [super layoutSubviews];
-    //    if ([self respondsToSelector:@selector(setSeparatorInset:)]) {
-    //        self.separatorInset = self.hideSeparator ? UIEdgeInsetsMake(0, self.separatorInset.left, 0, self.bounds.size.width - self.separatorInset.left) : UIEdgeInsetsMake(0, self.separatorInset.left, 0, 0);
-    //    }
-    for (UIView *view in self.subviews) {
-        // Hack! hidden the separator.
-        if ([NSStringFromClass([view class]) hasSuffix:@"UITableViewCellSeparatorView"]) {
-            view.hidden = self.hideSeparator;
-        }
+    if (self.hideSeparator != _cacheSeparatorState) {
+        [self hackSeparator:self.hideSeparator];
+        _cacheSeparatorState = self.hideSeparator;
     }
 }
 

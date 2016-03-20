@@ -1,15 +1,13 @@
 //
-//  AZPickerRow.h
+//  AZGridRow.h
 //  AZTableViewExample
 //
-//  Created by Hao on 16/3/14.
+//  Created by ctrip-zxl on 16/3/14.
 //  Copyright © 2016年 Arron Zhang. All rights reserved.
 //
 
-#import "AZInputRow.h"
+#import "AZRow.h"
 
-@interface AZPickerRow : AZInputRow
-
+@interface AZGridRow : AZRow
 @property(nonatomic, strong) NSArray *items;
-
 @end

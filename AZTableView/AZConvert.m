@@ -51,10 +51,7 @@ static NSMapTable<Class, NSDictionary *> *AZModelProperties = nil;
             YYClassPropertyInfo *prop = propertyInfos[key];
             switch ((prop.type & YYEncodingTypeMask)) {
                 case YYEncodingTypeObject:{
-                    if (!prop.cls) {
-                        //Set the (id) type data.
-                        [model setValue:value forKey:key];
-                    } else if ([prop.cls isSubclassOfClass:[NSDate class]] && [value isKindOfClass:[NSNumber class]]) {
+                    if ([prop.cls isSubclassOfClass:[NSDate class]] && [value isKindOfClass:[NSNumber class]]) {
                         //Convert number format date which YYModel ignore.
                         [model setValue:[NSDate dateWithTimeIntervalSince1970:[value doubleValue] / 1000.0] forKey:key];
                     } else {
@@ -67,7 +64,7 @@ static NSMapTable<Class, NSDictionary *> *AZModelProperties = nil;
                 } break;
                 case YYEncodingTypeBlock:{
                     //Transform event block from string
-                    if ([value isKindOfClass:[NSString class]]) {
+                    if ([value isKindOfClass:[NSString class]] && root) {
                         [model setValue:^(AZRow *row, UIView *fromView){
                             if (_root.onEvent) {
                                 _root.onEvent(value, row, fromView);
@@ -167,7 +164,7 @@ static NSMapTable<Class, NSDictionary *> *AZModelProperties = nil;
  row style
  */
 
-AZ_ENUM_CONVERTER(style, (@{
+AZ_ENUM_CONVERTER(cellStyle, (@{
                            @"default":       @(UITableViewCellStyleDefault),
                            @"subtitle":      @(UITableViewCellStyleSubtitle),
                            @"value1":        @(UITableViewCellStyleValue1),

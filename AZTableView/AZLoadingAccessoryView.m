@@ -14,6 +14,7 @@
     if (self = [super init]) {
         self.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
         [self startAnimating];
+        [self sizeToFit];
     }
     return self;
 }

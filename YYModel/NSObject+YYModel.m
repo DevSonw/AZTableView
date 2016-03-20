@@ -418,9 +418,8 @@ static force_inline id YYValueForMultiKeys(__unsafe_unretained NSDictionary *dic
     /// Model class type.
     YYEncodingNSType _nsType;
     
-    BOOL _hasCustomTransformFromDictionary;
     BOOL _hasCustomWillTransformFromDictionary;
-
+    BOOL _hasCustomTransformFromDictionary;
     BOOL _hasCustomTransformToDictionary;
     BOOL _hasCustomClassFromDictionary;
 }
@@ -560,11 +559,11 @@ static force_inline id YYValueForMultiKeys(__unsafe_unretained NSDictionary *dic
     _classInfo = classInfo;
     _keyMappedCount = _allPropertyMetas.count;
     _nsType = YYClassGetNSType(cls);
+    _hasCustomWillTransformFromDictionary = ([cls instancesRespondToSelector:@selector(modelCustomWillTransformFromDictionary:)]);
     _hasCustomTransformFromDictionary = ([cls instancesRespondToSelector:@selector(modelCustomTransformFromDictionary:)]);
     _hasCustomTransformToDictionary = ([cls instancesRespondToSelector:@selector(modelCustomTransformToDictionary:)]);
     _hasCustomClassFromDictionary = ([cls respondsToSelector:@selector(modelCustomClassForDictionary:)]);
-    _hasCustomWillTransformFromDictionary = ([cls instancesRespondToSelector:@selector(modelCustomWillTransformFromDictionary:)]);
-
+    
     return self;
 }
 
@@ -953,7 +952,7 @@ static void ModelSetValueForProperty(__unsafe_unretained id model,
             case YYEncodingTypeObject: {
                 if (isNull) {
                     ((void (*)(id, SEL, id))(void *) objc_msgSend)((id)model, meta->_setter, (id)nil);
-                } else if ([value isKindOfClass:meta->_cls]) {
+                } else if ([value isKindOfClass:meta->_cls] || !meta->_cls) {
                     ((void (*)(id, SEL, id))(void *) objc_msgSend)((id)model, meta->_setter, (id)value);
                 } else if ([value isKindOfClass:[NSDictionary class]]) {
                     NSObject *one = nil;
@@ -990,8 +989,6 @@ static void ModelSetValueForProperty(__unsafe_unretained id model,
                         if (cls) {
                             if (class_isMetaClass(cls)) {
                                 ((void (*)(id, SEL, Class))(void *) objc_msgSend)((id)model, meta->_setter, (Class)value);
-                            } else {
-                                ((void (*)(id, SEL, Class))(void *) objc_msgSend)((id)model, meta->_setter, (Class)cls);
                             }
                         }
                     }
@@ -1301,7 +1298,7 @@ static NSString *ModelDescription(NSObject *model) {
             } else {
                 NSArray *keys = dic.allKeys;
                 
-                [desc appendFormat:@"[\n"];
+                [desc appendFormat:@"{\n"];
                 for (NSUInteger i = 0, max = keys.count; i < max; i++) {
                     NSString *key = keys[i];
                     NSObject *value = dic[key];
@@ -1309,7 +1306,7 @@ static NSString *ModelDescription(NSObject *model) {
                     [desc appendFormat:@"%@ = %@",key, ModelDescriptionAddIndent(ModelDescription(value).mutableCopy, 1)];
                     [desc appendString:(i + 1 == max) ? @"\n" : @";\n"];
                 }
-                [desc appendString:@"]"];
+                [desc appendString:@"}"];
             }
             return desc;
         }
